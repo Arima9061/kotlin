@@ -526,6 +526,14 @@ internal constructor(
             args.libraries = runSafe {
                 //filterKlibsPassedToCompiler call exists on files
                 val filteredLibraries = libraries.exclude(originalPlatformLibraries()).files.filterKlibsPassedToCompiler().toMutableList()
+                //when (val compilation = compilation) {
+                //                    is KotlinCompilationInfo.TCS ->
+                //                        filteredLibraries.addAll(
+                //                            (compilation.compilation as AbstractKotlinNativeCompilation).nativeDependencies.exclude(
+//                                originalPlatformLibraries()
+//                            ).files
+                //                        )
+                //                }
                 nativeDistributionDependencies.orNull?.files?.also { filteredLibraries.addAll(it) }
                 filteredLibraries.toPathsArray()
             }

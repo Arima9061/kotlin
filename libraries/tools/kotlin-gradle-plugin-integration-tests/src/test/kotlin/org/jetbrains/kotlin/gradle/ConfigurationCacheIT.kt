@@ -363,8 +363,10 @@ class ConfigurationCacheIT : AbstractConfigurationCacheIT() {
                     version = TestVersions.Kotlin.STABLE_RELEASE,
                     distributionDownloadFromMaven = true,
                 ),
-                konanDataDir = konanDirTemp
-            )
+                konanDataDir = konanDirTemp,
+            ),
+            forceOutput = true,
+            enableGradleDebug = true
         ) {
             testConfigurationCacheOf(":assemble")
         }
