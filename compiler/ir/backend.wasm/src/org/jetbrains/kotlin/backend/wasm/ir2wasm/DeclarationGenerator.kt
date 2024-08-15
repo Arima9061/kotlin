@@ -244,33 +244,14 @@ class DeclarationGenerator(
         )
     }
 
-    private fun addClassInterfaceInheritanceStructure(klass: IrClass) {
-        if (klass.isExternal) return
-        if (klass.getWasmArrayAnnotation() != null) return
-        if (klass.isInterface) return
-        if (klass.isAbstractOrSealed) return
-
-        val classMetadata = wasmModuleMetadataCache.getClassMetadata(klass.symbol)
-        if (classMetadata.interfaces.isNotEmpty()) {
-            wasmFileCodegenContext.addInterfaceUnion(classMetadata.interfaces.map { it.symbol })
-        }
-    }
-
     private fun createClassITable(metadata: ClassMetadata) {
         val location = SourceLocation.NoLocation("Create instance of itable struct")
         val klass = metadata.klass
         if (klass.isAbstractOrSealed) return
-        val supportedInterface = metadata.interfaces.firstOrNull()?.symbol ?: return
-
-        addClassInterfaceInheritanceStructure(klass)
-
-        val classInterfaceType = wasmFileCodegenContext.referenceClassITableGcType(supportedInterface)
+        if (!klass.hasInterfaceSuperClass()) return
 
         val initITableGlobal = buildWasmExpression {
-            buildInstr(WasmOp.MACRO_TABLE, location, WasmImmediate.SymbolI32(wasmFileCodegenContext.referenceClassITableInterfaceTableSize(supportedInterface)))
             for (iFace in metadata.interfaces) {
-                buildInstr(WasmOp.MACRO_TABLE_INDEX, location, WasmImmediate.SymbolI32(wasmFileCodegenContext.referenceClassITableInterfaceSlot(iFace.symbol)))
-
                 val iFaceVTableGcType = wasmFileCodegenContext.referenceVTableGcType(iFace.symbol)
 
                 for (method in wasmModuleMetadataCache.getInterfaceMetadata(iFace.symbol).methods) {
@@ -291,13 +272,16 @@ class DeclarationGenerator(
                 }
                 buildStructNew(iFaceVTableGcType, location)
             }
-            buildInstr(WasmOp.MACRO_TABLE_END, location)
-            buildStructNew(classInterfaceType, location)
+            buildInstr(
+                WasmOp.ARRAY_NEW_FIXED,
+                location,
+                WasmImmediate.GcType(wasmFileCodegenContext.wasmAnyArrayType),
+                WasmImmediate.ConstI32(metadata.interfaces.size)
+            )
         }
-
         val wasmClassIFaceGlobal = WasmGlobal(
-            name = "${klass.fqNameWhenAvailable.toString()}.classITable",
-            type = WasmRefType(WasmHeapType.Type(classInterfaceType)),
+            name = "<classITable>",
+            type = WasmRefType(WasmHeapType.Type(wasmFileCodegenContext.wasmAnyArrayType)),
             isMutable = false,
             init = initITableGlobal
         )
@@ -329,7 +313,7 @@ class DeclarationGenerator(
         if (declaration.isInterface) {
             val vtableStruct = createVirtualTableStruct(
                 methods = wasmModuleMetadataCache.getInterfaceMetadata(symbol).methods,
-                name = "$nameStr.itable",
+                name = "<itable>",
                 isFinal = true,
             )
             wasmFileCodegenContext.defineVTableGcType(symbol, vtableStruct)
@@ -340,10 +324,9 @@ class DeclarationGenerator(
             createClassITable(metadata)
 
             val vtableRefGcType = WasmRefType(WasmHeapType.Type(wasmFileCodegenContext.referenceVTableGcType(symbol)))
-            val classITableRefGcType = WasmRefNullType(WasmHeapType.Simple.Struct)
             val fields = mutableListOf<WasmStructFieldDeclaration>()
             fields.add(WasmStructFieldDeclaration("vtable", vtableRefGcType, false))
-            fields.add(WasmStructFieldDeclaration("itable", classITableRefGcType, false))
+            fields.add(WasmStructFieldDeclaration("itable", WasmRefNullType(WasmHeapType.Type(wasmFileCodegenContext.wasmAnyArrayType)), false))
             declaration.allFields(irBuiltIns).mapTo(fields) {
                 WasmStructFieldDeclaration(
                     name = it.name.toString(),

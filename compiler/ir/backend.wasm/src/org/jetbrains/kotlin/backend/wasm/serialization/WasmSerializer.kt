@@ -660,6 +660,7 @@ class WasmSerializer(outputStream: OutputStream) {
             serializeList(classAssociatedObjectsInstanceGetters, ::serializeClassAssociatedObjects)
             serializeNullable(tryGetAssociatedObjectFun, ::serializeIdSignature)
             serializeNullable(jsToKotlinAnyAdapterFun, ::serializeIdSignature)
+            serializeNullable(wasmAnyArrayType) { serializeWasmSymbolReadOnly(it, ::serializeWasmArrayDeclaration) }
         }
 
     private fun serializeFieldInitializer(fieldInitializer: FieldInitializer) {
