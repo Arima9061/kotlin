@@ -183,6 +183,10 @@ class WasmFileCodegenContext(
     fun defineJsToKotlinAnyAdapterFun(jsToKotlinAnyAdapterFun: IrSimpleFunctionSymbol) {
         wasmFileFragment.jsToKotlinAnyAdapterFun = jsToKotlinAnyAdapterFun.getReferenceKey()
     }
+
+    val wasmAnyArrayType: WasmSymbol<WasmArrayDeclaration>
+        get() = wasmFileFragment.wasmAnyArrayType
+            ?: WasmSymbol<WasmArrayDeclaration>().also { wasmFileFragment.wasmAnyArrayType = it }
 }
 
 class WasmModuleMetadataCache(private val backendContext: WasmBackendContext) {
