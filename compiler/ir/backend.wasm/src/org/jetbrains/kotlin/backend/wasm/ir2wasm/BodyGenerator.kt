@@ -635,11 +635,25 @@ class BodyGenerator(
     }
 
     private fun generateInterfaceSlotLookup(interfaceId: WasmSymbol<Int>, location: SourceLocation) {
-        val interfaceSlotCache = functionContext.createNewLocalVariable(SyntheticLocalType.IFACE_LOOKUP_SLOT_CACHE)
-        val interfaceTypeIdCache = functionContext.createNewLocalVariable(SyntheticLocalType.IFACE_LOOKUP_TYPEID_CACHE)
+        body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+        body.buildConstI32Symbol(interfaceId, location)
+        body.buildCall(wasmFileCodegenContext.referenceFunction(wasmSymbols.reflectionSymbols.getInterfaceSlot), location)
+    }
 
-        body.buildBlock("itable", WasmI32) { itableSlotGet ->
-            body.buildGetLocal(interfaceSlotCache, location)
+    private fun generateInterfaceLookup(interfaceId: WasmSymbol<Int>, location: SourceLocation) {
+        body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+        body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+        generateInterfaceSlotLookup(interfaceId, location)
+        body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+    }
+
+    private fun generateInlineCache(type: WasmType, location: SourceLocation, content: () -> Unit) {
+        val interfaceTypeIdCache = functionContext.createNewLocalVariable(SyntheticLocalType.IFACE_LOOKUP_TYPEID_CACHE)
+        val resultCache = functionContext.createNewLocalVariable(type)
+
+        body.commentGroupStart { "Inlined cache block start" }
+        body.buildBlock("cachedBlock", type) { cachedBlock ->
+            body.buildGetLocal(resultCache, location)
             body.buildGetLocal(interfaceTypeIdCache, location)
             body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
             body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(2), location)
@@ -649,18 +663,20 @@ class BodyGenerator(
                 WasmImmediate.LocalIdx(interfaceTypeIdCache)
             )
             body.buildInstr(WasmOp.I32_EQ, location)
-            body.buildBrIf(itableSlotGet, location)
+            body.buildBrIf(cachedBlock, location)
             body.buildDrop(location)
 
-            body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
-            body.buildConstI32Symbol(interfaceId, location)
-            body.buildCall(wasmFileCodegenContext.referenceFunction(wasmSymbols.reflectionSymbols.getInterfaceSlot), location)
+            body.commentGroupStart { "Inlined block payload" }
+            content()
+            body.commentGroupEnd()
+
             body.buildInstr(
                 WasmOp.LOCAL_TEE,
                 location,
-                WasmImmediate.LocalIdx(interfaceSlotCache)
+                WasmImmediate.LocalIdx(resultCache)
             )
         }
+        body.commentGroupEnd()
     }
 
     private fun generateCall(call: IrFunctionAccessExpression) {
@@ -747,22 +763,40 @@ class BodyGenerator(
 
                 body.commentGroupStart { "interface call: ${function.fqNameWhenAvailable}" }
 
-                body.buildInstr(
-                    WasmOp.LOCAL_TEE,
-                    location,
-                    WasmImmediate.LocalIdx(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER))
-                )
-                body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                if (symbol == backendContext.irBuiltIns.listClass) {
+                    body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                    body.buildConstI32(0, location)
+                    body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                    body.buildRefCastStatic(wasmFileCodegenContext.referenceVTableGcType(klass.symbol), location)
+                    val vfSlot = wasmModuleMetadataCache.getInterfaceMetadata(symbol).methods
+                        .indexOfFirst { it.function == function }
+                    body.buildStructGet(wasmFileCodegenContext.referenceVTableGcType(symbol), WasmSymbol(vfSlot), location)
+                } else {
+                    body.buildSetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                    generateInlineCache(WasmRefNullType(WasmHeapType.Type(wasmFileCodegenContext.referenceFunctionType(function.symbol))), location) {
+                        if (klass.origin.name == "FUNCTION_INTERFACE_CLASS" && klass != irBuiltIns.functionClass.owner) {
+                            body.buildBlock("FunctionFastTrack", WasmAnyRef) { fastTrack ->
+                                body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                                body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                                body.buildConstI32(1, location)
+                                body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                                body.buildBrInstr(WasmOp.BR_ON_NON_NULL, fastTrack, location)
 
-                generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(klass.symbol), location)
+                                generateInterfaceLookup(wasmFileCodegenContext.referenceTypeId(klass.symbol), location)
+                            }
+                        } else {
+                            generateInterfaceLookup(wasmFileCodegenContext.referenceTypeId(klass.symbol), location)
+                        }
 
-                body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
-                body.buildRefCastStatic(wasmFileCodegenContext.referenceVTableGcType(klass.symbol), location)
+                        body.buildRefCastStatic(wasmFileCodegenContext.referenceVTableGcType(klass.symbol), location)
 
-                val vfSlot = wasmModuleMetadataCache.getInterfaceMetadata(symbol).methods
-                    .indexOfFirst { it.function == function }
+                        val vfSlot = wasmModuleMetadataCache.getInterfaceMetadata(symbol).methods
+                            .indexOfFirst { it.function == function }
 
-                body.buildStructGet(wasmFileCodegenContext.referenceVTableGcType(symbol), WasmSymbol(vfSlot), location)
+                        body.buildStructGet(wasmFileCodegenContext.referenceVTableGcType(symbol), WasmSymbol(vfSlot), location)
+                    }
+                }
+
                 body.buildInstr(WasmOp.CALL_REF, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.referenceFunctionType(function.symbol)))
                 body.commentGroupEnd()
             }
@@ -853,12 +887,47 @@ class BodyGenerator(
                     ?: error("No interface given for wasmIsInterface intrinsic")
                 assert(irInterface.isInterface)
 
-                body.buildSetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
-                generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
-                body.buildConstI32(-1, location)
-                body.buildInstr(WasmOp.I32_NE, location)
-            }
+//                if (irInterface.symbol in hierarchyDisjointUnions) {
 
+                    if (irInterface == backendContext.irBuiltIns.listClass.owner) {
+                        body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                        body.buildConstI32(0, location)
+                        body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                        body.buildInstr(WasmOp.REF_IS_NULL, location)
+                        body.buildConstI32(0, location)
+                        body.buildInstr(WasmOp.I32_EQ, location)
+                    } else {
+                        body.buildSetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                        generateInlineCache(WasmI32, location) {
+                            if (irInterface.origin.name == "FUNCTION_INTERFACE_CLASS" && irInterface != irBuiltIns.functionClass.owner) {
+                                body.buildBlock("FunctionFastTrack", WasmI32) { fastTrack ->
+                                    body.buildConstI32(1, location)
+                                    body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                                    body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                                    body.buildConstI32(1, location)
+                                    body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                                    body.buildRefTestStatic(wasmFileCodegenContext.referenceVTableGcType(irInterface.symbol), location)
+                                    body.buildConstI32(1, location)
+                                    body.buildInstr(WasmOp.I32_EQ, location)
+                                    body.buildBrInstr(WasmOp.BR_IF, fastTrack, location)
+                                    body.buildDrop(location)
+
+                                    generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
+                                    body.buildConstI32(-1, location)
+                                    body.buildInstr(WasmOp.I32_NE, location)
+                                }
+                            } else {
+                                generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
+                                body.buildConstI32(-1, location)
+                                body.buildInstr(WasmOp.I32_NE, location)
+                            }
+                        }
+                    }
+//                } else {
+//                    body.buildDrop(location)
+//                    body.buildConstI32(0, location)
+//                }
+            }
             wasmSymbols.refCastNull -> {
                 generateRefCast(
                     fromType = call.getValueArgument(0)!!.type,
