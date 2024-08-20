@@ -270,14 +270,22 @@ class DeclarationGenerator(
         }
 
         val initITableGlobal = buildWasmExpression {
-            val containsListInterface = metadata.interfaces.any {
-                backendContext.irBuiltIns.listClass == it.symbol
-            }
-            if (containsListInterface) {
-                addInterface(this, backendContext.irBuiltIns.listClass.owner)
-                buildStructNew(wasmFileCodegenContext.referenceVTableGcType(backendContext.irBuiltIns.listClass), location)
-            } else {
-                buildRefNull(WasmHeapType.Simple.None, location)
+            val slots = listOf(
+                backendContext.irBuiltIns.listClass,
+                backendContext.irBuiltIns.iterableClass,
+                backendContext.irBuiltIns.iteratorClass
+            )
+
+            for (slotSymbol in slots) {
+                val containsSlotInterface = metadata.interfaces.any {
+                    slotSymbol == it.symbol
+                }
+                if (containsSlotInterface) {
+                    addInterface(this, slotSymbol.owner)
+                    buildStructNew(wasmFileCodegenContext.referenceVTableGcType(slotSymbol), location)
+                } else {
+                    buildRefNull(WasmHeapType.Simple.None, location)
+                }
             }
 
             val functionInterface = metadata.interfaces.singleOrNull {
@@ -298,7 +306,7 @@ class DeclarationGenerator(
                 WasmOp.ARRAY_NEW_FIXED,
                 location,
                 WasmImmediate.GcType(wasmFileCodegenContext.wasmAnyArrayType),
-                WasmImmediate.ConstI32(metadata.interfaces.size + 2)
+                WasmImmediate.ConstI32(metadata.interfaces.size + slots.size + 1)
             )
         }
         val wasmClassIFaceGlobal = WasmGlobal(

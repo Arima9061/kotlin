@@ -763,9 +763,17 @@ class BodyGenerator(
 
                 body.commentGroupStart { "interface call: ${function.fqNameWhenAvailable}" }
 
-                if (symbol == backendContext.irBuiltIns.listClass) {
+                val slots = listOf(
+                    backendContext.irBuiltIns.listClass,
+                    backendContext.irBuiltIns.iterableClass,
+                    backendContext.irBuiltIns.iteratorClass
+                )
+
+                val slotIndex = slots.indexOf(symbol)
+
+                if (slotIndex != -1) {
                     body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
-                    body.buildConstI32(0, location)
+                    body.buildConstI32(slotIndex, location)
                     body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
                     body.buildRefCastStatic(wasmFileCodegenContext.referenceVTableGcType(klass.symbol), location)
                     val vfSlot = wasmModuleMetadataCache.getInterfaceMetadata(symbol).methods
@@ -778,7 +786,7 @@ class BodyGenerator(
                             body.buildBlock("FunctionFastTrack", WasmAnyRef) { fastTrack ->
                                 body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
                                 body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
-                                body.buildConstI32(1, location)
+                                body.buildConstI32(3, location)
                                 body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
                                 body.buildBrInstr(WasmOp.BR_ON_NON_NULL, fastTrack, location)
 
@@ -889,40 +897,48 @@ class BodyGenerator(
 
 //                if (irInterface.symbol in hierarchyDisjointUnions) {
 
-                    if (irInterface == backendContext.irBuiltIns.listClass.owner) {
-                        body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
-                        body.buildConstI32(0, location)
-                        body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
-                        body.buildInstr(WasmOp.REF_IS_NULL, location)
-                        body.buildConstI32(0, location)
-                        body.buildInstr(WasmOp.I32_EQ, location)
-                    } else {
-                        body.buildSetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
-                        generateInlineCache(WasmI32, location) {
-                            if (irInterface.origin.name == "FUNCTION_INTERFACE_CLASS" && irInterface != irBuiltIns.functionClass.owner) {
-                                body.buildBlock("FunctionFastTrack", WasmI32) { fastTrack ->
-                                    body.buildConstI32(1, location)
-                                    body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
-                                    body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
-                                    body.buildConstI32(1, location)
-                                    body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
-                                    body.buildRefTestStatic(wasmFileCodegenContext.referenceVTableGcType(irInterface.symbol), location)
-                                    body.buildConstI32(1, location)
-                                    body.buildInstr(WasmOp.I32_EQ, location)
-                                    body.buildBrInstr(WasmOp.BR_IF, fastTrack, location)
-                                    body.buildDrop(location)
+                val slots = listOf(
+                    backendContext.irBuiltIns.listClass,
+                    backendContext.irBuiltIns.iterableClass,
+                    backendContext.irBuiltIns.iteratorClass
+                )
 
-                                    generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
-                                    body.buildConstI32(-1, location)
-                                    body.buildInstr(WasmOp.I32_NE, location)
-                                }
-                            } else {
+                val slotIndex = slots.indexOf(irInterface.symbol)
+
+                if (slotIndex != -1) {
+                    body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                    body.buildConstI32(slotIndex, location)
+                    body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                    body.buildInstr(WasmOp.REF_IS_NULL, location)
+                    body.buildConstI32(0, location)
+                    body.buildInstr(WasmOp.I32_EQ, location)
+                } else {
+                    body.buildSetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                    generateInlineCache(WasmI32, location) {
+                        if (irInterface.origin.name == "FUNCTION_INTERFACE_CLASS" && irInterface != irBuiltIns.functionClass.owner) {
+                            body.buildBlock("FunctionFastTrack", WasmI32) { fastTrack ->
+                                body.buildConstI32(1, location)
+                                body.buildGetLocal(functionContext.referenceLocal(SyntheticLocalType.IS_INTERFACE_PARAMETER), location)
+                                body.buildStructGet(wasmFileCodegenContext.referenceGcType(irBuiltIns.anyClass), WasmSymbol(1), location)
+                                body.buildConstI32(slots.size, location)
+                                body.buildInstr(WasmOp.ARRAY_GET, location, WasmImmediate.TypeIdx(wasmFileCodegenContext.wasmAnyArrayType))
+                                body.buildRefTestStatic(wasmFileCodegenContext.referenceVTableGcType(irInterface.symbol), location)
+                                body.buildConstI32(1, location)
+                                body.buildInstr(WasmOp.I32_EQ, location)
+                                body.buildBrInstr(WasmOp.BR_IF, fastTrack, location)
+                                body.buildDrop(location)
+
                                 generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
                                 body.buildConstI32(-1, location)
                                 body.buildInstr(WasmOp.I32_NE, location)
                             }
+                        } else {
+                            generateInterfaceSlotLookup(wasmFileCodegenContext.referenceTypeId(irInterface.symbol), location)
+                            body.buildConstI32(-1, location)
+                            body.buildInstr(WasmOp.I32_NE, location)
                         }
                     }
+                }
 //                } else {
 //                    body.buildDrop(location)
 //                    body.buildConstI32(0, location)
