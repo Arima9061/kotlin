@@ -164,7 +164,7 @@ class WasmCompiledModuleFragment(
 
         val wasmAnyArrayType = WasmArrayDeclaration(
             name = "itable",
-            field = WasmStructFieldDeclaration("", WasmRefType(WasmHeapType.Simple.Any), false)
+            field = WasmStructFieldDeclaration("", WasmRefNullType(WasmHeapType.Simple.Any), false)
         )
         wasmCompiledFileFragments.forEach { it.wasmAnyArrayType?.bind(wasmAnyArrayType) }
 

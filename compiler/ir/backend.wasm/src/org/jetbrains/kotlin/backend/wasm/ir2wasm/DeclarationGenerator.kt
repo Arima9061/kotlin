@@ -250,33 +250,55 @@ class DeclarationGenerator(
         if (klass.isAbstractOrSealed) return
         if (!klass.hasInterfaceSuperClass()) return
 
-        val initITableGlobal = buildWasmExpression {
-            for (iFace in metadata.interfaces) {
-                val iFaceVTableGcType = wasmFileCodegenContext.referenceVTableGcType(iFace.symbol)
+        fun addInterface(builder: WasmExpressionBuilder, iFace: IrClass) = with(builder) {
+            for (method in wasmModuleMetadataCache.getInterfaceMetadata(iFace.symbol).methods) {
+                val classMethod: VirtualMethodMetadata? = metadata.virtualMethods
+                    .find { it.signature == method.signature && it.function.modality != Modality.ABSTRACT }  // TODO: Use map
 
-                for (method in wasmModuleMetadataCache.getInterfaceMetadata(iFace.symbol).methods) {
-                    val classMethod: VirtualMethodMetadata? = metadata.virtualMethods
-                        .find { it.signature == method.signature && it.function.modality != Modality.ABSTRACT }  // TODO: Use map
-
-                    if (classMethod == null && !allowIncompleteImplementations && !backendContext.partialLinkageSupport.isEnabled) {
-                        error("Cannot find interface implementation of method ${method.signature} in class ${klass.fqNameWhenAvailable}")
-                    }
-
-                    if (classMethod != null) {
-                        val functionTypeReference = wasmFileCodegenContext.referenceFunction(classMethod.function.symbol)
-                        buildInstr(WasmOp.REF_FUNC, location, WasmImmediate.FuncIdx(functionTypeReference))
-                    } else {
-                        //This erased by DCE so abstract version appeared in non-abstract class
-                        buildRefNull(WasmHeapType.Type(wasmFileCodegenContext.referenceFunctionType(method.function.symbol)), location)
-                    }
+                if (classMethod == null && !allowIncompleteImplementations && !backendContext.partialLinkageSupport.isEnabled) {
+                    error("Cannot find interface implementation of method ${method.signature} in class ${klass.fqNameWhenAvailable}")
                 }
-                buildStructNew(iFaceVTableGcType, location)
+
+                if (classMethod != null) {
+                    val functionTypeReference = wasmFileCodegenContext.referenceFunction(classMethod.function.symbol)
+                    buildInstr(WasmOp.REF_FUNC, location, WasmImmediate.FuncIdx(functionTypeReference))
+                } else {
+                    //This erased by DCE so abstract version appeared in non-abstract class
+                    buildRefNull(WasmHeapType.Type(wasmFileCodegenContext.referenceFunctionType(method.function.symbol)), location)
+                }
+            }
+        }
+
+        val initITableGlobal = buildWasmExpression {
+            val containsListInterface = metadata.interfaces.any {
+                backendContext.irBuiltIns.listClass == it.symbol
+            }
+            if (containsListInterface) {
+                addInterface(this, backendContext.irBuiltIns.listClass.owner)
+                buildStructNew(wasmFileCodegenContext.referenceVTableGcType(backendContext.irBuiltIns.listClass), location)
+            } else {
+                buildRefNull(WasmHeapType.Simple.None, location)
+            }
+
+            val functionInterface = metadata.interfaces.singleOrNull {
+                it.origin.name == "FUNCTION_INTERFACE_CLASS" && it != irBuiltIns.functionClass.owner
+            }
+            if (functionInterface != null) {
+                addInterface(this, functionInterface)
+                buildStructNew(wasmFileCodegenContext.referenceVTableGcType(functionInterface.symbol), location)
+            } else {
+                buildRefNull(WasmHeapType.Simple.None, location)
+            }
+
+            for (iFace in metadata.interfaces) {
+                addInterface(this, iFace)
+                buildStructNew(wasmFileCodegenContext.referenceVTableGcType(iFace.symbol), location)
             }
             buildInstr(
                 WasmOp.ARRAY_NEW_FIXED,
                 location,
                 WasmImmediate.GcType(wasmFileCodegenContext.wasmAnyArrayType),
-                WasmImmediate.ConstI32(metadata.interfaces.size)
+                WasmImmediate.ConstI32(metadata.interfaces.size + 2)
             )
         }
         val wasmClassIFaceGlobal = WasmGlobal(
