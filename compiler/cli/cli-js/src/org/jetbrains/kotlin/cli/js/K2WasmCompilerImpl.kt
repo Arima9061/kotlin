@@ -6,6 +6,7 @@
 package org.jetbrains.kotlin.cli.js
 
 import com.intellij.openapi.Disposable
+import org.jetbrains.kotlin.backend.wasm.WasmBackendContext
 import org.jetbrains.kotlin.backend.wasm.compileToLoweredIr
 import org.jetbrains.kotlin.backend.wasm.compileWasm
 import org.jetbrains.kotlin.backend.wasm.dce.eliminateDeadDeclarations
@@ -29,6 +30,7 @@ import org.jetbrains.kotlin.ir.backend.js.WholeWorldStageController
 import org.jetbrains.kotlin.ir.backend.js.dce.DceDumpNameCache
 import org.jetbrains.kotlin.ir.backend.js.dce.dumpDeclarationIrSizesIfNeed
 import org.jetbrains.kotlin.ir.backend.js.loadIr
+import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.js.config.JSConfigurationKeys
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.wasm.config.WasmConfigurationKeys
@@ -95,6 +97,7 @@ internal class K2WasmCompilerImpl(
 
         val res = compileWasm(
             wasmCompiledFileFragments = wasmArtifacts,
+            specialITableTypes = emptyList(),//!!!!!
             moduleName = moduleName,
             configuration = configuration,
             typeScriptFragment = null,
@@ -167,8 +170,14 @@ internal class K2WasmCompilerImpl(
         )
         val wasmCompiledFileFragments = allModules.map { codeGenerator.generateModuleAsSingleFileFragment(it) }
 
+        @OptIn(UnsafeDuringIrConstructionAPI::class)
+        val specialITableTypes = WasmBackendContext.getSpecialITableTypes(backendContext.irBuiltIns).map {
+            irFactory.declarationSignature(it.owner)
+        }
+
         val res = compileWasm(
             wasmCompiledFileFragments = wasmCompiledFileFragments,
+            specialITableTypes = specialITableTypes,
             moduleName = allModules.last().descriptor.name.asString(),
             configuration = configuration,
             typeScriptFragment = typeScriptFragment,
