@@ -5,16 +5,18 @@
 
 package org.jetbrains.kotlin.backend.wasm.ir2wasm
 
+import org.jetbrains.kotlin.backend.common.compilationException
+import org.jetbrains.kotlin.backend.common.serialization.Hash128Bits
 import org.jetbrains.kotlin.backend.wasm.ir2wasm.WasmCompiledModuleFragment.*
 import org.jetbrains.kotlin.ir.backend.js.ic.IrICProgramFragment
-import org.jetbrains.kotlin.backend.common.serialization.Hash128Bits
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrExternalPackageFragment
-import org.jetbrains.kotlin.ir.symbols.*
+import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
+import org.jetbrains.kotlin.ir.symbols.IrFunctionSymbol
+import org.jetbrains.kotlin.ir.symbols.IrSymbol
 import org.jetbrains.kotlin.ir.util.IdSignature
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
 import org.jetbrains.kotlin.ir.util.getPackageFragment
-import org.jetbrains.kotlin.backend.common.compilationException
 import org.jetbrains.kotlin.utils.addToStdlib.runIf
 import org.jetbrains.kotlin.wasm.ir.*
 import org.jetbrains.kotlin.wasm.ir.source.location.SourceLocation
@@ -50,10 +52,13 @@ class WasmCompiledFileFragment(
     var tryGetAssociatedObjectFun: IdSignature? = null,
     var jsToKotlinAnyAdapterFun: IdSignature? = null,
     var wasmAnyArrayType: WasmSymbol<WasmArrayDeclaration>? = null,
+    var specialSlotITableType: WasmSymbol<WasmTypeDeclaration>? = null,
+    var specialITableTypeList: MutableList<Pair<Int, WasmSymbol<WasmTypeDeclaration>>>? = null
 ) : IrICProgramFragment()
 
 class WasmCompiledModuleFragment(
     private val wasmCompiledFileFragments: List<WasmCompiledFileFragment>,
+    private val specialITableTypes: List<IdSignature>,
     private val generateTrapsInsteadOfExceptions: Boolean,
     private val itsPossibleToCatchJsErrorSeparately: Boolean
 ) {
@@ -168,11 +173,35 @@ class WasmCompiledModuleFragment(
         )
         wasmCompiledFileFragments.forEach { it.wasmAnyArrayType?.bind(wasmAnyArrayType) }
 
+
+        val vTableGcTypes = mutableMapOf<IdSignature, WasmTypeDeclaration>()
+        for (fragment in wasmCompiledFileFragments) {
+            fragment.vTableGcTypes.defined.forEach { t, u ->
+                vTableGcTypes[t] = u
+            }
+        }
+        val slotGcTypes = specialITableTypes.map { type ->
+            vTableGcTypes[type]?.let { wasmTypeDeclaration ->
+                WasmRefNullType(WasmHeapType.Type(WasmSymbol(wasmTypeDeclaration)))
+            } ?: WasmRefNullType(WasmHeapType.Simple.None)
+        }
+
+        val specialSlotITableType = WasmStructDeclaration(
+            name = "special_itable",
+            fields = slotGcTypes.map {
+                WasmStructFieldDeclaration(it.name, it, false)
+            } + WasmStructFieldDeclaration("SAM_method", WasmRefNullType(WasmHeapType.Simple.Func), false),
+            superType = null,
+            isFinal = true
+        )
+        wasmCompiledFileFragments.forEach { it.specialSlotITableType?.bind(specialSlotITableType) }
+
+
         val additionalTypes = mutableListOf<WasmTypeDeclaration>()
         additionalTypes.add(parameterlessNoReturnFunctionType)
         tags.forEach { additionalTypes.add(it.type) }
 
-        val recursiveTypeGroups = getTypes(wasmAnyArrayType, canonicalFunctionTypes, additionalTypes)
+        val recursiveTypeGroups = getTypes(listOf(wasmAnyArrayType, specialSlotITableType), canonicalFunctionTypes, additionalTypes)
 
         return WasmModule(
             recGroups = recursiveTypeGroups,
@@ -222,7 +251,7 @@ class WasmCompiledModuleFragment(
     }
 
     private fun getTypes(
-        wasmAnyArrayType: WasmTypeDeclaration,
+        additionalRecGroupTypes: List<WasmTypeDeclaration>,
         canonicalFunctionTypes: Map<WasmFunctionType, WasmFunctionType>,
         additionalTypes: RecursiveTypeGroup,
     ): List<RecursiveTypeGroup> {
@@ -231,7 +260,7 @@ class WasmCompiledModuleFragment(
                     wasmCompiledFileFragments.flatMap { it.gcTypes.elements }
 
         val recGroupTypes = sequence {
-            yield(wasmAnyArrayType)
+            yieldAll(additionalRecGroupTypes)
             yieldAll(vTablesAndGcTypes)
             yieldAll(canonicalFunctionTypes.values)
         }

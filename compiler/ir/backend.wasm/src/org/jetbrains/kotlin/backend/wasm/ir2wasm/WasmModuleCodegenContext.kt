@@ -166,6 +166,14 @@ class WasmFileCodegenContext(
     val wasmAnyArrayType: WasmSymbol<WasmArrayDeclaration>
         get() = wasmFileFragment.wasmAnyArrayType
             ?: WasmSymbol<WasmArrayDeclaration>().also { wasmFileFragment.wasmAnyArrayType = it }
+
+    val specialSlotITableType: WasmSymbol<WasmTypeDeclaration>
+        get() = wasmFileFragment.specialSlotITableType
+            ?: WasmSymbol<WasmStructDeclaration>().also { wasmFileFragment.specialSlotITableType = it }
+
+    val specialITableTypeList: MutableList<Pair<Int, WasmSymbol<WasmTypeDeclaration>>>
+        get() = wasmFileFragment.specialITableTypeList
+            ?: mutableListOf<Pair<Int, WasmSymbol<WasmTypeDeclaration>>>().also { wasmFileFragment.specialITableTypeList = it }
 }
 
 class WasmModuleMetadataCache(private val backendContext: WasmBackendContext) {

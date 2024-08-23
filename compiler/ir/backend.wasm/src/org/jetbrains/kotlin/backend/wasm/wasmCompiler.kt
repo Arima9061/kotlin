@@ -22,6 +22,7 @@ import org.jetbrains.kotlin.ir.backend.js.export.ExportModelToTsDeclarations
 import org.jetbrains.kotlin.ir.backend.js.export.TypeScriptFragment
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
 import org.jetbrains.kotlin.ir.util.ExternalDependenciesGenerator
+import org.jetbrains.kotlin.ir.util.IdSignature
 import org.jetbrains.kotlin.ir.util.patchDeclarationParents
 import org.jetbrains.kotlin.js.common.isValidES5Identifier
 import org.jetbrains.kotlin.name.FqName
@@ -137,6 +138,7 @@ fun lowerPreservingTags(
 
 fun compileWasm(
     wasmCompiledFileFragments: List<WasmCompiledFileFragment>,
+    specialITableTypes: List<IdSignature>,
     moduleName: String,
     configuration: CompilerConfiguration,
     typeScriptFragment: TypeScriptFragment?,
@@ -151,6 +153,7 @@ fun compileWasm(
 
     val wasmCompiledModuleFragment = WasmCompiledModuleFragment(
         wasmCompiledFileFragments,
+        specialITableTypes,
         configuration.getBoolean(WasmConfigurationKeys.WASM_USE_TRAPS_INSTEAD_OF_EXCEPTIONS),
         isWasmJsTarget && useJsTag,
     )

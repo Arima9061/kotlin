@@ -5,6 +5,7 @@
 
 package org.jetbrains.kotlin.wasm.test.converters
 
+import org.jetbrains.kotlin.backend.wasm.WasmBackendContext
 import org.jetbrains.kotlin.backend.wasm.WasmCompilerResult
 import org.jetbrains.kotlin.backend.wasm.compileToLoweredIr
 import org.jetbrains.kotlin.backend.wasm.compileWasm
@@ -19,6 +20,7 @@ import org.jetbrains.kotlin.config.phaser.PhaseSet
 import org.jetbrains.kotlin.ir.backend.js.MainModule
 import org.jetbrains.kotlin.ir.backend.js.dce.DceDumpNameCache
 import org.jetbrains.kotlin.ir.backend.js.dce.dumpDeclarationIrSizesIfNeed
+import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.test.DebugMode
@@ -43,6 +45,7 @@ class WasmLoweringFacade(
         return WasmEnvironmentConfigurator.isMainModule(module, testServices)
     }
 
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
     override fun transform(module: TestModule, inputArtifact: IrBackendInput): BinaryArtifacts.Wasm? {
         require(WasmEnvironmentConfigurator.isMainModule(module, testServices))
         require(inputArtifact is IrBackendInput.WasmDeserializedFromKlibBackendInput)
@@ -90,8 +93,13 @@ class WasmLoweringFacade(
         )
         val wasmCompiledFileFragments = allModules.map { codeGenerator.generateModuleAsSingleFileFragment(it) }
 
+        val specialITableTypes = WasmBackendContext.getSpecialITableTypes(backendContext.irBuiltIns).map {
+            (moduleInfo.symbolTable.irFactory as IrFactoryImplForWasmIC).declarationSignature(it.owner)
+        }
+
         val compilerResult = compileWasm(
             wasmCompiledFileFragments = wasmCompiledFileFragments,
+            specialITableTypes = specialITableTypes,
             moduleName = allModules.last().descriptor.name.asString(),
             configuration = configuration,
             typeScriptFragment = typeScriptFragment,
@@ -117,6 +125,7 @@ class WasmLoweringFacade(
 
         val compilerResultWithDCE = compileWasm(
             wasmCompiledFileFragments = wasmCompiledFileFragmentsDce,
+            specialITableTypes = specialITableTypes,
             moduleName = allModules.last().descriptor.name.asString(),
             configuration = configuration,
             typeScriptFragment = typeScriptFragment,
