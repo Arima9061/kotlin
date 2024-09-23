@@ -8,6 +8,7 @@ package org.jetbrains.kotlin.backend.wasm.ir2wasm
 import org.jetbrains.kotlin.backend.wasm.ir2wasm.WasmCompiledModuleFragment.*
 import org.jetbrains.kotlin.backend.wasm.utils.DisjointUnions
 import org.jetbrains.kotlin.ir.backend.js.ic.IrICProgramFragment
+import org.jetbrains.kotlin.backend.common.serialization.Hash128Bits
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationWithName
 import org.jetbrains.kotlin.ir.declarations.IrExternalPackageFragment
 import org.jetbrains.kotlin.ir.symbols.*
@@ -231,11 +232,18 @@ class WasmCompiledModuleFragment(
 
         createAndExportServiceFunctions(definedFunctions, exports)
 
-        val (recGroupTypes, nonRecursiveFunctionTypes, importsInOrder, definedTags) = getTypes(importedFunctions, canonicalFunctionTypes)
+        val tags = getTags()
+        val (importedTags, definedTags) = tags.partition { it.importPair != null }
+        val importsInOrder = importedFunctions + importedTags
+
+        val additionalTypes = mutableListOf<WasmTypeDeclaration>()
+        additionalTypes.add(parameterlessNoReturnFunctionType)
+        tags.forEach { additionalTypes.add(it.type) }
+
+        val recursiveTypeGroups = getTypes(canonicalFunctionTypes, additionalTypes)
 
         return WasmModule(
-            functionTypes = nonRecursiveFunctionTypes,
-            recGroupTypes = recGroupTypes,
+            recGroups = recursiveTypeGroups,
             importsInOrder = importsInOrder,
             importedFunctions = importedFunctions,
             definedFunctions = definedFunctions,
@@ -251,12 +259,7 @@ class WasmCompiledModuleFragment(
         ).apply { calculateIds() }
     }
 
-    private fun getTypes(
-        importedFunctions: List<WasmFunction.Imported>,
-        canonicalFunctionTypes: Map<WasmFunctionType, WasmFunctionType>
-    ): WasmTypes {
-        val recGroupTypes = getRecGroupTypesWithoutPotentiallyRecursiveFunctionTypes()
-
+    private fun getTags(): List<WasmTag> {
         val tagFuncType = getThrowableRefType()
 
         val throwableTagFuncType = WasmFunctionType(
@@ -267,6 +270,7 @@ class WasmCompiledModuleFragment(
             parameterTypes = listOf(WasmExternRef),
             resultTypes = emptyList()
         )
+
         val tags = listOfNotNull(
             runIf(!generateTrapsInsteadOfExceptions && itsPossibleToCatchJsErrorSeparately) {
                 WasmTag(jsExceptionTagFuncType, WasmImportDescriptor("intrinsics", WasmSymbol("js_error_tag")))
@@ -282,17 +286,40 @@ class WasmCompiledModuleFragment(
             it.jsExceptionTagIndex?.bind(jsExceptionTagIndex)
         }
 
-        val (importedTags, definedTags) = tags.partition { it.importPair != null }
-        val importsInOrder = importedFunctions + importedTags
+        return tags
+    }
 
-        val allFunctionTypes = canonicalFunctionTypes.values.toList() + parameterlessNoReturnFunctionType + throwableTagFuncType + jsExceptionTagFuncType
+    private fun getTypes(
+        canonicalFunctionTypes: Map<WasmFunctionType, WasmFunctionType>,
+        additionalTypes: RecursiveTypeGroup,
+    ): List<RecursiveTypeGroup> {
+        val vTablesAndGcTypes =
+            wasmCompiledFileFragments.flatMap { it.vTableGcTypes.elements } +
+                    wasmCompiledFileFragments.flatMap { it.gcTypes.elements }
 
-        // Partition out function types that can't be recursive that don't need to be put into a
-        //  rec group so that they can be matched with function types from other Wasm modules.
-        val (potentiallyRecursiveFunctionTypes, nonRecursiveFunctionTypes) = allFunctionTypes.partition { it.referencesTypeDeclarations() }
-        recGroupTypes.addAll(potentiallyRecursiveFunctionTypes)
+        val recGroupTypes = sequence {
+            yieldAll(vTablesAndGcTypes)
+            wasmCompiledFileFragments.forEach { fragment ->
+                yieldAll(fragment.classITableGcType.unbound.values.mapNotNull { it.takeIf { it.isBound() }?.owner })
+            }
+            yieldAll(canonicalFunctionTypes.values)
+        }
 
-        return WasmTypes(recGroupTypes, nonRecursiveFunctionTypes, importsInOrder, definedTags)
+        val recursiveGroups = createRecursiveTypeGroups(recGroupTypes)
+
+        val mixInIndexesForGroups = mutableMapOf<Hash128Bits, Int>()
+        val groupsWithMixIns = mutableListOf<RecursiveTypeGroup>()
+        recursiveGroups.mapTo(groupsWithMixIns) { group ->
+            if (group.all { it !in vTablesAndGcTypes }) {
+                group
+            } else {
+                addMixInGroup(group, mixInIndexesForGroups)
+            }
+        }
+
+        groupsWithMixIns.add(additionalTypes)
+
+        return groupsWithMixIns
     }
 
     private fun getThrowableRefType(): WasmType {
@@ -309,29 +336,6 @@ class WasmCompiledModuleFragment(
         }
         check(unitGetInstanceDeclaration != null)
         return unitGetInstanceDeclaration
-    }
-
-    private fun getRecGroupTypesWithoutPotentiallyRecursiveFunctionTypes(): MutableList<WasmTypeDeclaration> {
-        fun wasmTypeDeclarationOrderKey(declaration: WasmTypeDeclaration): Int {
-            return when (declaration) {
-                is WasmArrayDeclaration -> 0
-                is WasmFunctionType -> 0
-                is WasmStructDeclaration ->
-                    // Subtype depth
-                    declaration.superType?.let { wasmTypeDeclarationOrderKey(it.owner) + 1 } ?: 0
-            }
-        }
-
-        val recGroupTypes = mutableSetOf<WasmTypeDeclaration>()
-        wasmCompiledFileFragments.forEach { fragment ->
-            recGroupTypes.addAll(fragment.vTableGcTypes.elements)
-            recGroupTypes.addAll(fragment.gcTypes.elements)
-            recGroupTypes.addAll(fragment.classITableGcType.unbound.values.mapNotNull { it.takeIf { it.isBound() }?.owner })
-        }
-
-        val recGroupTypesList = recGroupTypes.toMutableList()
-        recGroupTypesList.sortBy(::wasmTypeDeclarationOrderKey)
-        return recGroupTypesList
     }
 
     private fun getGlobals() = mutableListOf<WasmGlobal>().apply {
@@ -639,13 +643,6 @@ class WasmCompiledModuleFragment(
             }
         }
     }
-
-    private data class WasmTypes(
-        val recGroupTypes: List<WasmTypeDeclaration>,
-        val nonRecursiveFunctionTypes: List<WasmFunctionType>,
-        val importsInOrder: List<WasmNamedModuleField>,
-        val definedTags: List<WasmTag>
-    )
 }
 
 fun <IrSymbolType, WasmDeclarationType : Any, WasmSymbolType : WasmSymbol<WasmDeclarationType>> bind(
