@@ -29,9 +29,16 @@ internal fun test(name: String, ignored: Boolean, testFn: () -> Any?) {
     adapter().test(name, ignored, testFn)
 }
 
-// This is called from the js-launcher alongside wasm start function
-// TODO: Remove after bootstrap
-@WasmExport
-internal fun startUnitTests() {
-    // This will be filled with the corresponding code during lowering
+private val rootSuiteBlocks: MutableMap<String, MutableList<() -> Unit>> = mutableMapOf()
+
+internal fun registerRootSuiteBlock(suiteName: String, block: () -> Unit) {
+    rootSuiteBlocks.getOrPut(suiteName, ::mutableListOf).add(block)
+}
+
+internal fun runRootSuites() {
+    rootSuiteBlocks.entries.forEach { (suiteName, block) ->
+        suite(name = suiteName, ignored = false) {
+            block.forEach { it() }
+        }
+    }
 }

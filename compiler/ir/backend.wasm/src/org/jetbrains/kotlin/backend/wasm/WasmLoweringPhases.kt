@@ -100,11 +100,6 @@ private val generateTests = makeIrModulePhase(
     name = "GenerateTests",
 )
 
-private val generateTestsIC = makeIrModulePhase(
-    ::GenerateWasmTestsIC,
-    name = "GenerateTestsIC",
-)
-
 private val expectDeclarationsRemovingPhase = makeIrModulePhase(
     ::ExpectDeclarationsRemoveLowering,
     name = "ExpectDeclarationsRemoving",
@@ -623,8 +618,7 @@ fun getWasmLowerings(
 
     jsCodeCallsLowering,
 
-    generateTests.takeIf { !isIncremental },
-    generateTestsIC.takeIf { isIncremental },
+    generateTests,
 
     excludeDeclarationsFromCodegenPhase,
     expectDeclarationsRemovingPhase,
