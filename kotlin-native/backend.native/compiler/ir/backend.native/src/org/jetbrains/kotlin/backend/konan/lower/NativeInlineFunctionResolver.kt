@@ -43,6 +43,7 @@ internal class NativeInlineFunctionResolver(
 
         val doubleInliningEnabled = !context.config.configuration.getBoolean(KlibConfigurationKeys.NO_DOUBLE_INLINING)
 
+        UpgradeCallableReferences(context).lower(function)
         NativeAssertionWrapperLowering(context).lower(function)
 
         LateinitLowering(context).lower(body)
@@ -54,7 +55,6 @@ internal class NativeInlineFunctionResolver(
                 generatePublicAccessors = !doubleInliningEnabled // Make accessors public if `SyntheticAccessorLowering` is disabled.
         ).lowerWithoutAddingAccessorsToParents(function)
 
-        UpgradeCallableReferences(context).lower(function)
 
         LocalClassesInInlineLambdasLowering(context).lower(body, function)
         // Do not extract local classes off of inline functions from cached libraries.
