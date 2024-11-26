@@ -11,11 +11,10 @@ import org.jetbrains.kotlin.incremental.writeText
 import java.io.File
 
 /**
- * Used in old JPS implementation
- *
  * Not needed for Gradle? (we fall back to rebuild anyway)
  * Not needed for dep-graph? (it manages successful and unsuccessful compilations on its own)
  * Might be used in maven?
+ * //TODO: KT-74057 Investigate usage of dirty-sources.txt in Kotlin IC
  */
 internal class DirtyFilesCachedHistory(workingDir: File) {
     private val dirtySourcesSinceLastTimeFile = File(workingDir, DIRTY_SOURCES_FILE_NAME)
