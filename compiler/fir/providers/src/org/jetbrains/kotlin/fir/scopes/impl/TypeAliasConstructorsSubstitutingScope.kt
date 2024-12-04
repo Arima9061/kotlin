@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.config.AnalysisFlags
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.*
 import org.jetbrains.kotlin.fir.declarations.builder.buildConstructedClassTypeParameterRef
-import org.jetbrains.kotlin.fir.declarations.builder.buildConstructorCopy
+import org.jetbrains.kotlin.fir.declarations.builder.buildConstructor
 import org.jetbrains.kotlin.fir.declarations.builder.buildValueParameterCopy
 import org.jetbrains.kotlin.fir.languageVersionSettings
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
@@ -56,60 +56,70 @@ class TypeAliasConstructorsSubstitutingScope(
 
     override fun processDeclaredConstructors(processor: (FirConstructorSymbol) -> Unit) {
         delegatingScope.processDeclaredConstructors wrapper@{ originalConstructorSymbol ->
-            val typeParameters = typeAliasSymbol.fir.typeParameters
+            val originalConstructor = originalConstructorSymbol.fir
+            val newConstructorSymbol = FirConstructorSymbol(originalConstructorSymbol.callableId)
 
-            processor(
-                buildConstructorCopy(originalConstructorSymbol.fir) {
-                    // Typealiased constructors point to the typealias source
-                    // for the convenience of Analysis API
-                    source = typeAliasSymbol.source
+            buildConstructor {
+                symbol = newConstructorSymbol
 
-                    symbol = FirConstructorSymbol(originalConstructorSymbol.callableId)
-                    origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
+                // Typealiased constructors point to the typealias source for the convenience of Analysis API
+                source = typeAliasSymbol.source
+                resolvePhase = originalConstructor.resolvePhase
+                // We consider typealiased constructors to be coming from the module of the typealias
+                moduleData = typeAliasSymbol.moduleData
+                origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
+                attributes = originalConstructor.attributes.copy()
 
-                    // We consider typealiased constructors to be coming
-                    // from the module of the typealias
-                    moduleData = typeAliasSymbol.moduleData
+                typeAliasSymbol.fir.typeParameters.mapTo(typeParameters) {
+                    buildConstructedClassTypeParameterRef { symbol = it.symbol }
+                }
 
-                    this.typeParameters.clear()
-                    typeParameters.mapTo(this.typeParameters) {
-                        buildConstructedClassTypeParameterRef { symbol = it.symbol }
-                    }
+                status = originalConstructor.status
 
-                    valueParameters.clear()
-                    originalConstructorSymbol.fir.valueParameters.mapTo(valueParameters) { originalValueParameter ->
-                        buildValueParameterCopy(originalValueParameter) {
-                            symbol = FirValueParameterSymbol(originalValueParameter.name)
-                            moduleData = typeAliasSymbol.moduleData
-                            origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
-                            containingDeclarationSymbol = this@buildConstructorCopy.symbol
-                        }
-                    }
-
-                    contextParameters.clear()
-                    originalConstructorSymbol.fir.contextParameters.mapTo(contextParameters) { originalContextReceiver ->
-                        buildValueParameterCopy(originalContextReceiver) {
-                            symbol = FirValueParameterSymbol(originalContextReceiver.name)
-                            moduleData = typeAliasSymbol.moduleData
-                            origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
-                            containingDeclarationSymbol = this@buildConstructorCopy.symbol
-                        }
-                    }
-
+                returnTypeRef = originalConstructor.returnTypeRef.let {
                     if (aliasedTypeExpansionGloballyEnabled) {
-                        returnTypeRef = returnTypeRef.withReplacedConeType(
-                            returnTypeRef.coneType.withAbbreviation(AbbreviatedTypeAttribute(typeAliasSymbol.defaultType()))
-                        )
+                        it.withReplacedConeType(it.coneType.withAbbreviation(AbbreviatedTypeAttribute(typeAliasSymbol.defaultType())))
+                    } else {
+                        it
                     }
-                }.apply {
-                    originalConstructorIfTypeAlias = originalConstructorSymbol.fir
-                    typeAliasForConstructor = typeAliasSymbol
-                    if (delegatingScope is FirClassSubstitutionScope) {
-                        typeAliasConstructorSubstitutor = delegatingScope.substitutor
+                }
+                receiverParameter = originalConstructor.receiverParameter
+                deprecationsProvider = originalConstructor.deprecationsProvider
+                containerSource = originalConstructor.containerSource
+                dispatchReceiverType = originalConstructor.dispatchReceiverType
+
+                originalConstructor.contextParameters.mapTo(contextParameters) {
+                    buildValueParameterCopy(it) {
+                        symbol = FirValueParameterSymbol(it.name)
+                        moduleData = typeAliasSymbol.moduleData
+                        origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
+                        containingDeclarationSymbol = newConstructorSymbol
                     }
-                    outerTypeIfTypeAlias = outerType
-                }.symbol
-            )
+                }
+
+                originalConstructor.valueParameters.mapTo(valueParameters) {
+                    buildValueParameterCopy(it) {
+                        symbol = FirValueParameterSymbol(it.name)
+                        moduleData = typeAliasSymbol.moduleData
+                        origin = FirDeclarationOrigin.Synthetic.TypeAliasConstructor
+                        containingDeclarationSymbol = newConstructorSymbol
+                    }
+                }
+
+                contractDescription = originalConstructor.contractDescription
+                annotations.addAll(originalConstructor.annotations)
+                delegatedConstructor = originalConstructor.delegatedConstructor
+                body = originalConstructor.body
+            }.apply {
+                originalConstructorIfTypeAlias = originalConstructorSymbol.fir
+                typeAliasForConstructor = typeAliasSymbol
+                if (delegatingScope is FirClassSubstitutionScope) {
+                    typeAliasConstructorSubstitutor = delegatingScope.substitutor
+                }
+                outerTypeIfTypeAlias = outerType
+            }
+
+            processor(newConstructorSymbol)
         }
     }
 
