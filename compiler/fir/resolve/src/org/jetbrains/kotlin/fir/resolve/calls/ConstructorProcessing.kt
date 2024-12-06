@@ -7,7 +7,6 @@ package org.jetbrains.kotlin.fir.resolve.calls
 
 import org.jetbrains.kotlin.descriptors.ClassKind
 import org.jetbrains.kotlin.fir.FirSession
-import org.jetbrains.kotlin.fir.declarations.FirClass
 import org.jetbrains.kotlin.fir.declarations.FirClassLikeDeclaration
 import org.jetbrains.kotlin.fir.declarations.FirMemberDeclaration
 import org.jetbrains.kotlin.fir.declarations.FirResolvePhase
@@ -15,19 +14,15 @@ import org.jetbrains.kotlin.fir.declarations.FirTypeAlias
 import org.jetbrains.kotlin.fir.declarations.utils.isInner
 import org.jetbrains.kotlin.fir.resolve.BodyResolveComponents
 import org.jetbrains.kotlin.fir.resolve.calls.candidate.CallInfo
-import org.jetbrains.kotlin.fir.resolve.fullyExpandedType
 import org.jetbrains.kotlin.fir.resolve.providers.impl.FirTypeCandidateCollector
 import org.jetbrains.kotlin.fir.resolve.providers.impl.FirTypeCandidateCollector.TypeCandidate
-import org.jetbrains.kotlin.fir.resolve.scope
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutor
-import org.jetbrains.kotlin.fir.scopes.CallableCopyTypeCalculator
 import org.jetbrains.kotlin.fir.scopes.FirScope
 import org.jetbrains.kotlin.fir.scopes.impl.FirDefaultStarImportingScope
 import org.jetbrains.kotlin.fir.scopes.impl.TypeAliasConstructorsSubstitutingScope
 import org.jetbrains.kotlin.fir.scopes.scopeForClass
 import org.jetbrains.kotlin.fir.symbols.impl.*
 import org.jetbrains.kotlin.fir.symbols.lazyResolveToPhase
-import org.jetbrains.kotlin.fir.types.*
 import org.jetbrains.kotlin.fir.whileAnalysing
 import org.jetbrains.kotlin.resolve.calls.tower.CandidateApplicability
 
@@ -147,18 +142,7 @@ private fun processConstructors(
     whileAnalysing(session, matchedSymbol.fir) {
         val scope = when (matchedSymbol) {
             is FirTypeAliasSymbol -> {
-                val type = matchedSymbol.resolvedExpandedTypeRef.coneTypeUnsafe<ConeClassLikeType>().fullyExpandedType(session)
-                val basicScope = type.scope(
-                    session,
-                    bodyResolveComponents.scopeSession,
-                    CallableCopyTypeCalculator.DoNothing,
-                    requiredMembersPhase = FirResolvePhase.STATUS,
-                )
-                if (basicScope != null) {
-                    TypeAliasConstructorsSubstitutingScope(matchedSymbol, basicScope, session)
-                } else {
-                    null
-                }
+                TypeAliasConstructorsSubstitutingScope.initialize(matchedSymbol, session, bodyResolveComponents.scopeSession)
             }
             is FirClassSymbol -> {
                 val firClass = matchedSymbol.fir
