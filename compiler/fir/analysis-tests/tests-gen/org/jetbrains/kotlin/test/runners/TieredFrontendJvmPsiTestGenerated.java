@@ -29568,6 +29568,12 @@ public class TieredFrontendJvmPsiTestGenerated extends AbstractTieredFrontendJvm
       public void testNestedTypeAliasVisibility() {
         runTest("compiler/fir/analysis-tests/testData/resolve/nestedTypeAliases/nestedTypeAliasVisibility.kt");
       }
+
+      @Test
+      @TestMetadata("nestedTypeAliasWithDeepInnerRHS.kt")
+      public void testNestedTypeAliasWithDeepInnerRHS() {
+        runTest("compiler/fir/analysis-tests/testData/resolve/nestedTypeAliases/nestedTypeAliasWithDeepInnerRHS.kt");
+      }
     }
 
     @Nested
