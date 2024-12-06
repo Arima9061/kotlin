@@ -154,15 +154,8 @@ private fun processConstructors(
                     CallableCopyTypeCalculator.DoNothing,
                     requiredMembersPhase = FirResolvePhase.STATUS,
                 )
-
-                val outerType = bodyResolveComponents.outerClassManager.outerType(type)
-
                 if (basicScope != null) {
-                    TypeAliasConstructorsSubstitutingScope(
-                        matchedSymbol,
-                        basicScope,
-                        outerType,
-                    )
+                    TypeAliasConstructorsSubstitutingScope(matchedSymbol, basicScope, session)
                 } else {
                     null
                 }

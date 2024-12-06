@@ -25,6 +25,8 @@ import org.jetbrains.kotlin.fir.resolve.substitution.wrapProjection
 import org.jetbrains.kotlin.fir.resolve.toClassSymbol
 import org.jetbrains.kotlin.fir.resolvedTypeFromPrototype
 import org.jetbrains.kotlin.fir.symbols.ConeTypeParameterLookupTag
+import org.jetbrains.kotlin.fir.symbols.impl.FirClassLikeSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirRegularClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirTypeParameterSymbol
 import org.jetbrains.kotlin.fir.symbols.lazyResolveToPhase
 import org.jetbrains.kotlin.fir.types.builder.buildErrorTypeRef
@@ -911,4 +913,9 @@ fun ConeClassLikeLookupTag.isLocalClass(): Boolean {
 
 fun ConeClassLikeLookupTag.isAnonymousClass(): Boolean {
     return name == SpecialNames.ANONYMOUS
+}
+
+fun constructOuterType(type: ConeClassLikeType, symbol: FirClassLikeSymbol<*>, containingSymbol: FirClassLikeSymbol<*>): ConeClassLikeType {
+    val currentTypeArgumentsNumber = (symbol as? FirRegularClassSymbol)?.fir?.typeParameters?.count { it is FirTypeParameter } ?: 0
+    return containingSymbol.constructType(type.typeArguments.drop(currentTypeArgumentsNumber).toTypedArray())
 }

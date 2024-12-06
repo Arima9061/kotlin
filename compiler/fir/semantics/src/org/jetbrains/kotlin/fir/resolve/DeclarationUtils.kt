@@ -104,11 +104,7 @@ inline fun outerType(
     if (symbol is FirRegularClassSymbol && !symbol.fir.isInner) return null
 
     val containingSymbol = outerClass(symbol) ?: return null
-    val currentTypeArgumentsNumber = (symbol as? FirRegularClassSymbol)?.fir?.typeParameters?.count { it is FirTypeParameter } ?: 0
-
-    return containingSymbol.constructType(
-        fullyExpandedType.typeArguments.drop(currentTypeArgumentsNumber).toTypedArray(),
-    )
+    return constructOuterType(fullyExpandedType, symbol, containingSymbol)
 }
 
 fun FirBasedSymbol<*>.isContextParameter(): Boolean {

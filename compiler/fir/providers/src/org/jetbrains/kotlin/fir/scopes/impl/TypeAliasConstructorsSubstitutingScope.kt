@@ -11,10 +11,13 @@ import org.jetbrains.kotlin.fir.declarations.*
 import org.jetbrains.kotlin.fir.declarations.builder.buildConstructedClassTypeParameterRef
 import org.jetbrains.kotlin.fir.declarations.builder.buildConstructor
 import org.jetbrains.kotlin.fir.declarations.builder.buildValueParameterCopy
+import org.jetbrains.kotlin.fir.declarations.utils.isInner
+import org.jetbrains.kotlin.fir.getContainingClassLookupTag
 import org.jetbrains.kotlin.fir.languageVersionSettings
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
 import org.jetbrains.kotlin.fir.resolve.defaultType
 import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutor
+import org.jetbrains.kotlin.fir.resolve.toRegularClassSymbol
 import org.jetbrains.kotlin.fir.scopes.DelicateScopeAPI
 import org.jetbrains.kotlin.fir.scopes.FirScope
 import org.jetbrains.kotlin.fir.symbols.impl.*
@@ -41,16 +44,44 @@ var FirConstructor.typeAliasConstructorSubstitutor: ConeSubstitutor? by FirDecla
 
 private object TypeAliasOuterType : FirDeclarationDataKey()
 
-var FirConstructor.outerTypeIfTypeAlias: ConeClassLikeType? by FirDeclarationDataRegistry.data(TypeAliasOuterType)
+/**
+ * It's not null for cases when typealias and its inner RHS have different containing declarations. For instance, the following code:
+ *
+ * ```kt
+ * class Outer {
+ *   inner class Inner
+ * }
+ * typealias OI = Outer.Inner
+ * fun foo() { Outer().OI() }
+ * ```
+ *
+ * Motivation: in such a case, we takes type alias from `PackageMemberScope` but `ScopeBasedTowerLevel` at this scope only handles
+ * candidates with not null receivers.
+ * To handle the case, we treat such typealias as a typealias with a fake extension receiver.
+ *
+ * Also, we should not forget to check the receiver type in `CheckExtensionReceiver` to detect potential type mismatches like this:
+ *
+ * ```kt
+ * class Generic<T> {
+ *     inner class Inner
+ * }
+ *
+ * typealias GIntI = Generic<Int>.Inner
+ *
+ * fun <T> test5(x: Generic<T>) = x.GIntI() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+ * ```
+ *
+ * The fake extension receiver is not applicable to not inner RHS,
+ * because it's disallowed to call a constructor on a nested class-like declaration on an outer instance.
+ */
+var FirConstructor.outerDispatchReceiverTypeIfTypeAliasWithInnerRHS: ConeClassLikeType? by FirDeclarationDataRegistry.data(TypeAliasOuterType)
 
 class TypeAliasConstructorsSubstitutingScope(
     private val typeAliasSymbol: FirTypeAliasSymbol,
     private val delegatingScope: FirScope,
-    private val outerType: ConeClassLikeType?,
+    private val session: FirSession,
 ) : FirScope() {
-    private val aliasedTypeExpansionGloballyEnabled: Boolean = typeAliasSymbol
-        .moduleData
-        .session
+    private val aliasedTypeExpansionGloballyEnabled: Boolean = session
         .languageVersionSettings
         .getFlag(AnalysisFlags.expandTypeAliasesInTypeResolution)
 
@@ -116,7 +147,20 @@ class TypeAliasConstructorsSubstitutingScope(
                 if (delegatingScope is FirClassSubstitutionScope) {
                     typeAliasConstructorSubstitutor = delegatingScope.substitutor
                 }
-                outerTypeIfTypeAlias = outerType
+
+                val expandedClassType = typeAliasSymbol.resolvedExpandedTypeRef.coneType
+                val expandedClassSymbol = expandedClassType.toRegularClassSymbol(typeAliasSymbol.moduleData.session)
+                if (expandedClassType is ConeClassLikeType && expandedClassSymbol?.isInner == true) {
+                    val typeAliasRHSContainingClassTag = expandedClassSymbol.getContainingClassLookupTag()
+                    val typeAliasContainingClassTag = typeAliasSymbol.getContainingClassLookupTag()
+                    if (typeAliasRHSContainingClassTag != null && typeAliasContainingClassTag != typeAliasRHSContainingClassTag) {
+                        outerDispatchReceiverTypeIfTypeAliasWithInnerRHS = constructOuterType(
+                            expandedClassType,
+                            expandedClassSymbol,
+                            typeAliasRHSContainingClassTag.toRegularClassSymbol(session)!!,
+                        )
+                    }
+                }
             }
 
             processor(newConstructorSymbol)
@@ -126,7 +170,7 @@ class TypeAliasConstructorsSubstitutingScope(
     @DelicateScopeAPI
     override fun withReplacedSessionOrNull(newSession: FirSession, newScopeSession: ScopeSession): TypeAliasConstructorsSubstitutingScope? {
         return delegatingScope.withReplacedSessionOrNull(newSession, newScopeSession)?.let {
-            TypeAliasConstructorsSubstitutingScope(typeAliasSymbol, it, outerType)
+            TypeAliasConstructorsSubstitutingScope(typeAliasSymbol, it, session)
         }
     }
 }
