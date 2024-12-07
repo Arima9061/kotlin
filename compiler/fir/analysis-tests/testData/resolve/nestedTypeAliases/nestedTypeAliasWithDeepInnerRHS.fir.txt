@@ -61,10 +61,10 @@ FILE: nestedTypeAliasWithDeepInnerRHS.kt
             R|/Outer.Nested.Nested|()
             this@R|/Outer|.R|/Outer.Nested.NestedInner.NestedInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Nested.NestedInner.NestedInner]>#|()
             this@R|/Outer|.R|/Outer.Inner.Inner|()
-            this@R|/Outer|.R|/Outer.Inner.InnerInner.InnerInner|()
+            this@R|/Outer|.R|/Outer.Inner.InnerInner.InnerInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Inner.InnerInner.InnerInner]>#|()
             R|/Outer.Inner.InnerNested.InnerNested|()
             R|/Outer.Nested.Nested|()
-            this@R|/Outer|.R|/Outer.Nested.NestedInner.NestedInner|()
+            this@R|/Outer|.R|/Outer.Nested.NestedInner.NestedInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Nested.NestedInner.NestedInner]>#|()
         }
 
     }
@@ -76,10 +76,10 @@ FILE: nestedTypeAliasWithDeepInnerRHS.kt
         R|<local>/outer|.<Unresolved name: TAtoNested>#()
         R|<local>/outer|.R|/Outer.Nested.NestedInner.NestedInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Nested.NestedInner.NestedInner]>#|()
         R|<local>/outer|.R|/Outer.Inner.Inner|()
-        R|<local>/outer|.R|/Outer.Inner.InnerInner.InnerInner|()
+        R|<local>/outer|.R|/Outer.Inner.InnerInner.InnerInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Inner.InnerInner.InnerInner]>#|()
         R|<local>/outer|.<Unresolved name: NestedTAtoInnerNested>#()
         R|<local>/outer|.<Unresolved name: NestedTAtoNested>#()
-        R|<local>/outer|.R|/Outer.Nested.NestedInner.NestedInner|()
+        R|<local>/outer|.R|/Outer.Nested.NestedInner.NestedInner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Nested.NestedInner.NestedInner]>#|()
     }
     public final fun testInner(): R|kotlin/Unit| {
         lval inner: R|Outer.Inner| = R|/Outer.Outer|().R|/Outer.Inner.Inner|()

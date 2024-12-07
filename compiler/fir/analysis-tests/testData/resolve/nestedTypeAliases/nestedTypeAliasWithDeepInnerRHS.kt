@@ -32,10 +32,10 @@ class Outer {
         <!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>TAtoNestedInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
 
         NestedTAtoInner() // OK
-        NestedTAtoInnerInner() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+        <!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>NestedTAtoInnerInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
         NestedTAtoInnerNested() // Error (minor)
         NestedTAtoNested() // OK
-        NestedTAtoNestedInner() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+        <!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>NestedTAtoNestedInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
     }
 }
 
@@ -49,10 +49,10 @@ fun testOuter() {
     outer.<!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>TAtoNestedInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
 
     outer.NestedTAtoInner() // OK
-    outer.NestedTAtoInnerInner() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+    outer.<!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>NestedTAtoInnerInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
     outer.<!UNRESOLVED_REFERENCE!>NestedTAtoInnerNested<!>() // UNRESOLVED_REFERENCE
     outer.<!UNRESOLVED_REFERENCE!>NestedTAtoNested<!>() // UNRESOLVED_REFERENCE
-    outer.NestedTAtoNestedInner() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+    outer.<!UNRESOLVED_REFERENCE_WRONG_RECEIVER!>NestedTAtoNestedInner<!>() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
 }
 
 fun testInner() {
