@@ -47,7 +47,8 @@ var FirConstructor.typeAliasConstructorSubstitutor: ConeSubstitutor? by FirDecla
 private object TypeAliasOuterType : FirDeclarationDataKey()
 
 /**
- * It's not null for cases when typealias and its inner RHS have different containing declarations. For instance, the following code:
+ * It's not null for cases when typealias and its inner RHS have different containing declarations or different type arguments.
+ * For instance, the following code:
  *
  * ```kt
  * class Outer {
@@ -59,9 +60,10 @@ private object TypeAliasOuterType : FirDeclarationDataKey()
  *
  * Motivation: in such a case, we takes type alias from `PackageMemberScope` but `ScopeBasedTowerLevel` at this scope only handles
  * candidates with not null receivers.
- * To handle the case, we treat such typealias as a typealias with a fake extension receiver.
+ * To handle the case, we treat such typealias as a typealias with a fake extension/dispatch receiver.
  *
- * Also, we should not forget to check the receiver type in `CheckExtensionReceiver` to detect potential type mismatches like this:
+ * Also, we should not forget to check the receiver type in `CheckExtensionReceiver` or `CheckDispatchReceiver`
+ * to detect potential type mismatches like the followings:
  *
  * ```kt
  * class Generic<T> {
@@ -73,7 +75,18 @@ private object TypeAliasOuterType : FirDeclarationDataKey()
  * fun <T> test5(x: Generic<T>) = x.GIntI() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
  * ```
  *
- * The fake extension receiver is not applicable to not inner RHS,
+ * ```kt
+ * class Outer<T> {
+ *     inner class Inner
+ *     typealias NestedTAToIntInner = Outer<Int>.Inner
+ *
+ *     fun test() {
+ *         NestedTAToIntInner() // Dispatch receivers mismatch: `Outer<T>` and `Outer<Int>`
+ *     }
+ * }
+ * ```
+ *
+ * The fake extension/dispatch receiver is not applicable to not inner RHS,
  * because it's disallowed to call a constructor on a nested class-like declaration on an outer instance.
  */
 var FirConstructor.outerDispatchReceiverTypeIfTypeAliasWithInnerRHS: ConeClassLikeType? by FirDeclarationDataRegistry.data(TypeAliasOuterType)
@@ -175,14 +188,16 @@ class TypeAliasConstructorsSubstitutingScope private constructor(
                 val expandedClassType = typeAliasSymbol.resolvedExpandedTypeRef.coneType
                 val expandedClassSymbol = expandedClassType.toRegularClassSymbol(typeAliasSymbol.moduleData.session)
                 if (expandedClassType is ConeClassLikeType && expandedClassSymbol?.isInner == true) {
-                    val typeAliasRHSContainingClassTag = expandedClassSymbol.getContainingClassLookupTag()
-                    val typeAliasContainingClassTag = typeAliasSymbol.getContainingClassLookupTag()
-                    if (typeAliasRHSContainingClassTag != null && typeAliasContainingClassTag != typeAliasRHSContainingClassTag) {
-                        outerDispatchReceiverTypeIfTypeAliasWithInnerRHS = constructOuterType(
-                            expandedClassType,
-                            expandedClassSymbol,
-                            typeAliasRHSContainingClassTag.toRegularClassSymbol(session)!!,
-                        )
+                    val typeAliasRHSContainingClassSymbol = expandedClassSymbol.getContainingClassLookupTag()?.toRegularClassSymbol(session)
+
+                    if (typeAliasRHSContainingClassSymbol != null) {
+                        val outerTypeArguments = getOuterTypeArguments(expandedClassType, expandedClassSymbol)
+
+                        val typeAliasContainingClassTag = typeAliasSymbol.getContainingClassLookupTag()
+                        if (typeAliasContainingClassTag != typeAliasRHSContainingClassSymbol.toLookupTag() || outerTypeArguments.isNotEmpty()) {
+                            outerDispatchReceiverTypeIfTypeAliasWithInnerRHS =
+                                typeAliasRHSContainingClassSymbol.constructType(outerTypeArguments.toTypedArray())
+                        }
                     }
                 }
             }
