@@ -29497,6 +29497,12 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
       public void testNestedTypeAliasWithDeepInnerRHS() {
         runTest("compiler/fir/analysis-tests/testData/resolve/nestedTypeAliases/nestedTypeAliasWithDeepInnerRHS.kt");
       }
+
+      @Test
+      @TestMetadata("nestedTypeAliasWithInnerRHSandTypeArguments.kt")
+      public void testNestedTypeAliasWithInnerRHSandTypeArguments() {
+        runTest("compiler/fir/analysis-tests/testData/resolve/nestedTypeAliases/nestedTypeAliasWithInnerRHSandTypeArguments.kt");
+      }
     }
 
     @Nested

@@ -1,0 +1,44 @@
+FILE: nestedTypeAliasWithInnerRHSandTypeArguments.kt
+    public final class Outer<T> : R|kotlin/Any| {
+        public constructor<T>(): R|Outer<T>| {
+            super<R|kotlin/Any|>()
+        }
+
+        public final inner class Inner<Outer(T)> : R|kotlin/Any| {
+            public Outer<T>.constructor(): R|Outer.Inner<T>| {
+                super<R|kotlin/Any|>()
+            }
+
+        }
+
+        public final inner class InnerWithParameter<K, Outer(T)> : R|kotlin/Any| {
+            public Outer<T>.constructor<K>(): R|Outer.InnerWithParameter<K, T>| {
+                super<R|kotlin/Any|>()
+            }
+
+        }
+
+        public final typealias NestedTAtoExplicitInner = R|Outer.Inner<ERROR CLASS: Symbol not found for T>|
+
+        public final typealias NestedTAToInner = R|Outer.Inner<T>|
+
+        public final typealias NestedTAToIntInner = R|Outer.Inner<kotlin/Int>|
+
+        public final typealias NestedTAWithTypeParameterToInner<K> = R|Outer.Inner<K>|
+
+        public final typealias NestedTAtoInnerWithTypeParameters = R|Outer.InnerWithParameter<kotlin/String, T>|
+
+        public final typealias NestedTAtoIntInnerWithTypeParameters = R|Outer.InnerWithParameter<kotlin/String, kotlin/Int>|
+
+        public final fun test(): R|kotlin/Unit| {
+            this@R|/Outer|.R|/Outer.Inner.Inner<None of the following candidates is applicable because of receiver type mismatch: [/Outer.Inner.Inner]>#|()
+            this@R|/Outer|.R|/Outer.Inner.Inner|()
+            this@R|/Outer|.R|/Outer.Inner.Inner|()
+            this@R|/Outer|.R|/Outer.Inner.Inner|()
+            this@R|/Outer|.R|/Outer.Inner.Inner|<R|kotlin/String|>()
+            this@R|/Outer|.R|/Outer.InnerWithParameter.InnerWithParameter|()
+            this@R|/Outer|.R|/Outer.InnerWithParameter.InnerWithParameter|()
+        }
+
+    }
+    public final typealias TAToIntInner = R|Outer.Inner<kotlin/Int>|
