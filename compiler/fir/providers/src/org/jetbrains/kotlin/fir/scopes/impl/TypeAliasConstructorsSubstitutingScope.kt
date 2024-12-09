@@ -25,71 +25,62 @@ import org.jetbrains.kotlin.fir.scopes.FirScope
 import org.jetbrains.kotlin.fir.symbols.impl.*
 import org.jetbrains.kotlin.fir.types.*
 
-private object TypeAliasConstructorKey : FirDeclarationDataKey()
+private object TypeAliasConstructorInfoKey : FirDeclarationDataKey()
 
-var <T : FirFunction> T.originalConstructorIfTypeAlias: T? by FirDeclarationDataRegistry.data(TypeAliasConstructorKey)
-val <T : FirFunction> FirFunctionSymbol<T>.originalConstructorIfTypeAlias: T?
-    get() = fir.originalConstructorIfTypeAlias
+data class TypeAliasConstructorInfo<T : FirFunction>(
+    val originalConstructor: T,
+    val typeAliasSymbol: FirTypeAliasSymbol,
+    val substitutor: ConeSubstitutor?,
+    /**
+     * It's not null for cases when typealias and its inner RHS have different containing declarations or different type arguments.
+     * For instance, the following code:
+     *
+     * ```kt
+     * class Outer {
+     *   inner class Inner
+     * }
+     * typealias OI = Outer.Inner
+     * fun foo() { Outer().OI() }
+     * ```
+     *
+     * Motivation: in such a case, we takes type alias from `PackageMemberScope` but `ScopeBasedTowerLevel` at this scope only handles
+     * candidates with not null receivers.
+     * To handle the case, we treat such typealias as a typealias with a fake extension/dispatch receiver.
+     *
+     * Also, we should not forget to check the receiver type in `CheckExtensionReceiver` or `CheckDispatchReceiver`
+     * to detect potential type mismatches like the followings:
+     *
+     * ```kt
+     * class Generic<T> {
+     *     inner class Inner
+     * }
+     *
+     * typealias GIntI = Generic<Int>.Inner
+     *
+     * fun <T> test5(x: Generic<T>) = x.GIntI() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
+     * ```
+     *
+     * ```kt
+     * class Outer<T> {
+     *     inner class Inner
+     *     typealias NestedTAToIntInner = Outer<Int>.Inner
+     *
+     *     fun test() {
+     *         NestedTAToIntInner() // Dispatch receivers mismatch: `Outer<T>` and `Outer<Int>`
+     *     }
+     * }
+     * ```
+     *
+     * The fake extension/dispatch receiver is not applicable to not inner RHS,
+     * because it's disallowed to call a constructor on a nested class-like declaration on an outer instance.
+     */
+    val outerDispatchReceiverTypeIfInnerRHS: ConeClassLikeType?,
+)
 
-val FirFunctionSymbol<*>.isTypeAliasedConstructor: Boolean
-    get() = fir.originalConstructorIfTypeAlias != null
+var <T : FirFunction> T.typeAliasConstructorInfo: TypeAliasConstructorInfo<T>? by FirDeclarationDataRegistry.data(TypeAliasConstructorInfoKey)
 
-private object TypeAliasForConstructorKey : FirDeclarationDataKey()
-
-var FirFunction.typeAliasForConstructor: FirTypeAliasSymbol? by FirDeclarationDataRegistry.data(TypeAliasForConstructorKey)
-val FirFunctionSymbol<*>.typeAliasForConstructor: FirTypeAliasSymbol?
-    get() = fir.typeAliasForConstructor
-
-private object TypeAliasConstructorSubstitutorKey : FirDeclarationDataKey()
-
-var FirConstructor.typeAliasConstructorSubstitutor: ConeSubstitutor? by FirDeclarationDataRegistry.data(TypeAliasConstructorSubstitutorKey)
-
-private object TypeAliasOuterType : FirDeclarationDataKey()
-
-/**
- * It's not null for cases when typealias and its inner RHS have different containing declarations or different type arguments.
- * For instance, the following code:
- *
- * ```kt
- * class Outer {
- *   inner class Inner
- * }
- * typealias OI = Outer.Inner
- * fun foo() { Outer().OI() }
- * ```
- *
- * Motivation: in such a case, we takes type alias from `PackageMemberScope` but `ScopeBasedTowerLevel` at this scope only handles
- * candidates with not null receivers.
- * To handle the case, we treat such typealias as a typealias with a fake extension/dispatch receiver.
- *
- * Also, we should not forget to check the receiver type in `CheckExtensionReceiver` or `CheckDispatchReceiver`
- * to detect potential type mismatches like the followings:
- *
- * ```kt
- * class Generic<T> {
- *     inner class Inner
- * }
- *
- * typealias GIntI = Generic<Int>.Inner
- *
- * fun <T> test5(x: Generic<T>) = x.GIntI() // UNRESOLVED_REFERENCE_WRONG_RECEIVER
- * ```
- *
- * ```kt
- * class Outer<T> {
- *     inner class Inner
- *     typealias NestedTAToIntInner = Outer<Int>.Inner
- *
- *     fun test() {
- *         NestedTAToIntInner() // Dispatch receivers mismatch: `Outer<T>` and `Outer<Int>`
- *     }
- * }
- * ```
- *
- * The fake extension/dispatch receiver is not applicable to not inner RHS,
- * because it's disallowed to call a constructor on a nested class-like declaration on an outer instance.
- */
-var FirConstructor.outerDispatchReceiverTypeIfTypeAliasWithInnerRHS: ConeClassLikeType? by FirDeclarationDataRegistry.data(TypeAliasOuterType)
+val FirConstructorSymbol.typeAliasConstructorInfo: TypeAliasConstructorInfo<*>?
+    get() = fir.typeAliasConstructorInfo
 
 // TODO: Integrate it to `FirScopeProvider` and implement caching of constructors (KT-72929)
 class TypeAliasConstructorsSubstitutingScope private constructor(
@@ -179,31 +170,35 @@ class TypeAliasConstructorsSubstitutingScope private constructor(
                 delegatedConstructor = originalConstructor.delegatedConstructor
                 body = originalConstructor.body
             }.apply {
-                originalConstructorIfTypeAlias = originalConstructorSymbol.fir
-                typeAliasForConstructor = typeAliasSymbol
-                if (delegatingScope is FirClassSubstitutionScope) {
-                    typeAliasConstructorSubstitutor = delegatingScope.substitutor
-                }
-
-                val expandedClassType = typeAliasSymbol.resolvedExpandedTypeRef.coneType
-                val expandedClassSymbol = expandedClassType.toRegularClassSymbol(typeAliasSymbol.moduleData.session)
-                if (expandedClassType is ConeClassLikeType && expandedClassSymbol?.isInner == true) {
-                    val typeAliasRHSContainingClassSymbol = expandedClassSymbol.getContainingClassLookupTag()?.toRegularClassSymbol(session)
-
-                    if (typeAliasRHSContainingClassSymbol != null) {
-                        val outerTypeArguments = getOuterTypeArguments(expandedClassType, expandedClassSymbol)
-
-                        val typeAliasContainingClassTag = typeAliasSymbol.getContainingClassLookupTag()
-                        if (typeAliasContainingClassTag != typeAliasRHSContainingClassSymbol.toLookupTag() || outerTypeArguments.isNotEmpty()) {
-                            outerDispatchReceiverTypeIfTypeAliasWithInnerRHS =
-                                typeAliasRHSContainingClassSymbol.constructType(outerTypeArguments.toTypedArray())
-                        }
-                    }
-                }
+                typeAliasConstructorInfo = TypeAliasConstructorInfo(
+                    originalConstructor,
+                    typeAliasSymbol,
+                    (delegatingScope as? FirClassSubstitutionScope)?.substitutor,
+                    extractOuterDispatchReceiverTypeIfInnerRHS(),
+                )
             }
 
             processor(newConstructorSymbol)
         }
+    }
+
+    private fun extractOuterDispatchReceiverTypeIfInnerRHS(): ConeClassLikeType? {
+        val expandedClassType = typeAliasSymbol.resolvedExpandedTypeRef.coneType
+        val expandedClassSymbol = expandedClassType.toRegularClassSymbol(typeAliasSymbol.moduleData.session)
+        if (expandedClassType is ConeClassLikeType && expandedClassSymbol?.isInner == true) {
+            val typeAliasRHSContainingClassSymbol = expandedClassSymbol.getContainingClassLookupTag()?.toRegularClassSymbol(session)
+
+            if (typeAliasRHSContainingClassSymbol != null) {
+                val outerTypeArguments = getOuterTypeArguments(expandedClassType, expandedClassSymbol)
+
+                val typeAliasContainingClassTag = typeAliasSymbol.getContainingClassLookupTag()
+                if (typeAliasContainingClassTag != typeAliasRHSContainingClassSymbol.toLookupTag() || outerTypeArguments.isNotEmpty()) {
+                    return typeAliasRHSContainingClassSymbol.constructType(outerTypeArguments.toTypedArray())
+                }
+            }
+        }
+
+        return null
     }
 
     @DelicateScopeAPI
