@@ -1,7 +1,7 @@
 fun main(args: Array<String>) {
     var i = 10
     ++i
-    ++(l@ i)
+    ++i
 }
 
 // 2 IINC

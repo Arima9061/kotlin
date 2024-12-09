@@ -485,18 +485,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
     }
 
     @Test
-    @TestMetadata("parenthesesWithAssignmentOrSet.kt")
-    public void testParenthesesWithAssignmentOrSet() {
-      runTest("compiler/testData/diagnostics/tests/parenthesesWithAssignmentOrSet.kt");
-    }
-
-    @Test
-    @TestMetadata("parenthesesWithIncrements.kt")
-    public void testParenthesesWithIncrements() {
-      runTest("compiler/testData/diagnostics/tests/parenthesesWithIncrements.kt");
-    }
-
-    @Test
     @TestMetadata("phantomIntersections.kt")
     public void testPhantomIntersections() {
       runTest("compiler/testData/diagnostics/tests/phantomIntersections.kt");
@@ -807,12 +795,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
       }
 
       @Test
-      @TestMetadata("blockLevelOnTheSameLineWarning.kt")
-      public void testBlockLevelOnTheSameLineWarning() {
-        runTest("compiler/testData/diagnostics/tests/annotations/blockLevelOnTheSameLineWarning.kt");
-      }
-
-      @Test
       @TestMetadata("constantFromOuterScopeAsAnnotaionParameter.kt")
       public void testConstantFromOuterScopeAsAnnotaionParameter() {
         runTest("compiler/testData/diagnostics/tests/annotations/constantFromOuterScopeAsAnnotaionParameter.kt");
@@ -1095,12 +1077,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("annotationAsArgComplex.kt")
         public void testAnnotationAsArgComplex() {
           runTest("compiler/testData/diagnostics/tests/annotations/options/annotationAsArgComplex.kt");
-        }
-
-        @Test
-        @TestMetadata("assignment.kt")
-        public void testAssignment() {
-          runTest("compiler/testData/diagnostics/tests/annotations/options/assignment.kt");
         }
 
         @Test
@@ -7102,6 +7078,12 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         }
 
         @Test
+        @TestMetadata("fromExpectedTypeInLambda.kt")
+        public void testFromExpectedTypeInLambda() {
+          runTest("compiler/testData/diagnostics/tests/inference/callableReferences/fromExpectedTypeInLambda.kt");
+        }
+
+        @Test
         @TestMetadata("kt55931.kt")
         public void testKt55931() {
           runTest("compiler/testData/diagnostics/tests/inference/callableReferences/kt55931.kt");
@@ -8312,6 +8294,12 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("elvisWithExpectedType.kt")
         public void testElvisWithExpectedType() {
           runTest("compiler/testData/diagnostics/tests/inference/operators/elvisWithExpectedType.kt");
+        }
+
+        @Test
+        @TestMetadata("elvisWithExpectedTypeComplex.kt")
+        public void testElvisWithExpectedTypeComplex() {
+          runTest("compiler/testData/diagnostics/tests/inference/operators/elvisWithExpectedTypeComplex.kt");
         }
 
         @Test
@@ -10937,12 +10925,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         public void testSyntheticPropertyFromKotlin_warning() {
           runTest("compiler/testData/diagnostics/tests/j+k/properties/syntheticPropertyFromKotlin_warning.kt");
         }
-
-        @Test
-        @TestMetadata("syntheticPropertyThroughJava.kt")
-        public void testSyntheticPropertyThroughJava() {
-          runTest("compiler/testData/diagnostics/tests/j+k/properties/syntheticPropertyThroughJava.kt");
-        }
       }
 
       @Nested
@@ -11744,12 +11726,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
       @TestMetadata("FalsePositiveInaccessibleGenericType.kt")
       public void testFalsePositiveInaccessibleGenericType() {
         runTest("compiler/testData/diagnostics/tests/multimodule/FalsePositiveInaccessibleGenericType.kt");
-      }
-
-      @Test
-      @TestMetadata("InaccessibleGenericTypeVariousCases.kt")
-      public void testInaccessibleGenericTypeVariousCases() {
-        runTest("compiler/testData/diagnostics/tests/multimodule/InaccessibleGenericTypeVariousCases.kt");
       }
 
       @Test
@@ -15064,12 +15040,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
       }
 
       @Test
-      @TestMetadata("kt1550.kt")
-      public void testKt1550() {
-        runTest("compiler/testData/diagnostics/tests/regressions/kt1550.kt");
-      }
-
-      @Test
       @TestMetadata("kt16086.kt")
       public void testKt16086() {
         runTest("compiler/testData/diagnostics/tests/regressions/kt16086.kt");
@@ -17866,12 +17836,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         }
 
         @Test
-        @TestMetadata("classDelegationDeprecated.kt")
-        public void testClassDelegationDeprecated() {
-          runTest("compiler/testData/diagnostics/tests/smartCasts/varnotnull/classDelegationDeprecated.kt");
-        }
-
-        @Test
         @TestMetadata("equalityAndIdentity.kt")
         public void testEqualityAndIdentity() {
           runTest("compiler/testData/diagnostics/tests/smartCasts/varnotnull/equalityAndIdentity.kt");
@@ -18001,18 +17965,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("whileTrue.kt")
         public void testWhileTrue() {
           runTest("compiler/testData/diagnostics/tests/smartCasts/varnotnull/whileTrue.kt");
-        }
-
-        @Test
-        @TestMetadata("whileTrueWithBracketSet.kt")
-        public void testWhileTrueWithBracketSet() {
-          runTest("compiler/testData/diagnostics/tests/smartCasts/varnotnull/whileTrueWithBracketSet.kt");
-        }
-
-        @Test
-        @TestMetadata("whileTrueWithBrackets.kt")
-        public void testWhileTrueWithBrackets() {
-          runTest("compiler/testData/diagnostics/tests/smartCasts/varnotnull/whileTrueWithBrackets.kt");
         }
       }
     }
@@ -18227,12 +18179,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("onBlockStatement.kt")
         public void testOnBlockStatement() {
           runTest("compiler/testData/diagnostics/tests/suppress/oneWarning/onBlockStatement.kt");
-        }
-
-        @Test
-        @TestMetadata("onBlockStatementSameLine.kt")
-        public void testOnBlockStatementSameLine() {
-          runTest("compiler/testData/diagnostics/tests/suppress/oneWarning/onBlockStatementSameLine.kt");
         }
 
         @Test
@@ -18475,12 +18421,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("ImplicitReceiver.kt")
         public void testImplicitReceiver() {
           runTest("compiler/testData/diagnostics/tests/syntheticExtensions/javaProperties/ImplicitReceiver.kt");
-        }
-
-        @Test
-        @TestMetadata("JavaOverridesKotlin.kt")
-        public void testJavaOverridesKotlin() {
-          runTest("compiler/testData/diagnostics/tests/syntheticExtensions/javaProperties/JavaOverridesKotlin.kt");
         }
 
         @Test
@@ -19973,12 +19913,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         }
 
         @Test
-        @TestMetadata("onPropertyAnnotation.kt")
-        public void testOnPropertyAnnotation() {
-          runTest("compiler/testData/diagnostics/testsWithStdLib/annotations/annotationApplicability/onPropertyAnnotation.kt");
-        }
-
-        @Test
         @TestMetadata("suppressOnFunctionReference.kt")
         public void testSuppressOnFunctionReference() {
           runTest("compiler/testData/diagnostics/testsWithStdLib/annotations/annotationApplicability/suppressOnFunctionReference.kt");
@@ -20189,17 +20123,6 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestMetadata("privateCompanionObject.kt")
         public void testPrivateCompanionObject() {
           runTest("compiler/testData/diagnostics/testsWithStdLib/annotations/jvmStatic/privateCompanionObject.kt");
-        }
-      }
-
-      @Nested
-      @TestMetadata("compiler/testData/diagnostics/testsWithStdLib/annotations/kClass")
-      @TestDataPath("$PROJECT_ROOT")
-      public class KClass {
-        @Test
-        @TestMetadata("kClassOutArrayInAnnotationsOutVariance.kt")
-        public void testKClassOutArrayInAnnotationsOutVariance() {
-          runTest("compiler/testData/diagnostics/testsWithStdLib/annotations/kClass/kClassOutArrayInAnnotationsOutVariance.kt");
         }
       }
 

@@ -75,7 +75,7 @@ class KotlinVersionsTest : KtUsefulTestCase() {
 
         val latestStableVersion = LanguageVersion.LATEST_STABLE.versionString.toVersion("LanguageVersion.LATEST_STABLE")
         // Note: comment the next line before a language version update
-        versions.add(latestStableVersion)
+        // versions.add(latestStableVersion)
 
         if (versions.any { v1 -> versions.any { v2 -> !v1.isConsistentWith(v2) } }) {
             Assert.fail(
@@ -85,12 +85,12 @@ class KotlinVersionsTest : KtUsefulTestCase() {
         }
 
         // Note: uncomment this fragment before a language version update
-//        if (versions.any { it.isConsistentWith(latestStableVersion) }) {
-//            Assert.fail(
-//                "Some versions are consistent with LATEST_STABLE ${latestStableVersion.versionString}. Please edit KotlinVersionsTest accordingly:\n\n" +
-//                        versions.joinToString(separator = "\n") { with(it) { "$versionString ($source)" } }
-//            )
-//        }
+        if (versions.any { it.isConsistentWith(latestStableVersion) }) {
+            Assert.fail(
+                "Some versions are consistent with LATEST_STABLE ${latestStableVersion.versionString}. Please edit KotlinVersionsTest accordingly:\n\n" +
+                        versions.joinToString(separator = "\n") { with(it) { "$versionString ($source)" } }
+            )
+        }
     }
 
     fun testMavenProjectVersionsAreEqual() {
