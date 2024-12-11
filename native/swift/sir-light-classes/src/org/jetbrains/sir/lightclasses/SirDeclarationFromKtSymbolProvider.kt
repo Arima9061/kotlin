@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.analysis.api.projectStructure.KaModule
 import org.jetbrains.kotlin.analysis.api.symbols.*
 import org.jetbrains.kotlin.builtins.StandardNames
 import org.jetbrains.kotlin.sir.SirDeclaration
+import org.jetbrains.kotlin.sir.SirFunction
 import org.jetbrains.kotlin.sir.providers.SirDeclarationProvider
 import org.jetbrains.kotlin.sir.providers.SirSession
 import org.jetbrains.sir.lightclasses.nodes.*
@@ -21,11 +22,19 @@ public class SirDeclarationFromKtSymbolProvider(
     public override fun KaDeclarationSymbol.sirDeclarations(): List<SirDeclaration> = listOf(
         when (val ktSymbol = this@sirDeclarations) {
             is KaNamedClassSymbol -> {
-                createSirClassFromKtSymbol(
-                    ktSymbol = ktSymbol,
-                    ktModule = ktModule,
-                    sirSession = sirSession,
-                )
+                if (ktSymbol.classKind == KaClassKind.INTERFACE) {
+                    SirProtocolFromKtSymbol(
+                        ktSymbol = ktSymbol,
+                        ktModule = ktModule,
+                        sirSession = sirSession,
+                    )
+                } else {
+                    createSirClassFromKtSymbol(
+                        ktSymbol = ktSymbol,
+                        ktModule = ktModule,
+                        sirSession = sirSession,
+                    )
+                }
             }
             is KaConstructorSymbol -> {
                 SirInitFromKtSymbol(

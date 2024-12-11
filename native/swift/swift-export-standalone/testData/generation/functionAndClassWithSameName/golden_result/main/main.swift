@@ -4,6 +4,8 @@ import KotlinRuntime
 import dep
 import flattened
 
+public protocol InterfaceWithFactory: KotlinRuntime.KotlinBase {
+}
 public final class ClassWithFactoryWithoutParameters: KotlinRuntime.KotlinBase {
     public var value: Swift.Int32 {
         get {
@@ -90,13 +92,13 @@ public func enumWithFactory(
 ) -> main.EnumWithFactory {
     return main.EnumWithFactory(__externalRCRef: __root___EnumWithFactory__TypesOfArguments__Swift_Int32__(x))
 }
-public func interfaceWithFactory() -> Swift.Never {
-    fatalError()
+public func interfaceWithFactory() -> any main.InterfaceWithFactory {
+    return KotlinRuntime.KotlinBase(__externalRCRef: __root___InterfaceWithFactory()) as! any main.InterfaceWithFactory
 }
 public func interfaceWithFactory(
     arg: KotlinRuntime.KotlinBase
-) -> Swift.Never {
-    fatalError()
+) -> any main.InterfaceWithFactory {
+    return KotlinRuntime.KotlinBase(__externalRCRef: __root___InterfaceWithFactory__TypesOfArguments__KotlinRuntime_KotlinBase__(arg.__externalRCRef())) as! any main.InterfaceWithFactory
 }
 public func objectWithFactory() -> main.ObjectWithFactory {
     return main.ObjectWithFactory(__externalRCRef: __root___ObjectWithFactory())

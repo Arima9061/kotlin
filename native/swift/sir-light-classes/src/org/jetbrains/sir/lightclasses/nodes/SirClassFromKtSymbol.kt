@@ -8,7 +8,7 @@ package org.jetbrains.sir.lightclasses.nodes
 import org.jetbrains.kotlin.analysis.api.components.DefaultTypeClassIds
 import org.jetbrains.kotlin.analysis.api.projectStructure.KaModule
 import org.jetbrains.kotlin.analysis.api.symbols.*
-import org.jetbrains.kotlin.analysis.api.types.symbol
+import org.jetbrains.kotlin.analysis.api.types.KaClassType
 import org.jetbrains.kotlin.sir.*
 import org.jetbrains.kotlin.sir.builder.buildGetter
 import org.jetbrains.kotlin.sir.builder.buildInit
@@ -19,6 +19,8 @@ import org.jetbrains.kotlin.sir.providers.utils.KotlinRuntimeModule
 import org.jetbrains.kotlin.sir.providers.utils.containingModule
 import org.jetbrains.kotlin.sir.providers.utils.updateImport
 import org.jetbrains.kotlin.sir.util.SirSwiftModule
+import org.jetbrains.kotlin.utils.addToStdlib.firstIsInstanceOrNull
+import org.jetbrains.kotlin.utils.filterIsInstanceAnd
 import org.jetbrains.sir.lightclasses.SirFromKtSymbol
 import org.jetbrains.sir.lightclasses.extensions.documentation
 import org.jetbrains.sir.lightclasses.extensions.lazyWithSessions
@@ -55,24 +57,31 @@ private class SirClassFromKtSymbol(
     sirSession
 ) {
     override val superClass: SirType? by lazyWithSessions {
+        ktSymbol.superTypes.filterIsInstanceAnd<KaClassType> {
+            (it.symbol as? KaClassSymbol)?.let { it.classKind == KaClassKind.CLASS } == true && it.classId != DefaultTypeClassIds.ANY
+        }.firstOrNull()?.let {
+            it.symbol.sirDeclarations().firstIsInstanceOrNull<SirClass>()
+                ?.also { ktSymbol.containingModule.sirModule().updateImport(SirImport(it.containingModule().name)) }
+                ?.let { SirNominalType(it) }
+        } ?: let {
+            SirNominalType(KotlinRuntimeModule.kotlinBase).also {
+                ktSymbol.containingModule.sirModule().updateImport(SirImport(KotlinRuntimeModule.name))
+            }
+        }
+    }
+
+    override val protocols: List<SirProtocol> by lazyWithSessions {
         ktSymbol.superTypes
-            .mapNotNull { it.symbol as? KaClassSymbol }
-            .firstOrNull { it.classKind == KaClassKind.CLASS }
-            ?.let {
-                if (
-                    it.classId == DefaultTypeClassIds.ANY
-                ) {
-                    SirNominalType(KotlinRuntimeModule.kotlinBase).also {
-                        ktSymbol.containingModule.sirModule().updateImport(SirImport(KotlinRuntimeModule.name))
+            .filterIsInstance<KaClassType>().mapNotNull { it.expandedSymbol }.filter {
+                it.classKind == KaClassKind.INTERFACE
+            }.flatMap {
+                it.sirDeclarations().filterIsInstance<SirProtocol>().also {
+                    it.forEach {
+                        ktSymbol.containingModule.sirModule().updateImport(SirImport(it.containingModule().name))
                     }
-                } else {
-                    (it.sirDeclarations().firstOrNull() as? SirNamedDeclaration)
-                        ?.also { ktSymbol.containingModule.sirModule().updateImport(SirImport(it.containingModule().name)) }
-                        ?.let { SirNominalType(it) }
                 }
             }
     }
-    override val protocols: List<SirProtocol> = emptyList()
 }
 
 internal class SirEnumClassFromKtSymbol(

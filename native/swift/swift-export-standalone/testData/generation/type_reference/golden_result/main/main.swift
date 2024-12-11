@@ -2,6 +2,8 @@
 @_implementationOnly import KotlinBridges_main
 import KotlinRuntime
 
+public protocol INTERFACE: KotlinRuntime.KotlinBase {
+}
 open class ABSTRACT_CLASS: KotlinRuntime.KotlinBase {
     package override init() {
         fatalError()
@@ -366,6 +368,9 @@ public func produce_DATA_CLASS() -> main.DATA_CLASS {
 public func produce_DATA_OBJECT() -> ExportedKotlinPackages.namespace.deeper.DATA_OBJECT {
     return ExportedKotlinPackages.namespace.deeper.DATA_OBJECT(__externalRCRef: __root___produce_DATA_OBJECT())
 }
+public func produce_INTERFACE() -> any main.INTERFACE {
+    return KotlinRuntime.KotlinBase(__externalRCRef: __root___produce_INTERFACE()) as! any main.INTERFACE
+}
 public func produce_OPEN_CLASS() -> main.OPEN_CLASS {
     return main.OPEN_CLASS(__externalRCRef: __root___produce_OPEN_CLASS())
 }
@@ -390,6 +395,11 @@ public func receive_DATA_CLASS(
     x: main.DATA_CLASS
 ) -> Swift.Void {
     return __root___receive_DATA_CLASS__TypesOfArguments__main_DATA_CLASS__(x.__externalRCRef())
+}
+public func receive_INTERFACE(
+    x: any main.INTERFACE
+) -> Swift.Void {
+    return __root___receive_INTERFACE__TypesOfArguments__anyU20main_INTERFACE__(x.__externalRCRef())
 }
 public func recieve_DATA_OBJECT(
     x: ExportedKotlinPackages.namespace.deeper.DATA_OBJECT
@@ -556,9 +566,6 @@ public extension ExportedKotlinPackages.ignored {
     public static func produce_ENUM() -> ExportedKotlinPackages.ignored.ENUM {
         return ExportedKotlinPackages.ignored.ENUM(__externalRCRef: ignored_produce_ENUM())
     }
-    public static func produce_INTERFACE() -> Swift.Never {
-        fatalError()
-    }
     public static func produce_VALUE_CLASS() -> Swift.Never {
         fatalError()
     }
@@ -566,11 +573,6 @@ public extension ExportedKotlinPackages.ignored {
         x: ExportedKotlinPackages.ignored.ENUM
     ) -> Swift.Void {
         return ignored_receive_ENUM__TypesOfArguments__ExportedKotlinPackages_ignored_ENUM__(x.__externalRCRef())
-    }
-    public static func receive_INTERFACE(
-        x: Swift.Never
-    ) -> Swift.Void {
-        fatalError()
     }
     public static func receive_VALUE_CLASS(
         x: Swift.Never

@@ -13,8 +13,6 @@ class Foo {
         get() = Unit
 }
 
-interface MyInterface
-
 val Foo.extProp
     get() = Unit
 

@@ -91,7 +91,13 @@ public class SirVisibilityCheckerImpl(
 
     private fun KaNamedClassSymbol.isConsumableBySirBuilder(ktAnalysisSession: KaSession): Boolean =
         with(ktAnalysisSession) {
-            if (classKind != KaClassKind.CLASS && classKind != KaClassKind.OBJECT && classKind != KaClassKind.COMPANION_OBJECT && classKind != KaClassKind.ENUM_CLASS) {
+            if (
+                classKind != KaClassKind.CLASS &&
+                classKind != KaClassKind.OBJECT &&
+                classKind != KaClassKind.COMPANION_OBJECT &&
+                classKind != KaClassKind.ENUM_CLASS &&
+                classKind != KaClassKind.INTERFACE
+            ) {
                 unsupportedDeclarationReporter
                     .report(this@isConsumableBySirBuilder, "${classKind.name.lowercase()} classifiers are not supported yet.")
                 return@with false
