@@ -18,6 +18,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.tasks.Internal
+import org.jetbrains.kotlin.commonizer.CommonizerTarget
 import org.jetbrains.kotlin.gradle.internal.ClassLoadersCachingBuildService
 import org.jetbrains.kotlin.gradle.internal.properties.nativeProperties
 import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider.Companion.kotlinPropertiesProvider
@@ -28,6 +29,7 @@ import org.jetbrains.kotlin.gradle.targets.native.KonanPropertiesBuildService
 import org.jetbrains.kotlin.gradle.targets.native.internal.NativeDistributionCommonizerLock
 import org.jetbrains.kotlin.gradle.targets.native.internal.NativeDistributionTypeProvider
 import org.jetbrains.kotlin.gradle.targets.native.internal.PlatformLibrariesGenerator
+import org.jetbrains.kotlin.gradle.targets.native.internal.getNativeDistributionDependencies
 import org.jetbrains.kotlin.gradle.tasks.withType
 import org.jetbrains.kotlin.gradle.utils.SingleActionPerProject
 import org.jetbrains.kotlin.gradle.utils.property
@@ -131,6 +133,24 @@ internal abstract class KotlinNativeBundleBuildService : BuildService<KotlinNati
 
         project.setupKotlinNativePlatformLibraries(konanTargets)
     }
+
+    internal fun getNativeDistributionDependencies(
+        project: Project,
+//        task: Task,
+        commonizerTarget: CommonizerTarget,
+    ) = project.getNativeDistributionDependencies(commonizerTarget)//exclude dependecies
+//    tasks.withType<KotlinNativeLink>().configureEach { task ->
+//        @Suppress("DEPRECATION")
+//        val konanTarget = task.compilation.konanTarget
+//        task.excludeOriginalPlatformLibraries = task.project.getOriginalPlatformLibrariesFor(konanTarget)
+//    }
+//    tasks.withType<KotlinNativeCompile>().configureEach { task ->
+//        // metadata compilations should have commonized platform libraries in the classpath i.e. they are not "original"
+//        if (task.isMetadataCompilation) return@configureEach
+//        val konanTarget = task.konanTarget
+//        task.excludeOriginalPlatformLibraries = task.project.getOriginalPlatformLibrariesFor(konanTarget)
+//    }
+
 
     private fun processToolchain(
         bundleDir: File,
