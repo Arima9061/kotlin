@@ -16012,6 +16012,12 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
       @TestDataPath("$PROJECT_ROOT")
       public class Java {
         @Test
+        @TestMetadata("atomicTypes.kt")
+        public void testAtomicTypes() {
+          runTest("compiler/testData/diagnostics/tests/multiplatform/java/atomicTypes.kt");
+        }
+
+        @Test
         @TestMetadata("varPropertyAgainstJavaGetterAndNonFinalField.kt")
         public void testVarPropertyAgainstJavaGetterAndNonFinalField() {
           runTest("compiler/testData/diagnostics/tests/multiplatform/java/varPropertyAgainstJavaGetterAndNonFinalField.kt");
@@ -30711,6 +30717,12 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
         @TestMetadata("kotlinToJavaHierarchy.kt")
         public void testKotlinToJavaHierarchy() {
           runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/kotlinToJavaHierarchy.kt");
+        }
+
+        @Test
+        @TestMetadata("overrideWithRawType.kt")
+        public void testOverrideWithRawType() {
+          runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/overrideWithRawType.kt");
         }
       }
     }

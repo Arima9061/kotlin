@@ -35226,6 +35226,12 @@ public class FirBlackBoxCodegenTestWithInlineScopesGenerated extends AbstractFir
     @TestDataPath("$PROJECT_ROOT")
     public class CommonAtomicTypes {
       @Test
+      @TestMetadata("addedOverloadWithAtomics.kt")
+      public void testAddedOverloadWithAtomics() {
+        runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/addedOverloadWithAtomics.kt");
+      }
+
+      @Test
       public void testAllFilesPresentInCommonAtomicTypes() {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/javaInterop/commonAtomicTypes"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
       }
@@ -35252,6 +35258,12 @@ public class FirBlackBoxCodegenTestWithInlineScopesGenerated extends AbstractFir
       @TestMetadata("kotlinToJavaHierarchy.kt")
       public void testKotlinToJavaHierarchy() {
         runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/kotlinToJavaHierarchy.kt");
+      }
+
+      @Test
+      @TestMetadata("overloadsWithAtomics.kt")
+      public void testOverloadsWithAtomics() {
+        runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/overloadsWithAtomics.kt");
       }
 
       @Test

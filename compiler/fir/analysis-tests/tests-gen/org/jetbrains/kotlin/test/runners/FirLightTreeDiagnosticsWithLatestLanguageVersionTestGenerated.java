@@ -7565,6 +7565,12 @@ public class FirLightTreeDiagnosticsWithLatestLanguageVersionTestGenerated exten
         public void testKotlinToJavaHierarchy() {
           runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/kotlinToJavaHierarchy.kt");
         }
+
+        @Test
+        @TestMetadata("overrideWithRawType.kt")
+        public void testOverrideWithRawType() {
+          runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/overrideWithRawType.kt");
+        }
       }
     }
 

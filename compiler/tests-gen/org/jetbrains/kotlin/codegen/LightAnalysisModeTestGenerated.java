@@ -29824,6 +29824,11 @@ public class LightAnalysisModeTestGenerated extends AbstractLightAnalysisModeTes
         KotlinTestUtils.runTest(this::doTest, TargetBackend.JVM_IR, testDataFilePath);
       }
 
+      @TestMetadata("addedOverloadWithAtomics.kt")
+      public void testAddedOverloadWithAtomics() {
+        runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/addedOverloadWithAtomics.kt");
+      }
+
       public void testAllFilesPresentInCommonAtomicTypes() {
         KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/javaInterop/commonAtomicTypes"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
       }
@@ -29846,6 +29851,11 @@ public class LightAnalysisModeTestGenerated extends AbstractLightAnalysisModeTes
       @TestMetadata("kotlinToJavaHierarchy.kt")
       public void testKotlinToJavaHierarchy() {
         runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/kotlinToJavaHierarchy.kt");
+      }
+
+      @TestMetadata("overloadsWithAtomics.kt")
+      public void testOverloadsWithAtomics() {
+        runTest("compiler/testData/codegen/box/javaInterop/commonAtomicTypes/overloadsWithAtomics.kt");
       }
 
       @TestMetadata("usingJavaAtomicWhenKotlinAtomicExpected.kt")
