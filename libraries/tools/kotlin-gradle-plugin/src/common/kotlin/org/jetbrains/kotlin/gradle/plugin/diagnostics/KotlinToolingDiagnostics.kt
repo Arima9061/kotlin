@@ -7,7 +7,9 @@ package org.jetbrains.kotlin.gradle.plugin.diagnostics
 
 import org.gradle.api.Project
 import org.gradle.util.GradleVersion
-import org.jetbrains.kotlin.gradle.*
+import org.jetbrains.kotlin.gradle.InternalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.PRESETS_DEPRECATION_MESSAGE_SUFFIX
+import org.jetbrains.kotlin.gradle.plugin.mpp.uklibs.Uklib
 import org.jetbrains.kotlin.gradle.dsl.KotlinSourceSetConvention.isAccessedByKotlinSourceSetConventionAt
 import org.jetbrains.kotlin.gradle.internal.KOTLIN_BUILD_TOOLS_API_IMPL
 import org.jetbrains.kotlin.gradle.internal.KOTLIN_MODULE_GROUP
@@ -57,6 +59,30 @@ object KotlinToolingDiagnostics {
                 "Read the details here: $url"
             }
         }
+    }
+
+    object UklibFragmentFromUnexpectedTarget : ToolingDiagnosticFactory(ERROR) {
+        operator fun invoke(target: String) = build(
+            "Publication of ${Uklib.UKLIB_NAME} with $target is not supported",
+        )
+    }
+
+    data class UklibPublicationWithoutCrossCompilation(val severity: ToolingDiagnostic.Severity) : ToolingDiagnosticFactory(severity) {
+        fun get() = build(
+            "Publication of ${Uklib.UKLIB_NAME} without cross compilation will not work on non-macOS hosts. Please enable it by specifying ${PropertiesProvider.PropertyNames.KOTLIN_NATIVE_ENABLE_KLIBS_CROSSCOMPILATION}=true in gradle.properties",
+        )
+    }
+
+    object UklibPublicationWithCinterops : ToolingDiagnosticFactory(ERROR) {
+        operator fun invoke(target: String, interopName: String) = build(
+            "Publication of ${Uklib.UKLIB_NAME} with cinterops is not yet supported. Target $target declares cinterop $interopName",
+        )
+    }
+
+    object UklibSourceSetStructureUnderRefinementViolation : ToolingDiagnosticFactory(ERROR) {
+        operator fun invoke(sourceSet: KotlinSourceSet, shouldRefine: List<KotlinSourceSet>, actuallyRefines: List<KotlinSourceSet>) = build(
+            "Source set '${sourceSet}' should refine source sets ${shouldRefine}, but only refines source sets $actuallyRefines",
+        )
     }
 
     object DeprecatedKotlinNativeTargetsDiagnostic : ToolingDiagnosticFactory(ERROR) {
