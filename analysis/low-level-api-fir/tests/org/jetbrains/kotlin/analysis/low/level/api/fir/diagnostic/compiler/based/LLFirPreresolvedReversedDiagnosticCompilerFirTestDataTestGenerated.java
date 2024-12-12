@@ -7500,6 +7500,34 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFirTestDataTestGenerated 
       public void testUsingObject() {
         runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/UsingObject.kt");
       }
+
+      @Nested
+      @TestMetadata("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes")
+      @TestDataPath("$PROJECT_ROOT")
+      public class CommonAtomicTypes {
+        @Test
+        public void testAllFilesPresentInCommonAtomicTypes() {
+          KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes"), Pattern.compile("^([^.]+)\\.kt$"), null, true, "lightTree");
+        }
+
+        @Test
+        @TestMetadata("javaToKotlinHierarchy.kt")
+        public void testJavaToKotlinHierarchy() {
+          runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/javaToKotlinHierarchy.kt");
+        }
+
+        @Test
+        @TestMetadata("KJKHierarchy.kt")
+        public void testKJKHierarchy() {
+          runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/KJKHierarchy.kt");
+        }
+
+        @Test
+        @TestMetadata("kotlinToJavaHierarchy.kt")
+        public void testKotlinToJavaHierarchy() {
+          runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/j+k/commonAtomicTypes/kotlinToJavaHierarchy.kt");
+        }
+      }
     }
 
     @Nested
