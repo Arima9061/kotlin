@@ -31530,6 +31530,18 @@ public class FirBlackBoxCodegenTestWithInlineScopesGenerated extends AbstractFir
         public void testJvmOverloads() {
           runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/jvmOverloads.kt");
         }
+
+        @Test
+        @TestMetadata("jvmStatic.kt")
+        public void testJvmStatic() {
+          runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/jvmStatic.kt");
+        }
+
+        @Test
+        @TestMetadata("jvmSynthetic.kt")
+        public void testJvmSynthetic() {
+          runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/jvmSynthetic.kt");
+        }
       }
 
       @Nested

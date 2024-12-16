@@ -20,6 +20,7 @@ import org.jetbrains.kotlin.ir.types.classOrNull
 import org.jetbrains.kotlin.ir.types.isInt
 import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.name.JvmStandardClassIds.JVM_EXPOSE_BOXED_ANNOTATION_FQ_NAME
+import org.jetbrains.kotlin.resolve.jvm.annotations.JVM_SYNTHETIC_ANNOTATION_FQ_NAME
 import org.jetbrains.kotlin.storage.LockBasedStorageManager
 import org.jetbrains.kotlin.utils.addToStdlib.getOrSetIfNull
 
@@ -155,7 +156,16 @@ fun List<IrConstructorCall>.withoutJvmExposeBoxedAnnotation(): List<IrConstructo
     }
 
 fun List<IrConstructorCall>.withJvmExposeBoxedAnnotation(declaration: IrDeclaration): List<IrConstructorCall> {
-    if (hasAnnotation(JVM_EXPOSE_BOXED_ANNOTATION_FQ_NAME)) return this
+    // @JvmExposeBoxed contradicts @JvmSynthetic, so keep it on mangled declaration only
+    fun List<IrConstructorCall>.withoutJvmSyntheticAnnotation(): List<IrConstructorCall> {
+        return this.toMutableList().apply {
+            removeAll {
+                it.symbol.owner.returnType.classOrNull?.owner?.hasEqualFqName(JVM_SYNTHETIC_ANNOTATION_FQ_NAME) == true
+            }
+        }
+    }
+
+    if (hasAnnotation(JVM_EXPOSE_BOXED_ANNOTATION_FQ_NAME)) return withoutJvmSyntheticAnnotation()
     val annotationToCopy = declaration.findJvmExposeBoxedAnnotation() ?: return this
-    return this + annotationToCopy
+    return this.withoutJvmSyntheticAnnotation() + annotationToCopy
 }
