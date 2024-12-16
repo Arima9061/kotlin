@@ -10,12 +10,14 @@ import org.jetbrains.kotlin.gradle.InternalKotlinGradlePluginApi
 @InternalKotlinGradlePluginApi // used in integration tests
 abstract class ToolingDiagnosticFactory(
     private val predefinedSeverity: ToolingDiagnostic.Severity? = null,
+    private val predefinedGroup: DiagnosticGroup? = null,
     customId: String? = null,
 ) {
     open val id: String = customId ?: this::class.simpleName!!
 
     protected fun build(
         severity: ToolingDiagnostic.Severity? = null,
+        group: DiagnosticGroup? = null,
         throwable: Throwable? = null,
         builder: ToolingDiagnosticBuilder.() -> Unit,
     ) = ToolingDiagnosticBuilderImp().apply(builder).let { diagnosticBuilder ->
@@ -31,8 +33,20 @@ abstract class ToolingDiagnosticFactory(
             )
         }
 
+        val finalGroup = group ?: predefinedGroup ?: error(
+            "Can't determine group. Either provide it in constructor of ToolingDiagnosticFactory," +
+                    " or in the 'build'-function invocation"
+        )
+
+        if (group != null && predefinedGroup != null) {
+            error(
+                "Please provide group either in ToolingDiagnosticFactory constructor, or as the 'build'-function parameter," +
+                        " but not both at once"
+            )
+        }
+
         ToolingDiagnostic(
-            identifier = ToolingDiagnostic.ID(id, diagnosticBuilder.name),
+            identifier = ToolingDiagnostic.ID(id, diagnosticBuilder.name, finalGroup),
             message = diagnosticBuilder.message,
             severity = finalSeverity,
             solutions = diagnosticBuilder.solutions,
@@ -42,6 +56,12 @@ abstract class ToolingDiagnosticFactory(
     }
 }
 
+/**
+ * Interface for building tooling diagnostics in the Kotlin Gradle Plugin.
+ *
+ * This builder provides methods to set various attributes of a tooling diagnostic,
+ * including its name, message, solutions, and documentation.
+ */
 interface ToolingDiagnosticBuilder {
     fun name(string: () -> String)
     fun message(string: () -> String)
