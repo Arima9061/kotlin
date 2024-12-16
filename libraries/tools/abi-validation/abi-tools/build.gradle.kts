@@ -6,6 +6,12 @@ kotlin {
     explicitApi()
 }
 
+publish()
+
+standardPublicJars()
+
+configureKotlinCompileTasksGradleCompatibility()
+
 sourceSets.named("test") {
     java.srcDir("src/test/kotlin")
 }

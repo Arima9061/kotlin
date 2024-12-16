@@ -6,6 +6,12 @@ kotlin {
     explicitApi()
 }
 
+configureKotlinCompileTasksGradleCompatibility()
+
+publish()
+
+standardPublicJars()
+
 dependencies {
     compileOnly(kotlinStdlib())
 
