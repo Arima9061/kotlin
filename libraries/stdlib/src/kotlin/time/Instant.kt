@@ -400,7 +400,8 @@ public class Instant internal constructor(
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public val Instant.isDistantPast: Boolean
+@kotlin.internal.InlineOnly
+public inline val Instant.isDistantPast: Boolean
     get() = this <= Instant.DISTANT_PAST
 
 /**
@@ -410,7 +411,8 @@ public val Instant.isDistantPast: Boolean
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public val Instant.isDistantFuture: Boolean
+@kotlin.internal.InlineOnly
+public inline val Instant.isDistantFuture: Boolean
     get() = this >= Instant.DISTANT_FUTURE
 
 // internal utilities
