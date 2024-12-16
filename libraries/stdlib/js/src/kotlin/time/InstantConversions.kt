@@ -15,11 +15,13 @@ import kotlin.js.Date
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public fun Instant.toJSDate(): Date = Date(milliseconds = toEpochMilliseconds().toDouble())
+@kotlin.internal.InlineOnly
+public inline fun Instant.toJSDate(): Date = Date(milliseconds = toEpochMilliseconds().toDouble())
 
 /**
  * Converts the JS [Date] to the corresponding [Instant].
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public fun Date.toKotlinInstant(): Instant = Instant.fromEpochMilliseconds(getTime().toLong())
+@kotlin.internal.InlineOnly
+public inline fun Date.toKotlinInstant(): Instant = Instant.fromEpochMilliseconds(getTime().toLong())

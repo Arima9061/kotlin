@@ -14,7 +14,8 @@ package kotlin.time
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public fun Instant.toJavaInstant(): java.time.Instant =
+@kotlin.internal.InlineOnly
+public inline fun Instant.toJavaInstant(): java.time.Instant =
     java.time.Instant.ofEpochSecond(epochSeconds, nanosecondsOfSecond.toLong())
 
 /**
@@ -22,5 +23,6 @@ public fun Instant.toJavaInstant(): java.time.Instant =
  */
 @SinceKotlin("2.1")
 @ExperimentalTime
-public fun java.time.Instant.toKotlinInstant(): Instant =
+@kotlin.internal.InlineOnly
+public inline fun java.time.Instant.toKotlinInstant(): Instant =
     Instant.fromEpochSeconds(epochSecond, nano)
