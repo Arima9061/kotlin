@@ -27,7 +27,6 @@ import org.jetbrains.kotlin.ir.visitors.acceptVoid
 import org.jetbrains.kotlin.name.parentOrNull
 import org.jetbrains.kotlin.wasm.ir.*
 import org.jetbrains.kotlin.wasm.ir.source.location.SourceLocation
-import kotlin.contracts.contract
 
 class DeclarationGenerator(
     private val backendContext: WasmBackendContext,
@@ -87,6 +86,18 @@ class DeclarationGenerator(
             )
         wasmFileCodegenContext.defineFunctionType(declaration.symbol, wasmFunctionType)
 
+        val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(declaration)
+        val stdlibFunName: String?
+        if (!backendContext.emitFunctionsAsUsual) {
+            if (backendContext.importFunctions!!.contains(signature)) {
+                stdlibFunName = signature.toString()
+            } else {
+                return
+            }
+        } else {
+            stdlibFunName = null
+        }
+
         if (declaration is IrSimpleFunction && declaration.modality == Modality.ABSTRACT) {
             return
         }
@@ -96,12 +107,6 @@ class DeclarationGenerator(
         }
 
         val functionTypeSymbol = wasmFileCodegenContext.referenceFunctionType(declaration.symbol)
-
-        val stdlibFunName = if (declaration.fileOrNull?.name != "parallelHierarchy.kt" && declaration.origin != KOTLIN_TO_JS_CLOSURE_ORIGIN) {
-                (backendContext.irFactory as IdSignatureRetriever)
-                    .declarationSignature(declaration)!!
-                    .toString()
-            } else null
 
         val wasmImportModule = declaration.getWasmImportDescriptor()
         val jsCode = declaration.getJsFunAnnotation()
@@ -230,6 +235,8 @@ class DeclarationGenerator(
         )
         wasmFileCodegenContext.defineVTableGcType(metadata.klass.symbol, vtableStruct)
 
+        if (!backendContext.emitFunctionsAsUsual) return
+
         if (klass.isAbstractOrSealed) return
 
         val vTableTypeReference = wasmFileCodegenContext.referenceVTableGcType(symbol)
@@ -275,6 +282,8 @@ class DeclarationGenerator(
         val klass = metadata.klass
         if (klass.isAbstractOrSealed) return
         if (!klass.hasInterfaceSuperClass()) return
+
+        if (!backendContext.emitFunctionsAsUsual) return
 
         fun addInterfaceMethods(builder: WasmExpressionBuilder, iFace: IrClass, onlyFunction: IrFunction?) = with(builder) {
             for (method in wasmModuleMetadataCache.getInterfaceMetadata(iFace.symbol).methods) {
@@ -402,7 +411,9 @@ class DeclarationGenerator(
                 isFinal = declaration.modality == Modality.FINAL
             )
             wasmFileCodegenContext.defineGcType(symbol, structType)
-            wasmFileCodegenContext.generateTypeInfo(symbol, binaryDataStruct(metadata))
+            if (backendContext.emitFunctionsAsUsual) {
+                wasmFileCodegenContext.generateTypeInfo(symbol, binaryDataStruct(metadata))
+            }
         }
 
         for (member in declaration.declarations) {
@@ -478,6 +489,8 @@ class DeclarationGenerator(
     override fun visitField(declaration: IrField) {
         // Member fields are generated as part of struct type
         if (!declaration.isStatic) return
+
+        if (!backendContext.emitFunctionsAsUsual) return
 
         val wasmType = wasmModuleTypeTransformer.transformType(declaration.type)
 
