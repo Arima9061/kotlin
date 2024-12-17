@@ -634,6 +634,12 @@ fun ConeKotlinType.isSubtypeOf(superType: ConeKotlinType, session: FirSession, e
         this, superType,
     )
 
+fun ConeKotlinType.equalTypes(superType: ConeKotlinType, session: FirSession, errorTypesEqualToAnything: Boolean = false): Boolean =
+    AbstractTypeChecker.equalTypes(
+        session.typeContext.newTypeCheckerState(errorTypesEqualToAnything, stubTypesEqualToAnything = false),
+        this, superType,
+    )
+
 fun FirCallableDeclaration.isSubtypeOf(
     other: FirCallableDeclaration,
     typeCheckerContext: TypeCheckerState

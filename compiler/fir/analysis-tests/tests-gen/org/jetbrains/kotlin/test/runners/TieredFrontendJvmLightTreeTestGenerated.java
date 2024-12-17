@@ -23329,12 +23329,6 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
       }
 
       @Test
-      @TestMetadata("callableReferenceWithTypeAliasToObjectLHSOriginal.kt")
-      public void testCallableReferenceWithTypeAliasToObjectLHSOriginal() {
-        runTest("compiler/testData/diagnostics/tests/typealias/callableReferenceWithTypeAliasToObjectLHSOriginal.kt");
-      }
-
-      @Test
       @TestMetadata("capturingTypeParametersFromOuterClass.kt")
       public void testCapturingTypeParametersFromOuterClass() {
         runTest("compiler/testData/diagnostics/tests/typealias/capturingTypeParametersFromOuterClass.kt");
