@@ -297,7 +297,7 @@ fun generateAsyncJsWrapper(
     //language=js
     val pathJsStringLiteral = wasmFilePath.toJsStringLiteral()
     return """
-export async function instantiate(imports={}, runInitializer=true) {
+export async function stdlib(imports={}, runInitializer=true) {
     const cachedJsObjects = new WeakMap();
     // ref must be non-null
     function getCachedJsObject(ref, ifNotCached) {
@@ -333,12 +333,13 @@ $jsCodeBodyIndented
       throw "Supported JS engine not detected";
     }
     
-    const wasmFilePath = $pathJsStringLiteral;
+    const wasmFilePath = "./stdlib.wasm";
     const importObject = {
         js_code,
         intrinsics: {
             ${if (useJsTag) "js_error_tag: WebAssembly.JSTag" else ""}
         },
+        stdlib: imports,
 $imports
     };
     

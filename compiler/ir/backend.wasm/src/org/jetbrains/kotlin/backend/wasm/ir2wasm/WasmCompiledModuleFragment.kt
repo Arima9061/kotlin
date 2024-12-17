@@ -270,11 +270,12 @@ class WasmCompiledModuleFragment(
         val mixInIndexesForGroups = mutableMapOf<Hash128Bits, Int>()
         val groupsWithMixIns = mutableListOf<RecursiveTypeGroup>()
         recursiveGroups.mapTo(groupsWithMixIns) { group ->
-            if (group.all { it !in vTablesAndGcTypes }) {
-                group
-            } else {
-                addMixInGroup(group, mixInIndexesForGroups)
-            }
+            group
+//            if (group.all { it !in vTablesAndGcTypes }) {
+//                group
+//            } else {
+//                addMixInGroup(group, mixInIndexesForGroups)
+//            }
         }
 
         groupsWithMixIns.add(additionalTypes)

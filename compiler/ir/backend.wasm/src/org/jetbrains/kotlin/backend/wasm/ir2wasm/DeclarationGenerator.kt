@@ -6,6 +6,7 @@
 package org.jetbrains.kotlin.backend.wasm.ir2wasm
 
 import org.jetbrains.kotlin.backend.wasm.WasmBackendContext
+import org.jetbrains.kotlin.backend.wasm.lower.KOTLIN_TO_JS_CLOSURE_ORIGIN
 import org.jetbrains.kotlin.backend.wasm.utils.*
 import org.jetbrains.kotlin.config.AnalysisFlags.allowFullyQualifiedNameInKClass
 import org.jetbrains.kotlin.config.languageVersionSettings
@@ -95,6 +96,12 @@ class DeclarationGenerator(
 
         val functionTypeSymbol = wasmFileCodegenContext.referenceFunctionType(declaration.symbol)
 
+        val stdlibFunName = if (declaration.fileOrNull?.name != "parallelHierarchy.kt" && declaration.origin != KOTLIN_TO_JS_CLOSURE_ORIGIN) {
+                (backendContext.irFactory as IdSignatureRetriever)
+                    .declarationSignature(declaration)!!
+                    .toString()
+            } else null
+
         val wasmImportModule = declaration.getWasmImportDescriptor()
         val jsCode = declaration.getJsFunAnnotation()
         val importedName = when {
@@ -115,12 +122,23 @@ class DeclarationGenerator(
             }
         }
         if (importedName != null) {
+            val function = WasmFunction.Imported(watName, functionTypeSymbol, importedName)
             // Imported functions don't have bodies. Declaring the signature:
             wasmFileCodegenContext.defineFunction(
                 declaration.symbol,
-                WasmFunction.Imported(watName, functionTypeSymbol, importedName)
+                function
             )
             // TODO: Support re-export of imported functions.
+
+            if (stdlibFunName != null) {
+                wasmFileCodegenContext.addExport(
+                    WasmExport.Function(
+                        field = function,
+                        name = stdlibFunName
+                    )
+                )
+            }
+
             return
         }
 
@@ -170,6 +188,8 @@ class DeclarationGenerator(
         wasmFileCodegenContext.defineFunction(declaration.symbol, function)
 
         val nameIfExported = when {
+            stdlibFunName != null -> stdlibFunName
+            declaration.fileOrNull?.name == "" -> ""
             declaration.isJsExport() -> declaration.getJsNameOrKotlinName().identifier
             else -> declaration.getWasmExportNameIfWasmExport()
         }
