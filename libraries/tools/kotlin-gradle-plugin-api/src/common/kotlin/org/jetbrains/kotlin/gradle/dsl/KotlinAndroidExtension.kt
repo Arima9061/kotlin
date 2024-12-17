@@ -5,6 +5,9 @@
 
 package org.jetbrains.kotlin.gradle.dsl
 
+import org.gradle.api.Action
+import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationExtension
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 
@@ -29,4 +32,22 @@ interface KotlinAndroidExtension : KotlinBaseExtension,
      * An instance of [KotlinTarget] for [KotlinPlatformType.androidJvm] platform.
      */
     val target: KotlinTarget
+
+    /**
+     * Sets up ABI Validation.
+     *
+     * @since 2.1.20
+     */
+    @ExperimentalAbiValidation
+    val abiValidation: AbiValidationExtension
+
+    /**
+     * Sets up ABI Validation.
+     *
+     * @since 2.1.20
+     */
+    @ExperimentalAbiValidation
+    fun abiValidation(action: Action<AbiValidationExtension>) {
+        action.execute(abiValidation)
+    }
 }

@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.gradle.artifacts.*
 import org.jetbrains.kotlin.gradle.dsl.*
 import org.jetbrains.kotlin.gradle.internal.CustomizeKotlinDependenciesSetupAction
 import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider.Companion.kotlinPropertiesProvider
+import org.jetbrains.kotlin.gradle.plugin.abi.AbiValidationAction
 import org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinGradleProjectChecker
 import org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsSetupAction
 import org.jetbrains.kotlin.gradle.plugin.diagnostics.checkers.*
@@ -60,6 +61,7 @@ internal fun Project.registerKotlinPluginExtensions() {
         register(project, AddKotlinPlatformIntegersSupportLibrary)
         register(project, SetupKotlinNativeStdlibAndPlatformDependenciesImport)
         register(project, FinalizeConfigurationFusMetricAction)
+        register(project, AbiValidationAction)
 
 
         if (isJvm || isMultiplatform) {

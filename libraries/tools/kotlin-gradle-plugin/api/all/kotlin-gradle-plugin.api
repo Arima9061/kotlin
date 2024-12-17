@@ -146,8 +146,10 @@ public final class org/jetbrains/kotlin/gradle/dsl/DeprecatedKotlinTargetHierarc
 
 public abstract class org/jetbrains/kotlin/gradle/dsl/KotlinAndroidProjectExtension : org/jetbrains/kotlin/gradle/dsl/KotlinSingleTargetExtension, org/jetbrains/kotlin/gradle/dsl/KotlinAndroidExtension {
 	public fun <init> (Lorg/gradle/api/Project;)V
+	public fun abiValidation (Lorg/gradle/api/Action;)V
 	public fun compilerOptions (Lkotlin/jvm/functions/Function1;)V
 	public fun compilerOptions (Lorg/gradle/api/Action;)V
+	public fun getAbiValidation ()Lorg/jetbrains/kotlin/gradle/dsl/abi/AbiValidationExtension;
 	public synthetic fun getCompilerOptions ()Lorg/jetbrains/kotlin/gradle/dsl/KotlinCommonCompilerOptions;
 	public fun getCompilerOptions ()Lorg/jetbrains/kotlin/gradle/dsl/KotlinJvmCompilerOptions;
 	public synthetic fun getTarget ()Lorg/jetbrains/kotlin/gradle/plugin/KotlinTarget;
@@ -230,8 +232,10 @@ public final class org/jetbrains/kotlin/gradle/dsl/KotlinJvmCompile$DefaultImpls
 
 public abstract class org/jetbrains/kotlin/gradle/dsl/KotlinJvmProjectExtension : org/jetbrains/kotlin/gradle/dsl/KotlinSingleJavaTargetExtension, org/jetbrains/kotlin/gradle/dsl/KotlinJvmExtension {
 	public fun <init> (Lorg/gradle/api/Project;)V
+	public fun abiValidation (Lorg/gradle/api/Action;)V
 	public fun compilerOptions (Lkotlin/jvm/functions/Function1;)V
 	public fun compilerOptions (Lorg/gradle/api/Action;)V
+	public fun getAbiValidation ()Lorg/jetbrains/kotlin/gradle/dsl/abi/AbiValidationExtension;
 	public synthetic fun getCompilerOptions ()Lorg/jetbrains/kotlin/gradle/dsl/KotlinCommonCompilerOptions;
 	public fun getCompilerOptions ()Lorg/jetbrains/kotlin/gradle/dsl/KotlinJvmCompilerOptions;
 	public synthetic fun getTarget ()Lorg/jetbrains/kotlin/gradle/plugin/KotlinTarget;

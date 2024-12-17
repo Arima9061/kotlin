@@ -1,4 +1,5 @@
 public abstract class org/jetbrains/kotlin/gradle/dsl/KotlinMultiplatformExtension : org/jetbrains/kotlin/gradle/dsl/KotlinProjectExtension, org/jetbrains/kotlin/gradle/dsl/HasConfigurableKotlinCompilerOptions, org/jetbrains/kotlin/gradle/dsl/KotlinHierarchyDsl, org/jetbrains/kotlin/gradle/dsl/KotlinMultiplatformSourceSetConventions, org/jetbrains/kotlin/gradle/dsl/KotlinTargetContainerWithJsPresetFunctions, org/jetbrains/kotlin/gradle/dsl/KotlinTargetContainerWithNativeShortcuts, org/jetbrains/kotlin/gradle/dsl/KotlinTargetContainerWithPresetFunctions, org/jetbrains/kotlin/gradle/dsl/KotlinTargetContainerWithWasmPresetFunctions {
+	public final fun abiValidation (Lorg/gradle/api/Action;)V
 	public fun android ()Lorg/jetbrains/kotlin/gradle/plugin/mpp/KotlinAndroidTarget;
 	public fun android (Ljava/lang/String;)Lorg/jetbrains/kotlin/gradle/plugin/mpp/KotlinAndroidTarget;
 	public fun android (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/gradle/plugin/mpp/KotlinAndroidTarget;
@@ -37,6 +38,7 @@ public abstract class org/jetbrains/kotlin/gradle/dsl/KotlinMultiplatformExtensi
 	public fun compilerOptions (Lkotlin/jvm/functions/Function1;)V
 	public fun compilerOptions (Lorg/gradle/api/Action;)V
 	public fun dependencies (Lorg/gradle/api/NamedDomainObjectProvider;Lkotlin/jvm/functions/Function1;)V
+	public final fun getAbiValidation ()Lorg/jetbrains/kotlin/gradle/dsl/abi/AbiValidationMultiplatformExtension;
 	public fun getAndroidInstrumentedTest (Lorg/gradle/api/NamedDomainObjectContainer;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public fun getAndroidMain (Lorg/gradle/api/NamedDomainObjectContainer;)Lorg/gradle/api/NamedDomainObjectProvider;
 	public fun getAndroidNativeArm32Main (Lorg/gradle/api/NamedDomainObjectContainer;)Lorg/gradle/api/NamedDomainObjectProvider;
