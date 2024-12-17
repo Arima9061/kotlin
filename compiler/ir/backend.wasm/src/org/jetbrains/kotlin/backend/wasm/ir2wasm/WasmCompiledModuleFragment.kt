@@ -270,11 +270,12 @@ class WasmCompiledModuleFragment(
         val mixInIndexesForGroups = mutableMapOf<Hash128Bits, Int>()
         val groupsWithMixIns = mutableListOf<RecursiveTypeGroup>()
         recursiveGroups.mapTo(groupsWithMixIns) { group ->
-            if (group.all { it !in vTablesAndGcTypes }) {
-                group
-            } else {
-                addMixInGroup(group, mixInIndexesForGroups)
-            }
+            group
+//            if (group.all { it !in vTablesAndGcTypes }) {
+//                group
+//            } else {
+//                addMixInGroup(group, mixInIndexesForGroups)
+//            }
         }
 
         groupsWithMixIns.add(additionalTypes)
@@ -405,10 +406,10 @@ class WasmCompiledModuleFragment(
                     }
                 }
             }
-            stringPoolInitializer?.let {
-                expression.add(0, WasmInstrWithoutLocation(WasmOp.GLOBAL_SET, listOf(WasmImmediate.GlobalIdx(it.second))))
-                expression.addAll(0, it.first.instructions)
-            } ?: compilationException("stringPool initializer not found!", type = null)
+//            stringPoolInitializer?.let {
+//                expression.add(0, WasmInstrWithoutLocation(WasmOp.GLOBAL_SET, listOf(WasmImmediate.GlobalIdx(it.second))))
+//                expression.addAll(0, it.first.instructions)
+//            } ?: compilationException("stringPool initializer not found!", type = null)
         }
         return fieldInitializerFunction
     }

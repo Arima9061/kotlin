@@ -374,5 +374,5 @@ enum class DeserializationStrategy(
     ALL(false, true, true, true, true),
     EXPLICITLY_EXPORTED(false, true, true, false, true),
     ONLY_DECLARATION_HEADERS(false, false, false, false, false),
-    WITH_INLINE_BODIES(false, false, false, false, true)
+    WITH_INLINE_BODIES(false, false, false, false, true),
 }

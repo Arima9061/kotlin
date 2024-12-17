@@ -20,3 +20,6 @@ package kotlin
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(AnnotationRetention.BINARY)
 public annotation class JsFun(val code: String)
+
+public fun getOK(): String = "OK"
+public fun getFAIL(): String = "FAIL"

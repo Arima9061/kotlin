@@ -149,13 +149,18 @@ fun deserializeDependencies(
 ): Map<IrModuleFragment, KotlinLibrary> {
     return sortedDependencies.associateBy { klib ->
         val descriptor = mapping(klib)
-        when {
-            mainModuleLib == null -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.EXPLICITLY_EXPORTED })
-            filesToLoad != null && klib == mainModuleLib -> irLinker.deserializeDirtyFiles(descriptor, klib, filesToLoad)
-            filesToLoad != null && klib != mainModuleLib -> irLinker.deserializeHeadersWithInlineBodies(descriptor, klib)
-            klib == mainModuleLib -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.ALL })
-            else -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.EXPLICITLY_EXPORTED })
-        }
+        irLinker.deserializeIrModuleHeader(descriptor, klib, {
+            if (it.contains("parallelHierarchy.kt")) DeserializationStrategy.ALL
+            else DeserializationStrategy.WITH_INLINE_BODIES
+        })
+
+//        when {
+//            mainModuleLib == null -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.EXPLICITLY_EXPORTED })
+//            filesToLoad != null && klib == mainModuleLib -> irLinker.deserializeDirtyFiles(descriptor, klib, filesToLoad)
+//            filesToLoad != null && klib != mainModuleLib -> irLinker.deserializeHeadersWithInlineBodies(descriptor, klib)
+//            klib == mainModuleLib -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.WITH_INLINE_BODIES })
+//            else -> irLinker.deserializeIrModuleHeader(descriptor, klib, { DeserializationStrategy.WITH_INLINE_BODIES })
+//        }
     }
 }
 

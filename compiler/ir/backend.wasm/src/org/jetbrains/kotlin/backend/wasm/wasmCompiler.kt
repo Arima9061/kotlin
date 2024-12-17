@@ -339,6 +339,7 @@ $jsCodeBodyIndented
         intrinsics: {
             ${if (useJsTag) "js_error_tag: WebAssembly.JSTag" else ""}
         },
+        stdlib: imports,
 $imports
     };
     
