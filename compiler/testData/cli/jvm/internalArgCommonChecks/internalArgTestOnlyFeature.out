@@ -7,5 +7,5 @@ This mode is not recommended for production use,
 as no stability/compatibility guarantees are given on
 compiler or generated code. Use it at your own risk!
 
-warning: language feature 'IntrinsicConstEvaluation' is test-only and cannot be enabled from command line
+error: language feature 'IntrinsicConstEvaluation' is test-only and cannot be enabled from command line
 OK
