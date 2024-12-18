@@ -114,7 +114,7 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
                                        }).apply {
                                            val functionParameters = irFunction.parameters
                                            functionParameters.forEachIndexed { index, argument ->
-                                               putValueArgument(index, irGet(argument))
+                                               arguments[index] = irGet(argument)
                                            }
                                            putValueArgument(
                                                functionParameters.size,
