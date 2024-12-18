@@ -261,7 +261,7 @@ abstract class AbstractValueUsageTransformer(
     override fun visitFunction(declaration: IrFunction): IrStatement {
         declaration.transformChildrenVoid(this)
 
-        declaration.valueParameters.forEach { parameter ->
+        declaration.parameters.forEach { parameter ->
             val defaultValue = parameter.defaultValue
             if (defaultValue is IrExpressionBody) {
                 defaultValue.expression = defaultValue.expression.useAsArgument(parameter)
