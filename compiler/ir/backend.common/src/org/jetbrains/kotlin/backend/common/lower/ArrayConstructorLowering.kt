@@ -74,7 +74,7 @@ private class ArrayConstructorTransformer(
             val sizeVar = createTmpVariable(size)
             val result = createTmpVariable(irCall(sizeConstructor, expression.type).apply {
                 copyTypeArgumentsFrom(expression)
-                putValueArgument(0, irGet(sizeVar))
+                arguments[0] = irGet(sizeVar)
             })
 
             val generator = invokable.asInlinable(this)
