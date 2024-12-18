@@ -5,6 +5,7 @@
 
 package org.jetbrains.kotlin.analysis.decompiled.light.classes
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.openapi.vfs.VirtualFile
@@ -159,6 +160,16 @@ object DecompiledLightClassesFactory {
             override fun isPhysical() = false
         }
         javaFileStub.psi = fakeFile
+        DecompiledClassCustomization.getInstance()?.customizeFakeClsFile(fakeFile, mirrorFile)
         return fakeFile.classes.single() as ClsClassImpl
+    }
+}
+
+open class DecompiledClassCustomization {
+    open fun customizeFakeClsFile(fakeFile: ClsFileImpl, originalKtFile: KtFile) {}
+
+    companion object {
+        fun getInstance(): DecompiledClassCustomization? =
+            ApplicationManager.getApplication().getService(DecompiledClassCustomization::class.java)
     }
 }
