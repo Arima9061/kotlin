@@ -7,7 +7,7 @@ package org.jetbrains.kotlin.gradle.plugin.diagnostics
 
 import org.jetbrains.kotlin.konan.target.HostManager
 
-object TerminalColorSupport {
+internal object TerminalColorSupport {
     /**
      * Enum representing various types of terminal environments.
      *
@@ -19,7 +19,7 @@ object TerminalColorSupport {
      * - `UNIX_LIKE`: Represents Unix-like terminal environments including Linux, macOS, and other Unix-based systems.
      * - `UNKNOWN`: Represents an unrecognized or unsupported terminal environment.
      */
-    enum class TerminalType {
+    private enum class TerminalType {
         WINDOWS_CMD,
         WINDOWS_POWERSHELL,
         UNIX_LIKE,
@@ -38,9 +38,10 @@ object TerminalColorSupport {
         else -> TerminalType.UNKNOWN
     }
 
-    private fun supportsColor() = when (detectTerminalType()) {
-        TerminalType.WINDOWS_CMD -> false // No native ANSI support
-        TerminalType.WINDOWS_POWERSHELL -> true // Supports ANSI from PS 6.0+
+    // Single source of truth for color support
+    private val isColorSupported = when (detectTerminalType()) {
+        TerminalType.WINDOWS_CMD -> false
+        TerminalType.WINDOWS_POWERSHELL -> true
         TerminalType.UNIX_LIKE -> true
         TerminalType.UNKNOWN -> false
     }
@@ -53,26 +54,35 @@ object TerminalColorSupport {
      * The object is designed to simplify the process of formatting text for terminal output.
      * Reset codes are automatically appended after applying styles to ensure proper formatting.
      */
-    object TerminalStyle {
-        // ANSI color and style constants
-        private const val RESET = "\u001B[0m"
-        private const val YELLOW = "\u001B[33m"
-        private const val GREEN = "\u001B[32m"
-        private const val BOLD = "\u001B[1m"
-        private const val ITALIC = "\u001B[3m"
-        private const val RED = "\u001B[31m"
-        private const val BLUE = "\u001B[34m"
-        private const val LIGHT_BLUE = "\u001B[36m"
-        private const val ORANGE = "\u001B[38;5;214m"
+    internal object TerminalStyle {
+        // Style definitions
+        sealed class Style(private val code: String) {
+            operator fun invoke(text: String, apply: Boolean = true): String =
+                if (isColorSupported && apply) "$code$text$RESET" else text
 
-        // Convenience extension functions for styling
-        fun String.bold() = if (supportsColor()) "$BOLD$this$RESET" else ""
-        fun String.italic() = if (supportsColor()) "$ITALIC$this$RESET" else ""
-        fun String.yellow() = if (supportsColor()) "$YELLOW$this$RESET" else ""
-        fun String.green() = if (supportsColor()) "$GREEN$this$RESET" else ""
-        fun String.red() = if (supportsColor()) "$RED$this$RESET" else ""
-        fun String.blue() = if (supportsColor()) "$BLUE$this$RESET" else ""
-        fun String.lightBlue() = if (supportsColor()) "$LIGHT_BLUE$this$RESET" else ""
-        fun String.orange() = if (supportsColor()) "$ORANGE$this$RESET" else ""
+            companion object {
+                private const val RESET = "\u001B[0m"
+            }
+        }
+
+        // Style objects
+        object Bold : Style("\u001B[1m")
+        object Italic : Style("\u001B[3m")
+        object Yellow : Style("\u001B[33m")
+        object Green : Style("\u001B[32m")
+        object Red : Style("\u001B[31m")
+        object Blue : Style("\u001B[34m")
+        object LightBlue : Style("\u001B[36m")
+        object Orange : Style("\u001B[38;5;214m")
+
+        // Extension functions using style objects
+        fun String.bold(apply: Boolean = true) = Bold(this, apply)
+        fun String.italic(apply: Boolean = true) = Italic(this, apply)
+        fun String.yellow(apply: Boolean = true) = Yellow(this, apply)
+        fun String.green(apply: Boolean = true) = Green(this, apply)
+        fun String.red(apply: Boolean = true) = Red(this, apply)
+        fun String.blue(apply: Boolean = true) = Blue(this, apply)
+        fun String.lightBlue(apply: Boolean = true) = LightBlue(this, apply)
+        fun String.orange(apply: Boolean = true) = Orange(this, apply)
     }
 }

@@ -20,7 +20,7 @@ import org.jetbrains.kotlin.gradle.plugin.diagnostics.ToolingDiagnostic.Severity
  *
  * @property icon The visual representation of the diagnostic icon, such as a warning or error symbol.
  */
-enum class DiagnosticIcon(val icon: String) {
+internal enum class DiagnosticIcon(val icon: String) {
     WARNING("⚠️"),
     ERROR("❌"),
 }
@@ -36,7 +36,7 @@ enum class DiagnosticIcon(val icon: String) {
  * @property solution An optional proposed solution or recommended steps to resolve the issue.
  * @property documentation Optional documentation reference offering additional context or resources.
  */
-interface StyledToolingDiagnostic {
+internal interface StyledToolingDiagnostic {
     val name: String
     val message: String
     val solution: String?
@@ -66,50 +66,40 @@ interface StyledToolingDiagnostic {
  * - If one solution is present, it is labeled "Solution" and italicized.
  * - If multiple solutions exist, each is listed with a bullet point, italicized, and styled in green.
  */
-private class StyledToolingDiagnosticImp(private val diagnostic: ToolingDiagnostic) : StyledToolingDiagnostic {
-    override val name: String get() = buildName()
-    override val message: String get() = buildMessage()
-    override val solution: String? get() = buildSolution()
-    override val documentation: String? get() = buildDocumentation()
+private class StyledToolingDiagnosticImp(
+    private val diagnostic: ToolingDiagnostic,
+    private val colored: Boolean,
+    private val showEmoji: Boolean
+) : StyledToolingDiagnostic {
+    override val name: String by lazy { buildName() }
+    override val message: String by lazy { buildMessage() }
+    override val solution: String? by lazy { buildSolution() }
+    override val documentation: String? by lazy { buildDocumentation() }
 
-    private fun buildName(): String {
-        val icon = when (diagnostic.severity) {
-            WARNING -> DiagnosticIcon.WARNING
-            else -> DiagnosticIcon.ERROR
-        }
-        return buildString {
+    private fun buildName(): String = buildString {
+        if (showEmoji) {
+            val icon = when (diagnostic.severity) {
+                WARNING -> DiagnosticIcon.WARNING
+                else -> DiagnosticIcon.ERROR
+            }
+
             append(icon.icon)
             append(" ")
-            append(diagnostic.identifier.displayName.bold().let {
-                when (diagnostic.severity) {
-                    WARNING -> it.yellow()
-                    ERROR, FATAL -> it.red()
-                }
-            })
         }
+        append(
+            diagnostic.identifier.displayName
+                .bold(colored)
+                .applyColor(diagnostic.severity)
+        )
     }
 
-    private fun buildMessage(): String {
-        // Optional: Early return for messages without code blocks
+    private fun buildMessage(): String = buildString {
         if (!diagnostic.message.contains("```")) {
-            return diagnostic.message.bold()
+            appendLine(diagnostic.message.bold(colored))
+        } else {
+            processCodeBlocks(diagnostic.message.lines())
         }
-
-        var inCodeBlock = false
-        val lines = diagnostic.message.lines()
-        return buildString {
-            for (line in lines) {
-                when {
-                    line.trim() == "```" -> {
-                        inCodeBlock = !inCodeBlock
-                        continue
-                    }
-                    inCodeBlock -> appendLine(line.orange())
-                    else -> appendLine(line.bold())
-                }
-            }
-        }.trimEnd()
-    }
+    }.trimEnd()
 
     private fun buildSolution(): String? {
         val solutions = diagnostic.solutions
@@ -117,23 +107,45 @@ private class StyledToolingDiagnosticImp(private val diagnostic: ToolingDiagnost
 
         return buildString {
             val prefix = if (solutions.size == 1) "Solution" else "Solutions"
-            appendLine("$prefix:".bold().green())
+            appendLine("$prefix:".bold(colored).green(colored))
 
-            if (solutions.size == 1) {
-                append(solutions.single().italic().green())
-            } else {
-                solutions.forEach { solution ->
-                    appendLine(" • ${solution.italic()}".green())
+            when (solutions.size) {
+                1 -> append(solutions.single().italic(colored).green(colored))
+                else -> solutions.forEach { solution ->
+                    appendLine(" • ${solution.italic(colored)}".green(colored))
                 }
             }
         }.trimEnd()
     }
 
-    private fun buildDocumentation(): String? =
-        diagnostic.documentation?.let {
-            val highLightedUrl = it.url.blue()
-            it.additionalUrlContext.replace(it.url, highLightedUrl).lightBlue()
+    private fun buildDocumentation(): String? = diagnostic.documentation?.let { doc ->
+        if (!colored) return doc.additionalUrlContext
+
+        val highlightedUrl = doc.url.blue()
+        val parts = doc.additionalUrlContext.split(doc.url)
+        return when (parts.size) {
+            1 -> doc.additionalUrlContext.replace(doc.url, highlightedUrl).lightBlue()
+            2 -> "${parts[0].lightBlue()}$highlightedUrl${parts[1].lightBlue()}"
+            else -> doc.additionalUrlContext.lightBlue()
         }
+    }
+
+    private fun String.applyColor(severity: ToolingDiagnostic.Severity) = when (severity) {
+        WARNING -> yellow(colored)
+        ERROR, FATAL -> red(colored)
+    }
+
+    private fun StringBuilder.processCodeBlocks(lines: List<String>) {
+        var inCodeBlock = false
+        for (line in lines) {
+            when {
+                line.trim() == "```" -> inCodeBlock = !inCodeBlock
+                inCodeBlock -> appendLine(line.orange(colored))
+                else -> appendLine(line)
+            }
+        }
+    }
 }
 
-internal fun ToolingDiagnostic.styled(): StyledToolingDiagnostic = StyledToolingDiagnosticImp(this)
+internal fun ToolingDiagnostic.styled(colored: Boolean, showEmoji: Boolean): StyledToolingDiagnostic =
+    StyledToolingDiagnosticImp(this, colored, showEmoji)
