@@ -11,6 +11,7 @@ import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Task
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.TaskProvider
+import org.jetbrains.kotlin.gradle.dsl.KotlinGradlePluginDsl
 import org.jetbrains.kotlin.gradle.tasks.abi.KotlinAbiCheckTask
 import org.jetbrains.kotlin.gradle.tasks.abi.KotlinAbiDumpTask
 
@@ -33,7 +34,7 @@ import org.jetbrains.kotlin.gradle.tasks.abi.KotlinAbiDumpTask
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationExtension : AbiValidationVariantSpec {
     /**
@@ -124,7 +125,7 @@ public interface AbiValidationExtension : AbiValidationVariantSpec {
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationVariantSpec : Named {
     val filters: AbiFiltersSpec

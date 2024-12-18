@@ -7,6 +7,7 @@ package org.jetbrains.kotlin.gradle.dsl.abi
 
 import org.gradle.api.Action
 import org.gradle.api.provider.SetProperty
+import org.jetbrains.kotlin.gradle.dsl.KotlinGradlePluginDsl
 
 /**
  * Set of filtering rules that restrict ABI declarations included into a dump.
@@ -36,7 +37,7 @@ import org.gradle.api.provider.SetProperty
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiFiltersSpec {
     val excluded: AbiFilterSetSpec
@@ -81,7 +82,7 @@ public interface AbiFiltersSpec {
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiFilterSetSpec {
     /**

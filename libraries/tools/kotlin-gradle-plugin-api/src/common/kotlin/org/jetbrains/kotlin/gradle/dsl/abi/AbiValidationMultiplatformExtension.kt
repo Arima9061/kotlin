@@ -8,6 +8,7 @@ package org.jetbrains.kotlin.gradle.dsl.abi
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.provider.Property
+import org.jetbrains.kotlin.gradle.dsl.KotlinGradlePluginDsl
 
 /**
  * A plugin DSL extension for configuring ABI Validation.
@@ -28,7 +29,7 @@ import org.gradle.api.provider.Property
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationMultiplatformExtension : AbiValidationMultiplatformVariantSpec {
     /**
@@ -119,7 +120,7 @@ public interface AbiValidationMultiplatformExtension : AbiValidationMultiplatfor
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationMultiplatformVariantSpec : AbiValidationVariantSpec {
     /**
@@ -140,7 +141,7 @@ public interface AbiValidationMultiplatformVariantSpec : AbiValidationVariantSpe
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationKlibKindExtension {
     /**

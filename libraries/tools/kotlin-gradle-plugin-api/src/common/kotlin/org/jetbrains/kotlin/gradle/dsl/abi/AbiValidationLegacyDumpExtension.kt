@@ -8,6 +8,7 @@ package org.jetbrains.kotlin.gradle.dsl.abi;
 import org.gradle.api.Task;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.tasks.TaskProvider;
+import org.jetbrains.kotlin.gradle.dsl.KotlinGradlePluginDsl
 import org.jetbrains.kotlin.gradle.tasks.abi.KotlinLegacyAbiCheckTask;
 import org.jetbrains.kotlin.gradle.tasks.abi.KotlinLegacyAbiDumpTask;
 
@@ -18,7 +19,7 @@ import org.jetbrains.kotlin.gradle.tasks.abi.KotlinLegacyAbiDumpTask;
  *
  * @since 2.1.20
  */
-@AbiValidationDsl
+@KotlinGradlePluginDsl
 @ExperimentalAbiValidation
 public interface AbiValidationLegacyDumpExtension {
     /**
