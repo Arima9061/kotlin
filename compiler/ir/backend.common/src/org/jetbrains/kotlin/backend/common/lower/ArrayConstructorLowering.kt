@@ -86,7 +86,7 @@ private class ArrayConstructorTransformer(
                 body = irBlock {
                     val tempIndex = createTmpVariable(irGet(index))
                     +irCall(result.type.getClass()!!.functions.single { it.name == OperatorNameConventions.SET }).apply {
-                        dispatchReceiver = irGet(result)
+                        arguments[0] = irGet(result)
                         putValueArgument(0, irGet(tempIndex))
                         val inlined = generator.inline(parent, listOf(tempIndex))
                         putValueArgument(1, inlined)
