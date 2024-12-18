@@ -40,7 +40,7 @@ private class ArrayConstructorTransformer(
         internal fun arrayInlineToSizeConstructor(context: LoweringContext, irConstructor: IrConstructor): IrFunctionSymbol? {
             val clazz = irConstructor.constructedClass.symbol
             return when {
-                irConstructor.valueParameters.size != 2 -> null
+                irConstructor.parameters.size != 2 -> null
                 clazz == context.irBuiltIns.arrayClass -> context.ir.symbols.arrayOfNulls // Array<T> has no unary constructor: it can only exist for Array<T?>
                 context.irBuiltIns.primitiveArraysToPrimitiveTypes.contains(clazz) -> clazz.constructors.single {
                     val valueParameters = it.owner.valueParameters
