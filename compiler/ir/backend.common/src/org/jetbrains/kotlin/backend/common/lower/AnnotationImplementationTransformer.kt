@@ -145,10 +145,7 @@ abstract class AnnotationImplementationTransformer(val context: CommonBackendCon
                             }
                             IrConstructorCallImpl.fromSymbolOwner(source.startOffset, source.endOffset, arrayType, arrayConstructor)
                         }
-                    arrayConstructorCall.putValueArgument(
-                        0,
-                        IrConstImpl.int(source.startOffset, source.endOffset, context.irBuiltIns.intType, 0)
-                    )
+                    arrayConstructorCall.arguments[0] = IrConstImpl.int(source.startOffset, source.endOffset, context.irBuiltIns.intType, 0)
                     destination.putValueArgument(index, arrayConstructorCall)
                     return
                 } else {
