@@ -3,8 +3,11 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
+@file:Suppress("DEPRECATION")
+
 package org.jetbrains.kotlin.gradle.plugin.abi
 
+import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.api.TestVariant
 import com.android.build.gradle.api.UnitTestVariant
 import org.gradle.api.DomainObjectCollection
@@ -19,7 +22,6 @@ import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.KotlinWasmTargetType
 import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrTarget
-import org.jetbrains.kotlin.gradle.utils.DeprecatedAndroidBaseVariant
 import org.jetbrains.kotlin.konan.target.HostManager
 
 /**
@@ -63,7 +65,7 @@ internal val KotlinTarget.emitsKlib: Boolean
     }
 
 @Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
-internal val DeprecatedAndroidBaseVariant.isTestVariant: Boolean
+internal val BaseVariant.isTestVariant: Boolean
     get() = this is TestVariant || this is UnitTestVariant
 
 
