@@ -140,18 +140,21 @@ internal abstract class KotlinLegacyAbiDumpTaskImpl : AbiToolsTask(), KotlinLega
 
             val referenceFile = referenceKlibDump.get().asFile
             if (unsupported.isNotEmpty()) {
-                if (referenceFile.exists() && referenceFile.isFile) {
-                    mergedDump.partialMerge(tools.v2.loadKlibDump(referenceFile), unsupported.toList())
+                val referenceDump = if (referenceFile.exists() && referenceFile.isFile) {
+                    tools.v2.loadKlibDump(referenceFile)
                 } else {
-                    mergedDump.partialMerge(tools.v2.createKlibDump(), unsupported.toList())
+                    tools.v2.createKlibDump()
                 }
-            }
 
-            unsupported.forEach { target ->
-                logger.warn(
-                    "Target ${target.targetName} is not supported by the host compiler and a " +
-                            "KLib ABI dump could not be directly generated for it."
-                )
+                unsupported.map { unsupportedTarget ->
+                    logger.warn(
+                        "Target ${unsupportedTarget.targetName} is not supported by the host compiler and a " +
+                                "KLib ABI dump could not be directly generated for it."
+                    )
+                    mergedDump.inferAbiForUnsupportedTarget(referenceDump, unsupportedTarget)
+                }.forEach { inferredDump ->
+                    mergedDump.merge(inferredDump)
+                }
             }
 
             mergedDump.print(abiDir.resolve(klibDumpName))
