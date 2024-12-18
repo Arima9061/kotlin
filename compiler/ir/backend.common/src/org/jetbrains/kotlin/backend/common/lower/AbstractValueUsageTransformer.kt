@@ -18,6 +18,7 @@ import org.jetbrains.kotlin.ir.symbols.IrSimpleFunctionSymbol
 import org.jetbrains.kotlin.ir.types.IrType
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
+import org.jetbrains.kotlin.utils.addToStdlib.assignFrom
 
 
 /**
@@ -96,13 +97,14 @@ abstract class AbstractValueUsageTransformer(
         expression.transformChildrenVoid(this)
 
         with(expression) {
-            dispatchReceiver = dispatchReceiver?.useAsDispatchReceiver(expression)
-            extensionReceiver = extensionReceiver?.useAsExtensionReceiver(expression)
-            for (index in 0 until valueArgumentsCount) {
-                val argument = getValueArgument(index) ?: continue
-                val parameter = symbol.owner.valueParameters[index]
-                putValueArgument(index, argument.useAsValueArgument(expression, parameter))
+            val newArguments = arguments.zip(symbol.owner.parameters).map { (argument, parameter) ->
+                when (parameter.kind) {
+                    IrParameterKind.DispatchReceiver -> argument?.useAsDispatchReceiver(expression)
+                    IrParameterKind.ExtensionReceiver -> argument?.useAsExtensionReceiver(expression)
+                    else -> argument?.useAsValueArgument(expression, parameter)
+                }
             }
+            arguments.assignFrom(newArguments)
         }
 
         return expression
