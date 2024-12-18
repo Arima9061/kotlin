@@ -96,17 +96,11 @@ class DeclarationGenerator(
 
         val functionTypeSymbol = wasmFileCodegenContext.referenceFunctionType(declaration.symbol)
 
-        val stdlibFunName = if (declaration.fileOrNull?.name != "parallelHierarchy.kt" && declaration.origin != KOTLIN_TO_JS_CLOSURE_ORIGIN) {
-                (backendContext.irFactory as IdSignatureRetriever)
-                    .declarationSignature(declaration)!!
-                    .toString()
-            } else null
-
         val wasmImportModule = declaration.getWasmImportDescriptor()
         val jsCode = declaration.getJsFunAnnotation()
         val importedName = when {
             wasmImportModule != null -> {
-                check(declaration.isExternal) { "Non-external fun with @WasmImport ${declaration.fqNameWhenAvailable}"}
+                check(declaration.isExternal) { "Non-external fun with @WasmImport ${declaration.fqNameWhenAvailable}" }
                 wasmFileCodegenContext.addJsModuleImport(declaration.symbol, wasmImportModule.moduleName)
                 wasmImportModule
             }
@@ -129,16 +123,6 @@ class DeclarationGenerator(
                 function
             )
             // TODO: Support re-export of imported functions.
-
-            if (stdlibFunName != null) {
-                wasmFileCodegenContext.addExport(
-                    WasmExport.Function(
-                        field = function,
-                        name = stdlibFunName
-                    )
-                )
-            }
-
             return
         }
 
@@ -188,7 +172,6 @@ class DeclarationGenerator(
         wasmFileCodegenContext.defineFunction(declaration.symbol, function)
 
         val nameIfExported = when {
-            stdlibFunName != null -> stdlibFunName
             declaration.fileOrNull?.name == "" -> ""
             declaration.isJsExport() -> declaration.getJsNameOrKotlinName().identifier
             else -> declaration.getWasmExportNameIfWasmExport()
@@ -199,6 +182,16 @@ class DeclarationGenerator(
                 WasmExport.Function(
                     field = function,
                     name = nameIfExported
+                )
+            )
+        }
+
+        if (declaration.fileOrNull?.name != "parallelHierarchy.kt" && declaration.origin != KOTLIN_TO_JS_CLOSURE_ORIGIN) {
+            val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(declaration)
+            wasmFileCodegenContext.addExport(
+                WasmExport.Function(
+                    field = function,
+                    name = "func_$signature"
                 )
             )
         }
@@ -258,10 +251,22 @@ class DeclarationGenerator(
             }
             buildStructNew(vTableTypeReference, location)
         }
+
+        val global = WasmGlobal(vtableName, vTableRefGcType, false, initVTableGlobal)
         wasmFileCodegenContext.defineGlobalVTable(
             irClass = symbol,
-            wasmGlobal = WasmGlobal(vtableName, vTableRefGcType, false, initVTableGlobal)
+            wasmGlobal = global
         )
+
+        if (klass.fileOrNull?.name != "parallelHierarchy.kt") {
+            val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(klass)
+            wasmFileCodegenContext.addExport(
+                WasmExport.Global(
+                    name = "vtable_$signature",
+                    field = global
+                )
+            )
+        }
     }
 
     private fun getSamMethod(supportedIFaces: Set<IrClass>): Pair<IrClass, IrFunction>? {
@@ -353,6 +358,16 @@ class DeclarationGenerator(
             init = initITableGlobal
         )
         wasmFileCodegenContext.defineGlobalClassITable(klass.symbol, wasmClassIFaceGlobal)
+
+        if (klass.fileOrNull?.name != "parallelHierarchy.kt") {
+            val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(klass)
+            wasmFileCodegenContext.addExport(
+                WasmExport.Global(
+                    name = "itable_$signature",
+                    field = wasmClassIFaceGlobal
+                )
+            )
+        }
     }
 
     override fun visitClass(declaration: IrClass) {
