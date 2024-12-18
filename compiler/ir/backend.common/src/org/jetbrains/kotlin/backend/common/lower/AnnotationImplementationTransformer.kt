@@ -155,7 +155,7 @@ abstract class AnnotationImplementationTransformer(val context: CommonBackendCon
                     )
                 }
             }
-            destination.putValueArgument(index, valueArg)
+            destination.arguments[index] = valueArg
         }
     }
 
