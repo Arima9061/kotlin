@@ -104,9 +104,14 @@ class WasmLoweringFacade(
         val stringConstructors = backendContext.wasmSymbols.irBuiltIns.stringClass.owner.constructors.map {
             factory.declarationSignature(it)
         }
-        backendContext.importFunctions.addAll(wasmCompiledFileFragment.functions.unbound.keys)
-        backendContext.importFunctions.addAll(stringConstructors)
-        backendContext.importFunctions.add(unitGetInstanceSignature)
+        backendContext.importDeclarations.addAll(wasmCompiledFileFragment.functions.unbound.keys)
+        backendContext.importDeclarations.addAll(wasmCompiledFileFragment.globalVTables.unbound.keys)
+        backendContext.importDeclarations.addAll(wasmCompiledFileFragment.globalClassITables.unbound.keys)
+        backendContext.importDeclarations.addAll(stringConstructors)
+        backendContext.importDeclarations.add(unitGetInstanceSignature)
+
+        val xx = backendContext.importDeclarations.map { it.toString() }
+
 
         backendContext.emitFunctionsAsUsual = false
         val nonMainWasmCompiledFileFragments = allModules.filter { it != mainIrModuleFragment }.map {
