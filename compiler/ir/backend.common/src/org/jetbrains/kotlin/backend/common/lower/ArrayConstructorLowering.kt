@@ -88,8 +88,7 @@ private class ArrayConstructorTransformer(
                     +irCall(result.type.getClass()!!.functions.single { it.name == OperatorNameConventions.SET }).apply {
                         arguments[0] = irGet(result)
                         arguments[1] = irGet(tempIndex)
-                        val inlined = generator.inline(parent, listOf(tempIndex))
-                        putValueArgument(1, inlined)
+                        arguments[2] = generator.inline(parent, listOf(tempIndex))
                     }
                     val inc = index.type.getClass()!!.functions.single { it.name == OperatorNameConventions.INC }
                     +irSet(
