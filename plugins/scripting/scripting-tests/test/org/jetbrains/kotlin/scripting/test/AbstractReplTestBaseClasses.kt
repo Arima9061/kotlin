@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.scripting.test.repl.FirReplHistoryProviderImpl
 import org.jetbrains.kotlin.scripting.test.repl.TestReplCompilerPluginRegistrar
 import org.jetbrains.kotlin.scripting.test.repl.firReplHistoryProvider
-import org.jetbrains.kotlin.scripting.test.repl.replStateObjectFqName
 import org.jetbrains.kotlin.test.FirParser
 import org.jetbrains.kotlin.test.backend.handlers.JvmBinaryArtifactHandler
 import org.jetbrains.kotlin.test.backend.handlers.computeTestRuntimeClasspath
@@ -94,7 +93,6 @@ private class ReplConfigurator(testServices: TestServices) : EnvironmentConfigur
 private class ReplRunChecker(testServices: TestServices) : JvmBinaryArtifactHandler(testServices) {
 
     private var scriptProcessed = false
-    private val replState: MutableMap<String, Any?> = mutableMapOf()
     private var currentReplClassloader: GeneratedClassLoader? = null
     private val classLoadersToDispose: MutableList<GeneratedClassLoader> = mutableListOf()
 
@@ -157,11 +155,10 @@ private class ReplRunChecker(testServices: TestServices) : JvmBinaryArtifactHand
             it.groups[1]!!.value to it.groups[2]!!.value
         }
 
-        val scriptClass = classLoader.loadClass(scriptFqName.asString())
-        val ctor = scriptClass.constructors.single()
-        val eval = scriptClass.methods.find { it.name.contains("eval") }!!
+        val snippetClass = classLoader.loadClass(scriptFqName.asString())
+        val eval = snippetClass.methods.find { it.name.contains("eval") }!!
 
-        val snippet = ctor.newInstance(replState)
+        val snippet = snippetClass.getField("INSTANCE").get(null)
         val (out, _, res) = captureOutErrRet {
             eval.invoke(snippet)
         }
@@ -169,7 +166,7 @@ private class ReplRunChecker(testServices: TestServices) : JvmBinaryArtifactHand
         for ((fieldName, expectedValue) in expected) {
             if (expectedValue == "<missing>") {
                 try {
-                    scriptClass.getDeclaredField(fieldName)
+                    snippetClass.getDeclaredField(fieldName)
                     assertions.fail { "must have no field $fieldName" }
                 } catch (e: NoSuchFieldException) {
                     continue
@@ -178,7 +175,7 @@ private class ReplRunChecker(testServices: TestServices) : JvmBinaryArtifactHand
             val result = if (fieldName == "<res>") {
                 res
             } else {
-                val field = scriptClass.getDeclaredField(fieldName)
+                val field = snippetClass.getDeclaredField(fieldName)
                 field.isAccessible = true
                 field[snippet]
             }

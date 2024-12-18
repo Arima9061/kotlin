@@ -70,7 +70,7 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
             endOffset = fileEntry.maxOffset
             origin = IrDeclarationOrigin.REPL_SNIPPET_CLASS
             name = NameUtils.getScriptTargetClassName(irSnippet.name)
-            kind = ClassKind.CLASS
+            kind = ClassKind.OBJECT
             visibility = DescriptorVisibilities.PUBLIC
             modality = Modality.FINAL
         }.also { irSnippetClass ->
@@ -82,22 +82,12 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
     }
 
     private fun collectCapturingClasses(irSnippet: IrReplSnippet, irSnippetClass: IrClass, typeRemapper: SimpleTypeRemapper): Set<IrClass> {
-        val externalReceivers = mutableSetOf<IrType>().also {
-//            it.addIfNotNull(irSnippetClass.thisReceiver?.type)
-        }
+        val externalReceivers = mutableSetOf<IrType>()
 
         irSnippet.receiversParameters.forEach {
             externalReceivers.add(it.type)
             externalReceivers.add(typeRemapper.remapType(it.type))
         }
-
-//        irSnippet.capturingDeclarationsFromOtherSnippets.forEach {
-//            val type = (it.parent as? IrClass)?.thisReceiver?.type
-//            if (type != null) {
-//                externalReceivers.add(type)
-//                externalReceivers.add(typeRemapper.remapType(type))
-//            }
-//        }
 
         val topLevelClasses = irSnippet.body.statements.filterIsInstance<IrClass>()
         return topLevelClasses.collectCapturersByReceivers(context, irSnippet, externalReceivers, alwaysInclude = topLevelClasses.toSet())
@@ -117,16 +107,11 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
         val irSnippetClassThisReceiver = irSnippet.createThisReceiverParameter(context, IrDeclarationOrigin.INSTANCE_RECEIVER, irSnippetClassType)
         irSnippetClass.thisReceiver = irSnippetClassThisReceiver
 
-        val stateField = irSnippetClass.addField {
-            name = Name.special("<repl state>")
-            type = context.irBuiltIns.mutableMapClass.typeWith(context.irBuiltIns.stringType, context.irBuiltIns.anyNType)
-        }
-
         val snippetAccessCallsGenerator = ReplSnippetAccessCallsGenerator(
-            context, irSnippetClassThisReceiver, implicitReceiversFieldsWithParameters, irSnippetClass, stateField, irSnippet.stateObject!!
+            context, irSnippetClassThisReceiver, implicitReceiversFieldsWithParameters, irSnippetClass, irSnippet.stateObject!!
         )
 
-        irSnippetClass.declarations.add(createConstructor(irSnippetClass, stateField))
+        irSnippetClass.declarations.add(createConstructor(irSnippetClass))
 
         irSnippetClass.addFunction {
             name = Name.identifier("eval")
@@ -218,7 +203,8 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
             irSnippetClassThisReceiver,
             typeRemapper,
             snippetAccessCallsGenerator,
-            capturingClasses,
+            emptySet(),
+            //capturingClasses,
             valsToFields
         )
         val lambdaPatcher = ScriptFixLambdasTransformer(irSnippetClass)
@@ -237,7 +223,7 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
-    private fun createConstructor(irSnippetClass: IrClass, stateField: IrField): IrConstructor =
+    private fun createConstructor(irSnippetClass: IrClass): IrConstructor =
         with(IrFunctionBuilder().apply {
             isPrimary = true
             returnType = irSnippetClass.thisReceiver!!.type as IrSimpleType
@@ -257,14 +243,8 @@ internal class ReplSnippetsToClassesLowering(val context: IrPluginContext) : Mod
                 containerSource = containerSource,
             )
         }.also { irConstructor ->
-            irConstructor.addValueParameter {
-                name = Name.special("<repl state>")
-                origin = IrDeclarationOrigin.REPL_FROM_OTHER_SNIPPET
-                type = stateField.type
-            }
             irConstructor.body = context.irBuiltIns.createIrBuilder(irConstructor.symbol).irBlockBody {
                 +irDelegatingConstructorCall(context.irBuiltIns.anyClass.owner.constructors.single())
-                +irSetField(irGet(irSnippetClass.thisReceiver!!), stateField, irGet(irConstructor.parameters[0]))
             }
             irConstructor.parent = irSnippetClass
         }
@@ -282,10 +262,9 @@ private class ReplSnippetAccessCallsGenerator(
     snippetClassReceiver: IrValueParameter,
     implicitReceiversFieldsWithParameters: ArrayList<Pair<IrField, IrValueParameter>>,
     val irSnippetClass: IrClass,
-    val stateField: IrField,
     val irReplStateObjectSymbol: IrClassSymbol
 ) : ScriptLikeAccessCallsGenerator(context, snippetClassReceiver, implicitReceiversFieldsWithParameters) {
-    private val mapClass = stateField.type.getClass()!!
+    private val mapClass = irReplStateObjectSymbol.owner
     private val mapGet = mapClass.functions.single { it.name.asString() == "get" }
     private val mapPut = mapClass.functions.single { it.name.asString() == "put" }
 
