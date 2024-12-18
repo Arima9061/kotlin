@@ -84,7 +84,7 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
         irFunction.body!!.transformChildrenVoid(object : IrElementTransformerVoid() {
             override fun visitCall(expression: IrCall): IrExpression {
                 val shortCut = if (expression.isReturnIfSuspendedCall())
-                    expression.getValueArgument(0)!!
+                    expression.arguments[0]!!
                 else expression
 
                 shortCut.transformChildrenVoid(this)
