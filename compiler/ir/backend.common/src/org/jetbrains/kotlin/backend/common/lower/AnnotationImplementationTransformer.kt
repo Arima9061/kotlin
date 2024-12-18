@@ -126,7 +126,7 @@ abstract class AnnotationImplementationTransformer(val context: CommonBackendCon
             { (_, value) -> value }
         )
 
-        destination.symbol.owner.valueParameters.forEachIndexed { index, parameter ->
+        destination.symbol.owner.parameters.forEachIndexed { index, parameter ->
             val valueArg = argumentsByName[parameter.name]
 
             if (parameter.defaultValue == null && valueArg == null) {
