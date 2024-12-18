@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.internal
 import org.jetbrains.kotlin.gradle.util.*
+import org.jetbrains.kotlin.gradle.utils.createConsumable
 import org.jetbrains.kotlin.util.capitalizeDecapitalize.toLowerCaseAsciiOnly
 import kotlin.test.*
 
@@ -248,7 +249,7 @@ class MppPublicationTest {
         // Even though creation of default publications are disabled
         // it is still important that components and everything else needed for publishing are still present
         val components = project.components.names
-        assertEquals(setOf("kotlin"), components)
+        assertEquals(setOf("kotlin", "adhocKotlin"), components)
 
         val expectedSourcesJarTasks = setOf("sourcesJar", "metadataSourcesJar", "jvmSourcesJar", "linuxArm64SourcesJar")
         val missingSourcesJarTasks = expectedSourcesJarTasks - project.tasks.names
@@ -307,4 +308,40 @@ class MppPublicationTest {
     private fun AttributeContainer.toMapOfStrings(): Map<String, String> = keySet()
         .associate { key -> key.name to getAttribute(key).toString() }
 
+    @Test
+    fun `users can add custom variants via adhocSoftwareComponent API`() {
+        val project = buildProjectWithMPP {
+            kotlin {
+                project.plugins.apply("maven-publish")
+
+                jvm()
+                linuxX64()
+
+                val customAttribute = Attribute.of("customAttribute", String::class.java)
+                val customConfiguration = configurations.createConsumable("customConfiguration")
+                customConfiguration.attributes.attribute(customAttribute, "customValue")
+                val artifact1 = project.artifacts.add(customConfiguration.name, file("customConfigurationArtifact1.txt"))
+                val artifact2 = project.artifacts.add(customConfiguration.name, file("customConfigurationArtifact2.txt"))
+                customConfiguration.artifacts.add(artifact1)
+
+                customConfiguration.outgoing.variants.create("secondaryVariant") {
+                    it.attributes.attribute(customAttribute, "customValue2")
+                    it.artifacts.add(artifact2)
+                }
+
+                adhocSoftwareComponent {
+                    addVariantsFromConfiguration(customConfiguration) {}
+                }
+            }
+        }
+
+        project.evaluate()
+
+        val rootKotlinComponent = project.components.getByName("kotlin") as SoftwareComponentInternal
+        if(!rootKotlinComponent.usages.any { usage -> usage.name == "customConfiguration" })
+            fail("Missing customConfiguration variant")
+
+        if(!rootKotlinComponent.usages.any { usage -> usage.name == "customConfigurationSecondaryVariant" })
+            fail("Missing customConfiguration variant")
+    }
 }

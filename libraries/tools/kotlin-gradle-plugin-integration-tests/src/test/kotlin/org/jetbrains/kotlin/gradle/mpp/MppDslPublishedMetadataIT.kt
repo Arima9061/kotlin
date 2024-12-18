@@ -4,9 +4,18 @@
  */
 package org.jetbrains.kotlin.gradle.mpp
 
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.attributes.Category
 import org.gradle.util.GradleVersion
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.extraProperties
 import org.jetbrains.kotlin.gradle.testbase.*
 import org.jetbrains.kotlin.test.TestMetadata
+import java.io.File
+import kotlin.io.path.absolutePathString
+import kotlin.io.path.appendText
+import kotlin.io.path.createDirectories
+import kotlin.io.path.writeText
 import kotlin.test.assertTrue
 
 @MppGradlePluginTests
@@ -174,6 +183,102 @@ class MppDslPublishedMetadataIT : KGPBaseTest() {
                     "<version>1.2.3</version>"
                 )
             }
+        }
+    }
+
+    @GradleTest
+    fun testAdhocSoftwareComponent(gradleVersion: GradleVersion) {
+        val localRepo = defaultLocalRepo(gradleVersion)
+        project("base-kotlin-multiplatform-library", gradleVersion = gradleVersion) {
+            settingsGradleKts.appendText("\nrootProject.name = \"kmp-lib\"")
+            buildGradleKts.appendText("""
+
+                project.extensions.extraProperties.set("localRepo", File("${localRepo.absolutePathString()}"))
+
+            """.trimIndent())
+            buildScriptInjection {
+                applyMavenPublishPlugin(project.extraProperties["localRepo"]!! as File)
+
+                project.group = "group"
+                project.version = "1.0"
+
+                kotlinMultiplatform.jvm()
+                kotlinMultiplatform.linuxX64()
+
+                val customArtifact = project.layout.buildDirectory.asFile.get()
+                    .also { it.mkdirs() }
+                    .resolve("customArtifact.txt")
+                    .also { it.writeText("customArtifactContent") }
+
+                val customAttribute = Attribute.of("myCustomAttribute", String::class.java)
+                val myConfiguration = project.configurations.create("myConsumableConfiguration") {
+                    it.isCanBeConsumed = true
+                    it.isCanBeResolved = false
+
+                    it.attributes.attribute(
+                        Category.CATEGORY_ATTRIBUTE,
+                        project.objects.named(Category::class.java, Category.DOCUMENTATION)
+                    )
+                    it.attributes.attribute(
+                        customAttribute,
+                        "customValue"
+                    )
+                }
+                project.artifacts.add(myConfiguration.name, customArtifact)
+
+                @OptIn(ExperimentalKotlinGradlePluginApi::class)
+                kotlinMultiplatform.adhocSoftwareComponent.addVariantsFromConfiguration(myConfiguration) {}
+            }
+
+            kotlinSourcesDir("commonMain")
+                .also { it.createDirectories() }
+                .resolve("Lib.kt")
+                .writeText("class Foo")
+
+            build("publish") {}
+        }
+
+        val consumer = project("base-kotlin-multiplatform-library", gradleVersion = gradleVersion) {
+            buildGradleKts.appendText("""
+
+                project.extensions.extraProperties.set("localRepo", File("${localRepo.absolutePathString()}"))
+
+            """.trimIndent())
+            buildScriptInjection {
+                project.repositories.maven {
+                    it.setUrl(project.extraProperties["localRepo"]!! as File)
+                }
+
+                kotlinMultiplatform.jvm()
+                kotlinMultiplatform.linuxX64()
+                kotlinMultiplatform.sourceSets.getByName("commonMain").dependencies {
+                    api("group:kmp-lib:1.0")
+                }
+
+                val customAttribute = Attribute.of("myCustomAttribute", String::class.java)
+                val myResolvableConfiguration = project.configurations.create("myResolvableConfiguration") {
+                    it.isCanBeConsumed = false
+                    it.isCanBeResolved = true
+
+                    it.attributes.attribute(
+                        Category.CATEGORY_ATTRIBUTE,
+                        project.objects.named(Category::class.java, Category.DOCUMENTATION)
+                    )
+                    it.attributes.attribute(
+                        customAttribute,
+                        "customValue"
+                    )
+                }
+                project.dependencies.add(myResolvableConfiguration.name, "group:kmp-lib:1.0")
+            }
+        }
+
+        consumer.build("dependencies") {
+            assertOutputDoesNotContain("FAILED")
+        }
+
+        consumer.build("dependencyInsight", "--dependency", "group:kmp-lib:1.0", "--configuration", "myResolvableConfiguration") {
+            assertOutputContains("Variant myConsumableConfiguration")
         }
     }
 }

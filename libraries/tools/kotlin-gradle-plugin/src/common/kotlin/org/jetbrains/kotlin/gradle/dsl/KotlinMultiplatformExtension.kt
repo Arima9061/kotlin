@@ -9,6 +9,8 @@ import org.gradle.api.Action
 import org.gradle.api.InvalidUserCodeException
 import org.gradle.api.NamedDomainObjectCollection
 import org.gradle.api.Project
+import org.gradle.api.component.AdhocComponentWithVariants
+import org.gradle.api.component.SoftwareComponentFactory
 import org.jetbrains.kotlin.gradle.DeprecatedTargetPresetApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.InternalKotlinGradlePluginApi
@@ -30,7 +32,12 @@ import javax.inject.Inject
 @Suppress("DEPRECATION")
 @KotlinGradlePluginPublicDsl
 abstract class KotlinMultiplatformExtension
-@InternalKotlinGradlePluginApi constructor(project: Project) :
+@Inject
+@InternalKotlinGradlePluginApi
+constructor(
+    project: Project,
+    softwareComponentFactory: SoftwareComponentFactory
+) :
     KotlinProjectExtension(project),
     KotlinTargetContainerWithPresetFunctions,
     KotlinTargetContainerWithJsPresetFunctions,
@@ -242,7 +249,52 @@ abstract class KotlinMultiplatformExtension
     }
 
     internal val rootSoftwareComponent: KotlinSoftwareComponent by lazy {
-        KotlinSoftwareComponentWithCoordinatesAndPublication(project, "kotlin", targets)
+        KotlinSoftwareComponentWithCoordinatesAndPublication(project, "kotlin", targets, adhocSoftwareComponent)
+    }
+
+    /**
+     * Returns [AdhocComponentWithVariants] that can be used to add additional variants to root Kotlin Multiplatform Publication
+     *
+     * It is not possible to modify or replace default Kotlin Multiplatform publication variants.
+     * Attributes of added variants should not match default Kotlin Multiplatform publication variants.
+     *
+     * Example:
+     * ```kotlin
+     * val customDocumentationElements = configurations.consumable("customDocumentationElements") {
+     *          // Configure attributes, artifacts and other details
+     *      }
+     * kotlin.adhocSoftwareComponent.addVariantsFromConfiguration(customDocumentationElements.get()) { }
+     *
+     * // variants from customDocumentationElements will be published with "kotlinMultiplatform" publication
+     * ```
+     *
+     * Search for more details on [AdhocComponentWithVariants] in Gradle's documentation.
+     *
+     * @since 2.1.20
+     */
+    @ExperimentalKotlinGradlePluginApi
+    val adhocSoftwareComponent: AdhocComponentWithVariants = softwareComponentFactory
+        .adhoc("adhocKotlin")
+        .also { project.components.add(it) }
+
+    /**
+     * Configures the [adhocSoftwareComponent] with the provided [configure] block in Kotlin DSL context.
+     *
+     * @since 2.1.20
+     */
+    @ExperimentalKotlinGradlePluginApi
+    fun adhocSoftwareComponent(configure: AdhocComponentWithVariants.() -> Unit) {
+        adhocSoftwareComponent.configure()
+    }
+
+    /**
+     * Configures the [adhocSoftwareComponent] with the provided [configure] block in Groovy DSL context.
+     *
+     * @since 2.1.20
+     */
+    @ExperimentalKotlinGradlePluginApi
+    fun adhocSoftwareComponent(configure: Action<AdhocComponentWithVariants>) {
+        configure.execute(adhocSoftwareComponent)
     }
 
     override val compilerOptions: KotlinCommonCompilerOptions =
