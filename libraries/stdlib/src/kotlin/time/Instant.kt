@@ -587,10 +587,10 @@ private fun parseIso(isoString: CharSequence): Instant {
     expect("'T' or 't'", i + 6) { it == 'T' || it == 't' }
     expect("':'", i + 9) { it == ':' }
     expect("':'", i + 12) { it == ':' }
-    for (j in listOf(1, 2, 4, 5, 7, 8, 10, 11, 13, 14)) {
+    for (j in asciiDigitPositionsInIsoStringAfterYear) {
         expect("an ASCII digit", i + j) { it in '0'..'9' }
     }
-    fun twoDigitNumber(index: Int) = s[index].code * 10 + s[index + 1].code - '0'.code * 11
+    fun twoDigitNumber(index: Int) = (s[index] - '0') * 10 + (s[index + 1] - '0')
     val month = twoDigitNumber(i + 1)
     val day = twoDigitNumber(i + 4)
     val hour = twoDigitNumber(i + 7)
@@ -627,11 +627,11 @@ private fun parseIso(isoString: CharSequence): Instant {
             val offsetStrLength = s.length - i
             if (offsetStrLength > 9) { parseFailure("The UTC offset string \"${s.substring(i).truncateForErrorMessage(16)}\" is too long") }
             if (offsetStrLength % 3 != 0) { parseFailure("Invalid UTC offset string \"${s.substring(i)}\"") }
-            for (j in listOf(3, 6)) {
+            for (j in colonsInIsoOffsetString) {
                 if ((s.getOrNull(i + j) ?: break) != ':')
                     parseFailure("Expected ':' at index ${i + j}, got '${s[i + j]}'")
             }
-            for (j in listOf(1, 2, 4, 5, 7, 8)) {
+            for (j in asciiDigitsInIsoOffsetString) {
                 if ((s.getOrNull(i + j) ?: break) !in '0'..'9')
                     parseFailure("Expected an ASCII digit at index ${i + j}, got '${s[i + j]}'")
             }
@@ -700,7 +700,7 @@ private fun formatIso(instant: Instant): String = buildString {
         while (ldt.nanosecond % POWERS_OF_TEN[zerosToStrip + 1] == 0) {
             ++zerosToStrip
         }
-        zerosToStrip -= (zerosToStrip.mod(3)) // rounding down to a multiple of 3
+        zerosToStrip -= zerosToStrip % 3 // rounding down to a multiple of 3
         val numberToOutput = ldt.nanosecond / POWERS_OF_TEN[zerosToStrip]
         append((numberToOutput + POWERS_OF_TEN[9 - zerosToStrip]).toString().substring(1))
     }
@@ -721,7 +721,7 @@ private const val DAYS_0000_TO_1970 = DAYS_PER_CYCLE * 5 - (30 * 365 + 7)
 
 /**
  * Safely adds two long values.
- * throws [ArithmeticException] if the result overflows a long
+ * @throws ArithmeticException if the result overflows a long
  */
 private fun safeAdd(a: Long, b: Long): Long {
     val sum = a + b
@@ -771,8 +771,7 @@ private const val MILLIS_PER_SECOND = 1_000
 
 // org.threeten.bp.chrono.IsoChronology#isLeapYear
 internal fun isLeapYear(year: Int): Boolean {
-    val prolepticYear: Long = year.toLong()
-    return prolepticYear and 3 == 0L && (prolepticYear % 100 != 0L || prolepticYear % 400 == 0L)
+    return year and 3 == 0 && (year % 100 != 0 || year % 400 == 0)
 }
 
 private fun Int.monthLength(isLeapYear: Boolean): Int =
@@ -794,6 +793,10 @@ private val POWERS_OF_TEN = intArrayOf(
     100000000,
     1000000000
 )
+
+private val asciiDigitPositionsInIsoStringAfterYear = intArrayOf(1, 2, 4, 5, 7, 8, 10, 11, 13, 14)
+private val colonsInIsoOffsetString = intArrayOf(3, 6)
+private val asciiDigitsInIsoOffsetString = intArrayOf(1, 2, 4, 5, 7, 8)
 
 private fun CharSequence.truncateForErrorMessage(maxLength: Int): String {
     return if (length <= maxLength) this.toString() else substring(0, maxLength) + "..."

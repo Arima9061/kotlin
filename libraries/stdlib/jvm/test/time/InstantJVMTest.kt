@@ -12,11 +12,6 @@ import kotlin.time.Instant
 class InstantJVMTest {
     @Test
     fun serialize() {
-        fun testSerializable(instant: Instant) {
-            val result = serializeAndDeserialize(instant)
-            assertEquals(instant, result)
-        }
-
         listOf(
             Instant.MIN,
             Instant.MAX,
@@ -26,7 +21,7 @@ class InstantJVMTest {
             Instant.fromEpochSeconds(1, 1),
             Instant.fromEpochSeconds(-1, 1),
         ).forEach {
-            testSerializable(it)
+            assertEquals(it, serializeAndDeserialize(it))
         }
     }
 }

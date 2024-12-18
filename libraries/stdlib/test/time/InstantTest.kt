@@ -178,7 +178,6 @@ class InstantTest {
 
     @Test
     fun arithmeticOutOfRange() {
-        // Instant.plus(Long, DateTimeUnit.TimeBased)
         // Arithmetic overflow
         for (instant in smallInstants + largeNegativeInstants + largePositiveInstants) {
             assertEquals(Instant.MAX, instant.plus(Long.MAX_VALUE.seconds))
@@ -252,22 +251,23 @@ class InstantTest {
         val test5b: Instant = Instant.fromEpochSeconds(5L, 20)
         val test5n: Instant = Instant.fromEpochSeconds(5L, 30)
         val test6: Instant = Instant.fromEpochSeconds(6L, 20)
-        assertEquals(true, test5a == test5a)
-        assertEquals(true, test5a == test5b)
-        assertEquals(false, test5a == test5n)
-        assertEquals(false, test5a == test6)
-        assertEquals(true, test5b == test5a)
-        assertEquals(true, test5b == test5b)
-        assertEquals(false, test5b == test5n)
-        assertEquals(false, test5b == test6)
-        assertEquals(false, test5n == test5a)
-        assertEquals(false, test5n == test5b)
-        assertEquals(true, test5n == test5n)
-        assertEquals(false, test5n == test6)
-        assertEquals(false, test6 == test5a)
-        assertEquals(false, test6 == test5b)
-        assertEquals(false, test6 == test5n)
-        assertEquals(true, test6 == test6)
+
+        assertEquals(test5a, test5a)
+        assertEquals(test5a, test5b)
+        assertNotEquals(test5a, test5n)
+        assertNotEquals(test5a, test6)
+        assertEquals(test5b, test5a)
+        assertEquals(test5b, test5b)
+        assertNotEquals(test5b, test5n)
+        assertNotEquals(test5b, test6)
+        assertNotEquals(test5n, test5a)
+        assertNotEquals(test5n, test5b)
+        assertEquals(test5n, test5n)
+        assertNotEquals(test5n, test6)
+        assertNotEquals(test6, test5a)
+        assertNotEquals(test6, test5b)
+        assertNotEquals(test6, test5n)
+        assertEquals(test6, test6)
     }
 
     @Test
