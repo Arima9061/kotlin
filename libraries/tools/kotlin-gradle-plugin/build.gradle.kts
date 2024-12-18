@@ -29,7 +29,7 @@ kotlin {
                 "org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi",
                 "org.jetbrains.kotlin.gradle.ComposeKotlinGradlePluginApi",
                 "org.jetbrains.kotlin.gradle.swiftexport.ExperimentalSwiftExportDsl",
-                "org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation"
+                "org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation",
             )
         )
     }
