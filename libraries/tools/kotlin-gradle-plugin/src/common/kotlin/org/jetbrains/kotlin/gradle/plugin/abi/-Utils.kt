@@ -11,6 +11,7 @@ import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.api.TestVariant
 import com.android.build.gradle.api.UnitTestVariant
 import org.gradle.api.DomainObjectCollection
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.tasks.SourceSet
@@ -78,8 +79,10 @@ internal fun Project.prepareAbiClasspath(): Configuration {
 /**
  * Execute given [action] against compilation with name [SourceSet.MAIN_SOURCE_SET_NAME].
  */
-internal inline fun <T : KotlinCompilation<*>> DomainObjectCollection<T>.withMainCompilation(crossinline action: T.() -> Unit) {
-    all { compilation ->
-        if (compilation.name == SourceSet.MAIN_SOURCE_SET_NAME) compilation.action()
+internal inline fun <T : KotlinCompilation<*>> NamedDomainObjectContainer<T>.withMainCompilation(crossinline action: T.() -> Unit) {
+    if (names.contains(SourceSet.MAIN_SOURCE_SET_NAME)) {
+        named(SourceSet.MAIN_SOURCE_SET_NAME).configure { compilation ->
+            compilation.action()
+        }
     }
 }
