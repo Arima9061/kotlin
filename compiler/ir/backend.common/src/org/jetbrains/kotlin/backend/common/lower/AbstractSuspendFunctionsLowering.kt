@@ -199,7 +199,7 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
                 body = irBuilder.irBlockBody {
                     val completionParameter = parameters.last()
                     +irDelegatingConstructorCall(coroutineBaseClassConstructor).apply {
-                        putValueArgument(0, irGet(completionParameter))
+                        arguments[0] = irGet(completionParameter)
                     }
                     +IrInstanceInitializerCallImpl(startOffset, endOffset, coroutineClass.symbol, context.irBuiltIns.unitType)
 
