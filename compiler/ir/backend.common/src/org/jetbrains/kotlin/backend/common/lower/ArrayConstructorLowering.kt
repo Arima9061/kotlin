@@ -80,7 +80,7 @@ private class ArrayConstructorTransformer(
             val generator = invokable.asInlinable(this)
             +irWhile().apply {
                 condition = irCall(context.irBuiltIns.lessFunByOperandType[index.type.classifierOrFail]!!).apply {
-                    putValueArgument(0, irGet(index))
+                    arguments[0] = irGet(index)
                     putValueArgument(1, irGet(sizeVar))
                 }
                 body = irBlock {
