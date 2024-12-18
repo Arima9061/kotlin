@@ -24,8 +24,6 @@ internal class AbiValidationTaskSet(project: Project, variantName: String) {
         project.tasks.getTask<KotlinLegacyAbiDumpTaskImpl>(KotlinLegacyAbiDumpTaskImpl.nameForVariant(variantName))
     private val legacyCheckDumpTaskProvider =
         project.tasks.getTask<KotlinLegacyAbiCheckTaskImpl>(KotlinLegacyAbiCheckTaskImpl.nameForVariant(variantName))
-    private val legacyUpdateDumpTaskProvider =
-        project.tasks.getTask<KotlinLegacyAbiUpdateTask>(KotlinLegacyAbiUpdateTask.nameForVariant(variantName))
 
     /**
      * Add declarations for JVM target, at the same time, there are no other JVM targets.

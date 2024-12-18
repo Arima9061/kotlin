@@ -16,7 +16,6 @@ import org.jetbrains.kotlin.gradle.tasks.abi.KotlinAbiDumpTask
 
 /**
  * A plugin DSL extension for configuring ABI Validation.
- * common options for the entire project.
  *
  * ABI Validation - is a part of Kotlin toolset designed to control declarations available to other modules.
  * You can use this tool to control the binary compatibility of your library or shared module.
