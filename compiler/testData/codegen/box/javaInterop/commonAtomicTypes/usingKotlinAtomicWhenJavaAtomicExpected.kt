@@ -15,7 +15,7 @@ public class JavaClass {
 
 // FILE: test.kt
 import JavaClass
-import kotlin.concurrent.*
+import kotlin.concurrent.atomics.*
 
 @OptIn(ExperimentalStdlibApi::class)
 fun usage(a: JavaClass): String {

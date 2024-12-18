@@ -11,7 +11,7 @@ public class JavaBase {
 }
 
 // FILE: test.kt
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 import java.util.concurrent.atomic.AtomicInteger
 
 @OptIn(ExperimentalStdlibApi::class)

@@ -4,11 +4,11 @@ FILE: KotlinClass.kt
             super<R|kotlin/Any|>()
         }
 
-        public open fun foo(a: R|kotlin/concurrent/AtomicInt|): R|kotlin/Unit| {
+        public open fun foo(a: R|kotlin/concurrent/atomics/AtomicInt|): R|kotlin/Unit| {
         }
 
-        public open val a: R|kotlin/concurrent/AtomicInt| = R|kotlin/concurrent/AtomicInt.AtomicInt|(Int(0))
-            public get(): R|kotlin/concurrent/AtomicInt|
+        public open val a: R|kotlin/concurrent/atomics/AtomicInt| = R|kotlin/concurrent/atomics/AtomicInt.AtomicInt|(Int(0))
+            public get(): R|kotlin/concurrent/atomics/AtomicInt|
 
     }
 FILE: test.kt
@@ -33,8 +33,8 @@ FILE: test.kt
 
     }
     @R|kotlin/OptIn|(markerClass = vararg(<getClass>(Q|kotlin/ExperimentalStdlibApi|))) public final fun usage(a: R|KotlinChildWithFakeOverride|): R|kotlin/Unit| {
-        R|<local>/a|.R|/KotlinClass.foo|(R|kotlin/concurrent/AtomicInt.AtomicInt|(Int(0)))
+        R|<local>/a|.R|/KotlinClass.foo|(R|kotlin/concurrent/atomics/AtomicInt.AtomicInt|(Int(0)))
         R|<local>/a|.R|/KotlinClass.foo<Inapplicable(INAPPLICABLE): /KotlinClass.foo>#|(R|java/util/concurrent/atomic/AtomicInteger.AtomicInteger|(Int(0)))
-        lval t1: R|kotlin/concurrent/AtomicInt| = R|<local>/a|.R|/KotlinClass.a|
+        lval t1: R|kotlin/concurrent/atomics/AtomicInt| = R|<local>/a|.R|/KotlinClass.a|
         lval t2: R|java/util/concurrent/atomic/AtomicInteger| = R|<local>/a|.R|/KotlinClass.a|
     }

@@ -11,10 +11,10 @@ public class JavaClass {
 
 // FILE: test.kt
 import JavaClass
-import kotlin.concurrent.asKotlinAtomic
-import kotlin.concurrent.asKotlinAtomicArray
-import kotlin.concurrent.AtomicInt
-import kotlin.concurrent.AtomicIntArray
+import kotlin.concurrent.atomics.asKotlinAtomic
+import kotlin.concurrent.atomics.asKotlinAtomicArray
+import kotlin.concurrent.atomics.AtomicInt
+import kotlin.concurrent.atomics.AtomicIntArray
 
 @OptIn(ExperimentalStdlibApi::class)
 class KotlinClass {

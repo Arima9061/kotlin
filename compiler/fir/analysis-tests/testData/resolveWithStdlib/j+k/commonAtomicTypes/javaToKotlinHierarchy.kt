@@ -13,7 +13,7 @@ public class JavaClass {
 // FILE: test.kt
 import JavaClass
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 class KotlinClassWithFakeOverride : JavaClass()
 

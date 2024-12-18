@@ -1,6 +1,6 @@
 // WITH_STDLIB
 // FIR_IDENTICAL
-import kotlin.concurrent.*
+import kotlin.concurrent.atomics.*
 
 @OptIn(ExperimentalStdlibApi::class)
 fun foo(a: AtomicIntArray) {

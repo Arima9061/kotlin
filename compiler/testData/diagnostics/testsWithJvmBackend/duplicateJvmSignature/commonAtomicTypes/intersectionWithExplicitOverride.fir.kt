@@ -1,7 +1,7 @@
 // WITH_STDLIB
 
 // FILE: KotlinInterface.kt
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 @OptIn(ExperimentalStdlibApi::class)
 interface KotlinInterface {
@@ -20,7 +20,7 @@ public class JavaClass {
 
 // FILE: test.kt
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 @OptIn(ExperimentalStdlibApi::class)
 class IntersectionWithExplicitOverride: KotlinInterface, JavaClass() {

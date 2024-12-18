@@ -4,7 +4,7 @@
 
 // MODULE: m1-common
 // FILE: common.kt
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 @OptIn(ExperimentalStdlibApi::class)
 expect class Foo {

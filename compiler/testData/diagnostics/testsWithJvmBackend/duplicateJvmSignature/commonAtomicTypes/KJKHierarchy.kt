@@ -1,7 +1,7 @@
 // WITH_STDLIB
 
 // FILE: KotlinClass.kt
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 @OptIn(ExperimentalStdlibApi::class)
 open class KotlinClass {
@@ -25,7 +25,7 @@ public class JavaClassWithExplicitOverride extends KotlinClass {
 // FILE: test.kt
 import JavaClassWithExplicitOverride
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.concurrent.AtomicInt
+import kotlin.concurrent.atomics.AtomicInt
 
 <!CONFLICTING_INHERITED_JVM_DECLARATIONS, CONFLICTING_INHERITED_JVM_DECLARATIONS!>class KotlinChildWithFakeOverride: JavaClassWithExplicitOverride()<!>
 
