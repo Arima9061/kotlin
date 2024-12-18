@@ -65,7 +65,7 @@ import kotlin.time.Duration.Companion.seconds
  *
  * For technical reasons, converting [Instant] to and from Foundation's `NSDate` is provided in
  * `kotlinx-datetime` via `Instant.toNSDate()` and `NSDate.toKotlinInstant()` extension functions.
- * These functions will be made available in `kotlin.time` in the future.
+ * These functions might become available in `kotlin.time` in the future.
  *
  * ### Construction, serialization, and deserialization
  *
@@ -92,7 +92,8 @@ import kotlin.time.Duration.Companion.seconds
  * ```
  *
  * [parse] and [toString] methods can be used to obtain an [Instant] from and convert it to a string in the
- * ISO 8601 extended format.
+ * (ISO 8601 extended format)[https://en.wikipedia.org/wiki/ISO_8601#Combined_date_and_time_representations],
+ * which includes a time zone designator.
  *
  * ```
  * val instant = Instant.parse("2023-01-02T22:35:01+01:00")

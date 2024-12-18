@@ -8,7 +8,7 @@ package kotlin.time
 /**
  * A source of [Instant] values.
  *
- * See [Clock.System][Clock.System] for the clock instance that queries the operating system.
+ * See [Clock.System] for the clock instance that queries the operating system.
  *
  * It is not recommended to use [Clock.System] directly in the implementation. Instead, you can pass a
  * [Clock] explicitly to the necessary functions or classes.
@@ -28,6 +28,9 @@ public interface Clock {
      *
      * Even though [Instant] is defined to be on the UTC-SLS time scale, which enforces a specific way of handling
      * leap seconds, [now] is not guaranteed to handle leap seconds in any specific way.
+     *
+     * Note that while [Instant] supports nanosecond precision,
+     * the actual precision of the returned [Instant] depends on the resolution of the [Clock] implementation.
      */
     public fun now(): Instant
 
