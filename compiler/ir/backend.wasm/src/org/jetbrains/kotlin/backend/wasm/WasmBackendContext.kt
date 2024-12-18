@@ -45,7 +45,7 @@ class WasmBackendContext(
     val phaseConfig = configuration.phaseConfig ?: PhaseConfig()
 
     var emitFunctionsAsUsual = true
-    var importFunctions: Set<IdSignature>? = null
+    val importFunctions = mutableSetOf<IdSignature>()
 
     override val typeSystem: IrTypeSystemContext = IrTypeSystemContextImpl(irBuiltIns)
     override var inVerbosePhase: Boolean = false

@@ -1,3 +1,5 @@
 fun box(): String {
-    return getFAIL()
+    println("FAIL".hashCode())
+    println(getFAIL().hashCode())
+    return "FAIL"
 }

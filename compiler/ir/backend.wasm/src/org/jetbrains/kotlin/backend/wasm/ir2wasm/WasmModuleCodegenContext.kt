@@ -78,8 +78,12 @@ class WasmFileCodegenContext(
     fun referenceGlobalField(irField: IrFieldSymbol): WasmSymbol<WasmGlobal> =
         wasmFileFragment.globalFields.reference(irField.getReferenceKey())
 
-    fun referenceGlobalVTable(irClass: IrClassSymbol): WasmSymbol<WasmGlobal> =
-        wasmFileFragment.globalVTables.reference(irClass.getReferenceKey())
+    fun referenceGlobalVTable(irClass: IrClassSymbol): WasmSymbol<WasmGlobal> {
+        if (irClass.getReferenceKey().toString() == "kotlin/Int|null[0]") {
+            println()
+        }
+        return wasmFileFragment.globalVTables.reference(irClass.getReferenceKey())
+    }
 
     fun referenceGlobalClassITable(irClass: IrClassSymbol): WasmSymbol<WasmGlobal> =
         wasmFileFragment.globalClassITables.reference(irClass.getReferenceKey())

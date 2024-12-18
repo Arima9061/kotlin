@@ -22,6 +22,7 @@ import org.jetbrains.kotlin.ir.backend.js.dce.DceDumpNameCache
 import org.jetbrains.kotlin.ir.backend.js.dce.dumpDeclarationIrSizesIfNeed
 import org.jetbrains.kotlin.ir.backend.js.utils.findUnitGetInstanceFunction
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
+import org.jetbrains.kotlin.ir.util.constructors
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.test.DebugMode
@@ -94,15 +95,19 @@ class WasmLoweringFacade(
         )
 
         backendContext.emitFunctionsAsUsual = true
-        backendContext.importFunctions = null
         val mainIrModuleFragment = allModules.first { it.name.asString() == "<main>" }
         val wasmCompiledFileFragment = codeGenerator.generateModuleAsSingleFileFragment(mainIrModuleFragment)
 
-        val unitGetInstanceSignature =
-            (moduleInfo.symbolTable.irFactory as IrFactoryImplForWasmIC)
-                .declarationSignature(backendContext.findUnitGetInstanceFunction())
+        val factory = moduleInfo.symbolTable.irFactory as IrFactoryImplForWasmIC
 
-        backendContext.importFunctions = wasmCompiledFileFragment.functions.unbound.keys + unitGetInstanceSignature
+        val unitGetInstanceSignature = factory.declarationSignature(backendContext.findUnitGetInstanceFunction())
+        val stringConstructors = backendContext.wasmSymbols.irBuiltIns.stringClass.owner.constructors.map {
+            factory.declarationSignature(it)
+        }
+        backendContext.importFunctions.addAll(wasmCompiledFileFragment.functions.unbound.keys)
+        backendContext.importFunctions.addAll(stringConstructors)
+        backendContext.importFunctions.add(unitGetInstanceSignature)
+
         backendContext.emitFunctionsAsUsual = false
         val nonMainWasmCompiledFileFragments = allModules.filter { it != mainIrModuleFragment }.map {
             val fragment = codeGenerator.generateModuleAsSingleFileFragment(it)

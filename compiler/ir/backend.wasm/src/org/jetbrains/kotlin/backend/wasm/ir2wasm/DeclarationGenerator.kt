@@ -6,7 +6,6 @@
 package org.jetbrains.kotlin.backend.wasm.ir2wasm
 
 import org.jetbrains.kotlin.backend.wasm.WasmBackendContext
-import org.jetbrains.kotlin.backend.wasm.lower.KOTLIN_TO_JS_CLOSURE_ORIGIN
 import org.jetbrains.kotlin.backend.wasm.utils.*
 import org.jetbrains.kotlin.config.AnalysisFlags.allowFullyQualifiedNameInKClass
 import org.jetbrains.kotlin.config.languageVersionSettings
@@ -25,8 +24,10 @@ import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementVisitorVoid
 import org.jetbrains.kotlin.ir.visitors.acceptVoid
 import org.jetbrains.kotlin.name.parentOrNull
+import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
 import org.jetbrains.kotlin.wasm.ir.*
 import org.jetbrains.kotlin.wasm.ir.source.location.SourceLocation
+import kotlin.collections.contains
 
 class DeclarationGenerator(
     private val backendContext: WasmBackendContext,
@@ -88,12 +89,10 @@ class DeclarationGenerator(
 
         val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(declaration)
         val stdlibFunName: String?
-        if (!backendContext.emitFunctionsAsUsual) {
-            if (backendContext.importFunctions!!.contains(signature)) {
-                stdlibFunName = signature.toString()
-            } else {
-                return
-            }
+        if (!backendContext.emitFunctionsAsUsual && declaration != backendContext.wasmSymbols.stringGetLiteral.owner) {
+            stdlibFunName = backendContext.importFunctions.contains(signature)
+                .ifTrue { signature.toString() }
+                ?: return
         } else {
             stdlibFunName = null
         }
@@ -235,12 +234,30 @@ class DeclarationGenerator(
         )
         wasmFileCodegenContext.defineVTableGcType(metadata.klass.symbol, vtableStruct)
 
-        if (!backendContext.emitFunctionsAsUsual) return
-
         if (klass.isAbstractOrSealed) return
 
         val vTableTypeReference = wasmFileCodegenContext.referenceVTableGcType(symbol)
         val vTableRefGcType = WasmRefType(WasmHeapType.Type(vTableTypeReference))
+
+        if (!backendContext.emitFunctionsAsUsual) {
+            val signature = (backendContext.irFactory as IdSignatureRetriever).declarationSignature(klass)
+            val vtableGlobalName = backendContext.importFunctions.contains(signature)
+                .ifTrue { signature.toString() }
+                ?: return
+
+            val global = WasmGlobal(
+                name = vtableName,
+                type = vTableRefGcType,
+                isMutable = false,
+                init = emptyList(),
+                importPair = WasmImportDescriptor("stdlib", WasmSymbol(vtableGlobalName))
+            )
+            wasmFileCodegenContext.defineGlobalVTable(
+                irClass = symbol,
+                wasmGlobal = global
+            )
+            return
+        }
 
         val initVTableGlobal = buildWasmExpression {
             val location = SourceLocation.NoLocation("Create instance of vtable struct")
