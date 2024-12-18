@@ -54,7 +54,7 @@ abstract class AbstractValueUsageTransformer(
         this.useAsArgument(expression.symbol.owner.dispatchReceiverParameter!!)
 
     protected open fun IrExpression.useAsExtensionReceiver(expression: IrFunctionAccessExpression): IrExpression =
-        this.useAsArgument(expression.symbol.owner.extensionReceiverParameter!!)
+        this.useAsArgument(expression.symbol.owner.parameters.first { it.kind == IrParameterKind.ExtensionReceiver })
 
     protected open fun IrExpression.useAsValueArgument(
         expression: IrFunctionAccessExpression,
