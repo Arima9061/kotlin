@@ -190,7 +190,7 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
                     parameter.copyTo(this, DECLARATION_ORIGIN_COROUTINE_IMPL, kind = IrParameterKind.Regular)
                 }
                 val continuationParameter = coroutineBaseClassConstructor.parameters[0]
-                valueParameters = valueParameters memoryOptimizedPlus continuationParameter.copyTo(
+                parameters = parameters memoryOptimizedPlus continuationParameter.copyTo(
                     this, DECLARATION_ORIGIN_COROUTINE_IMPL,
                     type = continuationType
                 )
