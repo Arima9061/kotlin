@@ -34,6 +34,6 @@ TestKt {
 
 TestKt$Foo$1 {
     <init> null
-    invoke null
+    invoke [key=-1912932616, startOffset=191, endOffset=224]
     invoke null
 }
