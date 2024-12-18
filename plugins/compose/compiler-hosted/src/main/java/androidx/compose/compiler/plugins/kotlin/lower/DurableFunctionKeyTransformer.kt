@@ -159,7 +159,7 @@ class DurableFunctionKeyTransformer(
                 if (declaration.hasAnnotation(ComposeClassIds.FunctionKeyMeta)) return declaration
 
                 declaration.annotations += irKeyMetaAnnotation(functionKey)
-                return declaration
+                return super.visitSimpleFunction(declaration)
             }
         })
     }

@@ -86,6 +86,27 @@ class FunctionKeyMetaAnnotationsTests(useFir: Boolean) : AbstractCodegenTest(use
         """.trimIndent()
     )
 
+    @Test
+    fun testCapturingComposableLambda(): Unit = verifyGoldenBytecodeRender(
+        """
+         import androidx.compose.runtime.*
+        
+         @Composable
+         fun Wrapper(child: @Composable () -> Unit) {
+             child()
+         }
+
+         @Composable
+         fun Foo() {
+             var state by remember { mutableStateOf(0) }
+             Wrapper {
+                 println("%state")
+             }
+         }
+
+        """.trimIndent().replace("%", "$")
+    )
+
     private fun verifyGoldenBytecodeRender(@Language("kotlin") source: String) {
         val files = compileToClassFiles(source, "Test.kt")
         val rendered = renderAnnotatedDeclarations(files)
