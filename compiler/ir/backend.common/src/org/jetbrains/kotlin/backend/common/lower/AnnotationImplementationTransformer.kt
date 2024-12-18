@@ -309,8 +309,8 @@ class AnnotationImplementationMemberGenerator(
     fun generateEqualsUsingGetters(equalsFun: IrSimpleFunction, typeForEquals: IrType, properties: List<IrProperty>) = equalsFun.apply {
         body = loweringContext.createIrBuilder(symbol, SYNTHETIC_OFFSET, SYNTHETIC_OFFSET).irBlockBody {
             val irType = typeForEquals
-            fun irOther() = irGet(valueParameters[0])
-            fun irThis() = irGet(dispatchReceiverParameter!!)
+            fun irOther() = irGet(parameters[1])
+            fun irThis() = irGet(parameters[0])
             fun IrProperty.get(receiver: IrExpression) = irCall(getter!!).apply {
                 dispatchReceiver = receiver
             }
