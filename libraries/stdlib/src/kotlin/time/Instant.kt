@@ -209,7 +209,6 @@ public class Instant internal constructor(
      */
     public operator fun minus(duration: Duration): Instant = plus(-duration)
 
-    // questionable
     /**
      * Returns the [Duration] between two instants: [other] and `this`.
      *
