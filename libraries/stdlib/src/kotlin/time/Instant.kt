@@ -3,6 +3,11 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
+/*
+ * Based on the ThreeTenBp project.
+ * Copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ */
+
 package kotlin.time
 
 import kotlin.math.absoluteValue
@@ -700,10 +705,6 @@ private fun formatIso(instant: Instant): String = buildString {
     }
     append('Z')
 }
-
-/**
- * All code below was taken from various places of https://github.com/ThreeTen/threetenbp with few changes
- */
 
 /**
  * The number of days in a 400 year cycle.

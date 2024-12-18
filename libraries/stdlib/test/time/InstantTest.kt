@@ -3,6 +3,11 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
+/*
+ * Based on the ThreeTenBp project.
+ * Copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
+ */
+
 package test.time
 
 import kotlin.random.*
@@ -70,9 +75,6 @@ class InstantTest {
         assertEquals(pow2_32, instant3.epochSeconds)
     }
 
-    /* Based on the ThreeTenBp project.
-     * Copyright (c) 2007-present, Stephen Colebourne & Michael Nascimento Santos
-     */
     @Test
     fun nanosecondAdjustment() {
         for (i in -2..2L) {
