@@ -207,7 +207,7 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
                         +irSetField(
                             irGet(coroutineClassThis),
                             argumentToPropertiesMap.getValue(parameter),
-                            irGet(valueParameters[index])
+                            irGet(parameters[index])
                         )
                     }
                 }
