@@ -439,7 +439,7 @@ private const val MIN_SECOND = -31557014167219200L // -1000000000-01-01T00:00:00
 private const val MAX_SECOND = 31556889864403199L // +1000000000-12-31T23:59:59
 
 @ExperimentalTime
-private class UnboundedLocalDateTime(
+private class UnboundLocalDateTime(
     val year: Int,
     val month: Int,
     val day: Int,
@@ -485,10 +485,10 @@ private class UnboundedLocalDateTime(
         return Instant.fromEpochSeconds(epochSeconds, nanosecond)
     }
 
-    override fun toString(): String = "UnboundedLocalDateTime($year-$month-$day $hour:$minute:$second.$nanosecond)"
+    override fun toString(): String = "UnboundLocalDateTime($year-$month-$day $hour:$minute:$second.$nanosecond)"
 
     companion object {
-        fun fromInstant(instant: Instant): UnboundedLocalDateTime {
+        fun fromInstant(instant: Instant): UnboundLocalDateTime {
             val localSecond: Long = instant.epochSeconds
             val epochDays = localSecond.floorDiv(SECONDS_PER_DAY.toLong())
             val secsOfDay = localSecond.mod(SECONDS_PER_DAY.toLong()).toInt()
@@ -527,7 +527,7 @@ private class UnboundedLocalDateTime(
             val secondWithoutHours = secsOfDay - hours * SECONDS_PER_HOUR
             val minutes = (secondWithoutHours / SECONDS_PER_MINUTE)
             val second = secondWithoutHours - minutes * SECONDS_PER_MINUTE
-            return UnboundedLocalDateTime(year, month, day, hours, minutes, second, instant.nanosecondsOfSecond)
+            return UnboundLocalDateTime(year, month, day, hours, minutes, second, instant.nanosecondsOfSecond)
         }
     }
 }
@@ -656,12 +656,12 @@ private fun parseIso(isoString: CharSequence): Instant {
     if (hour > 23) { parseFailure("Expected hour in 0..23, got $hour") }
     if (minute > 59) { parseFailure("Expected minute-of-hour in 0..59, got $minute") }
     if (second > 59) { parseFailure("Expected second-of-minute in 0..59, got $second") }
-    return UnboundedLocalDateTime(year, month, day, hour, minute, second, nanosecond).toInstant(offsetSeconds)
+    return UnboundLocalDateTime(year, month, day, hour, minute, second, nanosecond).toInstant(offsetSeconds)
 }
 
 @ExperimentalTime
 private fun formatIso(instant: Instant): String = buildString {
-    val ldt = UnboundedLocalDateTime.fromInstant(instant)
+    val ldt = UnboundLocalDateTime.fromInstant(instant)
     fun Appendable.appendTwoDigits(number: Int) {
         if (number < 10) append('0')
         append(number)
