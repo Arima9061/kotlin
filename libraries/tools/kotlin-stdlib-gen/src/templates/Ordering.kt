@@ -163,6 +163,17 @@ object Ordering : TemplateGroupBase() {
         }
     }
 
+    val stableSortBySelectorNote = """
+        The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order 
+        relative to each other after sorting.
+    """.trimIndent()
+
+    fun MemberBuilder.appendStableSortBySelectorNote() {
+        doc {
+            doc.orEmpty().trimIndent() + "\n\n" + stableSortBySelectorNote
+        }
+    }
+
     val f_sorted = fn("sorted()") {
         includeDefault()
         exclude(PrimitiveType.Boolean)
@@ -409,7 +420,7 @@ object Ordering : TemplateGroupBase() {
     } builder {
         inline()
         doc { """Sorts elements in the ${f.collection} in-place according to natural sort order of the value returned by specified [selector] function.""" }
-        appendStableSortNote()
+        appendStableSortBySelectorNote()
         returns("Unit")
         typeParam("R : Comparable<R>")
         specialFor(Lists) { receiver("MutableList<T>") }
@@ -426,9 +437,10 @@ object Ordering : TemplateGroupBase() {
 
         doc {
             """
-            Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+            Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.            
             """
         }
+        appendStableSortBySelectorNote()
 
         when (f) {
             ArraysOfPrimitives -> {
@@ -438,7 +450,6 @@ object Ordering : TemplateGroupBase() {
                 sample("samples.collections.Sequences.Sorting.sortedBy")
             }
             else -> {
-                appendStableSortNote()
                 sample("samples.collections.Collections.Sorting.sortedBy")
             }
         }
@@ -448,7 +459,7 @@ object Ordering : TemplateGroupBase() {
             doc {
                 "Returns a sequence that yields elements of this sequence sorted according to natural sort order of the value returned by specified [selector] function."
             }
-            appendStableSortNote()
+            appendStableSortBySelectorNote()
             sequenceClassification(intermediate, stateful)
         }
 
@@ -462,7 +473,7 @@ object Ordering : TemplateGroupBase() {
     } builder {
         inline()
         doc { """Sorts elements in the ${f.collection} in-place descending according to natural sort order of the value returned by specified [selector] function.""" }
-        appendStableSortNote()
+        appendStableSortBySelectorNote()
         returns("Unit")
         typeParam("R : Comparable<R>")
         specialFor(Lists) { receiver("MutableList<T>") }
@@ -483,6 +494,7 @@ object Ordering : TemplateGroupBase() {
             Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
             """
         }
+        appendStableSortBySelectorNote()
 
         when (f) {
             ArraysOfPrimitives -> {
@@ -492,7 +504,6 @@ object Ordering : TemplateGroupBase() {
                 sample("samples.collections.Sequences.Sorting.sortedByDescending")
             }
             else -> {
-                appendStableSortNote()
                 sample("samples.collections.Collections.Sorting.sortedByDescending")
             }
         }
@@ -502,7 +513,7 @@ object Ordering : TemplateGroupBase() {
             doc {
                 "Returns a sequence that yields elements of this sequence sorted descending according to natural sort order of the value returned by specified [selector] function."
             }
-            appendStableSortNote()
+            appendStableSortBySelectorNote()
             sequenceClassification(intermediate, stateful)
         }
 

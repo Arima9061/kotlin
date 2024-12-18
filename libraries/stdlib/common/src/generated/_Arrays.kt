@@ -6174,7 +6174,8 @@ public fun CharArray.shuffle(random: Random): Unit {
 /**
  * Sorts elements in the array in-place according to natural sort order of the value returned by specified [selector] function.
  * 
- * The sort is _stable_. It means that equal elements preserve their order relative to each other after sorting.
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  */
 public inline fun <T, R : Comparable<R>> Array<out T>.sortBy(crossinline selector: (T) -> R?): Unit {
     if (size > 1) sortWith(compareBy(selector))
@@ -6183,7 +6184,8 @@ public inline fun <T, R : Comparable<R>> Array<out T>.sortBy(crossinline selecto
 /**
  * Sorts elements in the array in-place descending according to natural sort order of the value returned by specified [selector] function.
  * 
- * The sort is _stable_. It means that equal elements preserve their order relative to each other after sorting.
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  */
 public inline fun <T, R : Comparable<R>> Array<out T>.sortByDescending(crossinline selector: (T) -> R?): Unit {
     if (size > 1) sortWith(compareByDescending(selector))
@@ -6471,7 +6473,8 @@ public fun <T> Array<out T>.sortedArrayWith(comparator: Comparator<in T>): Array
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
  * 
- * The sort is _stable_. It means that equal elements preserve their order relative to each other after sorting.
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedBy
  */
@@ -6482,6 +6485,9 @@ public inline fun <T, R : Comparable<R>> Array<out T>.sortedBy(crossinline selec
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
 public inline fun <R : Comparable<R>> ByteArray.sortedBy(crossinline selector: (Byte) -> R?): List<Byte> {
@@ -6490,6 +6496,9 @@ public inline fun <R : Comparable<R>> ByteArray.sortedBy(crossinline selector: (
 
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
@@ -6500,6 +6509,9 @@ public inline fun <R : Comparable<R>> ShortArray.sortedBy(crossinline selector: 
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
 public inline fun <R : Comparable<R>> IntArray.sortedBy(crossinline selector: (Int) -> R?): List<Int> {
@@ -6508,6 +6520,9 @@ public inline fun <R : Comparable<R>> IntArray.sortedBy(crossinline selector: (I
 
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
@@ -6518,6 +6533,9 @@ public inline fun <R : Comparable<R>> LongArray.sortedBy(crossinline selector: (
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
 public inline fun <R : Comparable<R>> FloatArray.sortedBy(crossinline selector: (Float) -> R?): List<Float> {
@@ -6526,6 +6544,9 @@ public inline fun <R : Comparable<R>> FloatArray.sortedBy(crossinline selector: 
 
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
@@ -6536,6 +6557,9 @@ public inline fun <R : Comparable<R>> DoubleArray.sortedBy(crossinline selector:
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
 public inline fun <R : Comparable<R>> BooleanArray.sortedBy(crossinline selector: (Boolean) -> R?): List<Boolean> {
@@ -6544,6 +6568,9 @@ public inline fun <R : Comparable<R>> BooleanArray.sortedBy(crossinline selector
 
 /**
  * Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayBy
  */
@@ -6554,7 +6581,8 @@ public inline fun <R : Comparable<R>> CharArray.sortedBy(crossinline selector: (
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
  * 
- * The sort is _stable_. It means that equal elements preserve their order relative to each other after sorting.
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedByDescending
  */
@@ -6565,6 +6593,9 @@ public inline fun <T, R : Comparable<R>> Array<out T>.sortedByDescending(crossin
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
 public inline fun <R : Comparable<R>> ByteArray.sortedByDescending(crossinline selector: (Byte) -> R?): List<Byte> {
@@ -6573,6 +6604,9 @@ public inline fun <R : Comparable<R>> ByteArray.sortedByDescending(crossinline s
 
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
@@ -6583,6 +6617,9 @@ public inline fun <R : Comparable<R>> ShortArray.sortedByDescending(crossinline 
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
 public inline fun <R : Comparable<R>> IntArray.sortedByDescending(crossinline selector: (Int) -> R?): List<Int> {
@@ -6591,6 +6628,9 @@ public inline fun <R : Comparable<R>> IntArray.sortedByDescending(crossinline se
 
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
@@ -6601,6 +6641,9 @@ public inline fun <R : Comparable<R>> LongArray.sortedByDescending(crossinline s
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
 public inline fun <R : Comparable<R>> FloatArray.sortedByDescending(crossinline selector: (Float) -> R?): List<Float> {
@@ -6609,6 +6652,9 @@ public inline fun <R : Comparable<R>> FloatArray.sortedByDescending(crossinline 
 
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
@@ -6619,6 +6665,9 @@ public inline fun <R : Comparable<R>> DoubleArray.sortedByDescending(crossinline
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
  * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
+ * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
 public inline fun <R : Comparable<R>> BooleanArray.sortedByDescending(crossinline selector: (Boolean) -> R?): List<Boolean> {
@@ -6627,6 +6676,9 @@ public inline fun <R : Comparable<R>> BooleanArray.sortedByDescending(crossinlin
 
 /**
  * Returns a list of all elements sorted descending according to natural sort order of the value returned by specified [selector] function.
+ * 
+ * The sort is _stable_. It means that elements for which [selector] returned equal values preserve their order
+ * relative to each other after sorting.
  * 
  * @sample samples.collections.Collections.Sorting.sortedPrimitiveArrayByDescending
  */
