@@ -116,14 +116,12 @@ abstract class AbstractSuspendFunctionsLowering<C : CommonBackendContext>(val co
                                            functionParameters.forEachIndexed { index, argument ->
                                                arguments[index] = irGet(argument)
                                            }
-                                           putValueArgument(
-                                               functionParameters.size,
+                                           arguments[functionParameters.size] =
                                                irCall(
                                                    getContinuationSymbol,
                                                    getContinuationSymbol.owner.returnType,
                                                    listOf(irFunction.returnType)
                                                )
-                                           )
                                        })
             }
         }
