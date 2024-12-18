@@ -62,7 +62,7 @@ private class ArrayConstructorTransformer(
         //     return result as Array<T>
         // }
         // (and similar for primitive arrays)
-        val size = expression.getValueArgument(0)!!.transform(this, null)
+        val size = expression.arguments[0]!!.transform(this, null)
         val invokable = expression.getValueArgument(1)!!.transform(this, null)
         if (invokable.type.isNothing()) {
             // Expressions of type 'Nothing' don't terminate.
