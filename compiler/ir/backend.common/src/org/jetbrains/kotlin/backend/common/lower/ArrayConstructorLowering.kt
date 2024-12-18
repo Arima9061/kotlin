@@ -81,7 +81,7 @@ private class ArrayConstructorTransformer(
             +irWhile().apply {
                 condition = irCall(context.irBuiltIns.lessFunByOperandType[index.type.classifierOrFail]!!).apply {
                     arguments[0] = irGet(index)
-                    putValueArgument(1, irGet(sizeVar))
+                    arguments[1] = irGet(sizeVar)
                 }
                 body = irBlock {
                     val tempIndex = createTmpVariable(irGet(index))
