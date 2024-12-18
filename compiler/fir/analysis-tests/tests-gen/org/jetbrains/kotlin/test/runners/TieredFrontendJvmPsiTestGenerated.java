@@ -28650,6 +28650,12 @@ public class TieredFrontendJvmPsiTestGenerated extends AbstractTieredFrontendJvm
           public void testVisibilityOfContextTypeOnFunction() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/visibilityOfContextTypeOnFunction.kt");
           }
+
+          @Test
+          @TestMetadata("withNestedContext.kt")
+          public void testWithNestedContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/withNestedContext.kt");
+          }
         }
       }
     }

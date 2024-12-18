@@ -10313,9 +10313,21 @@ public class LLFirReversedBlackBoxCodegenBasedTestGenerated extends AbstractLLFi
     }
 
     @Test
+    @TestMetadata("classMemberAndTopLevelWithContext.kt")
+    public void testClassMemberAndTopLevelWithContext() {
+      runTest("compiler/testData/codegen/box/contextParameters/classMemberAndTopLevelWithContext.kt");
+    }
+
+    @Test
     @TestMetadata("contextParameterToDefaultArgument.kt")
     public void testContextParameterToDefaultArgument() {
       runTest("compiler/testData/codegen/box/contextParameters/contextParameterToDefaultArgument.kt");
+    }
+
+    @Test
+    @TestMetadata("sameExtensionContextAndDispatchReceiver.kt")
+    public void testSameExtensionContextAndDispatchReceiver() {
+      runTest("compiler/testData/codegen/box/contextParameters/sameExtensionContextAndDispatchReceiver.kt");
     }
 
     @Test
@@ -10352,6 +10364,24 @@ public class LLFirReversedBlackBoxCodegenBasedTestGenerated extends AbstractLLFi
     @TestMetadata("simple.kt")
     public void testSimple() {
       runTest("compiler/testData/codegen/box/contextParameters/simple.kt");
+    }
+
+    @Test
+    @TestMetadata("withExtensionReceiverAndThis.kt")
+    public void testWithExtensionReceiverAndThis() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverAndThis.kt");
+    }
+
+    @Test
+    @TestMetadata("withExtensionReceiverInSupertype.kt")
+    public void testWithExtensionReceiverInSupertype() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverInSupertype.kt");
+    }
+
+    @Test
+    @TestMetadata("withExtensionReceiverInType.kt")
+    public void testWithExtensionReceiverInType() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverInType.kt");
     }
   }
 

@@ -23228,6 +23228,12 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
         @TestDataPath("$PROJECT_ROOT")
         public class DeclarationAndUsages {
           @Test
+          @TestMetadata("classMembersWithContext.kt")
+          public void testClassMembersWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/classMembersWithContext.kt");
+          }
+
+          @Test
           @TestMetadata("contextParameterIsNotInlined.kt")
           public void testContextParameterIsNotInlined() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/contextParameterIsNotInlined.kt");
@@ -23279,6 +23285,12 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
           @TestMetadata("propertyWithContextAndContextType.kt")
           public void testPropertyWithContextAndContextType() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/propertyWithContextAndContextType.kt");
+          }
+
+          @Test
+          @TestMetadata("theSameContextAndDispatchReceiver.kt")
+          public void testTheSameContextAndDispatchReceiver() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/theSameContextAndDispatchReceiver.kt");
           }
 
           @Test

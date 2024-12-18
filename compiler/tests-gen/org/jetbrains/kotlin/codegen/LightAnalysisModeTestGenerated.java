@@ -7981,9 +7981,19 @@ public class LightAnalysisModeTestGenerated extends AbstractLightAnalysisModeTes
       KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/codegen/box/contextParameters"), Pattern.compile("^(.+)\\.kt$"), null, TargetBackend.JVM_IR, true);
     }
 
+    @TestMetadata("classMemberAndTopLevelWithContext.kt")
+    public void testClassMemberAndTopLevelWithContext() {
+      runTest("compiler/testData/codegen/box/contextParameters/classMemberAndTopLevelWithContext.kt");
+    }
+
     @TestMetadata("contextParameterToDefaultArgument.kt")
     public void testContextParameterToDefaultArgument() {
       runTest("compiler/testData/codegen/box/contextParameters/contextParameterToDefaultArgument.kt");
+    }
+
+    @TestMetadata("sameExtensionContextAndDispatchReceiver.kt")
+    public void testSameExtensionContextAndDispatchReceiver() {
+      runTest("compiler/testData/codegen/box/contextParameters/sameExtensionContextAndDispatchReceiver.kt");
     }
 
     @TestMetadata("sameNameWithGlobalProperty.kt")
@@ -8014,6 +8024,21 @@ public class LightAnalysisModeTestGenerated extends AbstractLightAnalysisModeTes
     @TestMetadata("simple.kt")
     public void testSimple() {
       runTest("compiler/testData/codegen/box/contextParameters/simple.kt");
+    }
+
+    @TestMetadata("withExtensionReceiverAndThis.kt")
+    public void testWithExtensionReceiverAndThis() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverAndThis.kt");
+    }
+
+    @TestMetadata("withExtensionReceiverInSupertype.kt")
+    public void testWithExtensionReceiverInSupertype() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverInSupertype.kt");
+    }
+
+    @TestMetadata("withExtensionReceiverInType.kt")
+    public void testWithExtensionReceiverInType() {
+      runTest("compiler/testData/codegen/box/contextParameters/withExtensionReceiverInType.kt");
     }
   }
 

@@ -1796,6 +1796,12 @@ public class FirLightTreeDiagnosticsWithLatestLanguageVersionTestGenerated exten
           }
 
           @Test
+          @TestMetadata("classMembersWithContext.kt")
+          public void testClassMembersWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/classMembersWithContext.kt");
+          }
+
+          @Test
           @TestMetadata("contextOnGetterSetter.kt")
           public void testContextOnGetterSetter() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/contextOnGetterSetter.kt");
@@ -1916,6 +1922,12 @@ public class FirLightTreeDiagnosticsWithLatestLanguageVersionTestGenerated exten
           }
 
           @Test
+          @TestMetadata("theSameContextAndDispatchReceiver.kt")
+          public void testTheSameContextAndDispatchReceiver() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/theSameContextAndDispatchReceiver.kt");
+          }
+
+          @Test
           @TestMetadata("usageWithoutContext.kt")
           public void testUsageWithoutContext() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/usageWithoutContext.kt");
@@ -1943,6 +1955,12 @@ public class FirLightTreeDiagnosticsWithLatestLanguageVersionTestGenerated exten
           @TestMetadata("visibilityOfContextTypeOnProperty.kt")
           public void testVisibilityOfContextTypeOnProperty() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/visibilityOfContextTypeOnProperty.kt");
+          }
+
+          @Test
+          @TestMetadata("withNestedContext.kt")
+          public void testWithNestedContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/withNestedContext.kt");
           }
         }
       }
