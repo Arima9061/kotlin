@@ -82,7 +82,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
 
             initFunction.body = irConstructor.body?.let { body ->
                 context.irFactory.createBlockBody(UNDEFINED_OFFSET, UNDEFINED_OFFSET) {
-                    val origParameterSymbol = irConstructor.valueParameters.single().symbol
+                    val origParameterSymbol = irConstructor.parameters.single().symbol
                     statements += context.createIrBuilder(initFunction.symbol).irBlockBody(initFunction) {
                         val builder = this
                         fun unboxedInlineClassValue() = builder.irReinterpretCast(
