@@ -411,8 +411,8 @@ internal open class RangeHeaderInfoBuilder(context: CommonBackendContext, scopeO
 internal object FloatingPointRangeToHandler : HeaderInfoHandler<IrCall, Nothing?> {
     override fun matchIterable(expression: IrCall): Boolean {
         val callee = expression.symbol.owner
-        return callee.valueParameters.singleOrNull()?.type?.let { it.isFloat() || it.isDouble() } == true &&
-                callee.extensionReceiverParameter?.type?.let { it.isFloat() || it.isDouble() } == true &&
+        return callee.hasShape(extensionReceiver = true, regularParameters = 1) &&
+                callee.parameters.all { it.type.isFloat() || it.type.isDouble() } &&
                 callee.kotlinFqName == FqName("kotlin.ranges.${OperatorNameConventions.RANGE_TO}")
     }
 
