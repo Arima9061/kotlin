@@ -23299,6 +23299,41 @@ public class TieredBackendJvmPsiTestGenerated extends AbstractTieredBackendJvmPs
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/visibilityOfContextTypeOnProperty.kt");
           }
         }
+
+        @Nested
+        @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Overrides {
+          @Test
+          @TestMetadata("intersectionOverride.kt")
+          public void testIntersectionOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/intersectionOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("intersectionWithTypeParameter.kt")
+          public void testIntersectionWithTypeParameter() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/intersectionWithTypeParameter.kt");
+          }
+
+          @Test
+          @TestMetadata("nameCanBeChangedInOverride.kt")
+          public void testNameCanBeChangedInOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/nameCanBeChangedInOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("substitutionOverride.kt")
+          public void testSubstitutionOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/substitutionOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("withContextInType.kt")
+          public void testWithContextInType() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/withContextInType.kt");
+          }
+        }
       }
     }
 

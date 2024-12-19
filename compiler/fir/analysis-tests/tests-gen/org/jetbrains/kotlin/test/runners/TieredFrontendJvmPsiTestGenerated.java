@@ -28592,6 +28592,12 @@ public class TieredFrontendJvmPsiTestGenerated extends AbstractTieredFrontendJvm
           }
 
           @Test
+          @TestMetadata("memberUsageFromContextScope.kt")
+          public void testMemberUsageFromContextScope() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/memberUsageFromContextScope.kt");
+          }
+
+          @Test
           @TestMetadata("multipleContextsWithTheSameType.kt")
           public void testMultipleContextsWithTheSameType() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/multipleContextsWithTheSameType.kt");
@@ -28655,6 +28661,23 @@ public class TieredFrontendJvmPsiTestGenerated extends AbstractTieredFrontendJvm
           @TestMetadata("withNestedContext.kt")
           public void testWithNestedContext() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/withNestedContext.kt");
+          }
+        }
+
+        @Nested
+        @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Overrides {
+          @Test
+          @TestMetadata("baseOverride.kt")
+          public void testBaseOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/baseOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("orderAndTypeOfContextsInOverride.kt")
+          public void testOrderAndTypeOfContextsInOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/orderAndTypeOfContextsInOverride.kt");
           }
         }
       }

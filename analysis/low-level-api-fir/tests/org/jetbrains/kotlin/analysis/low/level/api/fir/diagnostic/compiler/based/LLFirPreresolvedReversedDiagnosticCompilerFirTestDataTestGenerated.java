@@ -1862,6 +1862,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFirTestDataTestGenerated 
           }
 
           @Test
+          @TestMetadata("memberUsageFromContextScope.kt")
+          public void testMemberUsageFromContextScope() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/memberUsageFromContextScope.kt");
+          }
+
+          @Test
           @TestMetadata("moreThenOneContext.kt")
           public void testMoreThenOneContext() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/moreThenOneContext.kt");
@@ -1961,6 +1967,58 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFirTestDataTestGenerated 
           @TestMetadata("withNestedContext.kt")
           public void testWithNestedContext() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/withNestedContext.kt");
+          }
+        }
+
+        @Nested
+        @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Overrides {
+          @Test
+          public void testAllFilesPresentInOverrides() {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides"), Pattern.compile("^([^.]+)\\.kt$"), null, true, "lightTree");
+          }
+
+          @Test
+          @TestMetadata("baseOverride.kt")
+          public void testBaseOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/baseOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("intersectionOverride.kt")
+          public void testIntersectionOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/intersectionOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("intersectionWithTypeParameter.kt")
+          public void testIntersectionWithTypeParameter() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/intersectionWithTypeParameter.kt");
+          }
+
+          @Test
+          @TestMetadata("nameCanBeChangedInOverride.kt")
+          public void testNameCanBeChangedInOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/nameCanBeChangedInOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("orderAndTypeOfContextsInOverride.kt")
+          public void testOrderAndTypeOfContextsInOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/orderAndTypeOfContextsInOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("substitutionOverride.kt")
+          public void testSubstitutionOverride() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/substitutionOverride.kt");
+          }
+
+          @Test
+          @TestMetadata("withContextInType.kt")
+          public void testWithContextInType() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides/withContextInType.kt");
           }
         }
       }

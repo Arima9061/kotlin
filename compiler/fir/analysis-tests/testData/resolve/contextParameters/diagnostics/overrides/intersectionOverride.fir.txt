@@ -1,0 +1,51 @@
+FILE: intersectionOverride.kt
+    public final class A : R|kotlin/Any| {
+        public constructor(): R|A| {
+            super<R|kotlin/Any|>()
+        }
+
+    }
+    public abstract interface First : R|kotlin/Any| {
+        context(a: R|A|)
+        public abstract fun foo(): R|kotlin/Unit|
+
+        context(a: R|A|)
+        public abstract val b: R|kotlin/String|
+            public get(): R|kotlin/String|
+
+    }
+    public abstract interface Second : R|kotlin/Any| {
+        context(a: R|kotlin/Any|)
+        public abstract fun foo(): R|kotlin/Unit|
+
+        context(a: R|kotlin/Any|)
+        public abstract val b: R|kotlin/String|
+            public get(): R|kotlin/String|
+
+    }
+    public final class Intersection : R|First|, R|Second| {
+        public constructor(): R|Intersection| {
+            super<R|kotlin/Any|>()
+        }
+
+        context(a: R|A|)
+        public open override fun foo(): R|kotlin/Unit| {
+        }
+
+        context(a: R|kotlin/Any|)
+        public open override fun foo(): R|kotlin/Unit| {
+        }
+
+        context(a: R|A|)
+        public open override val b: R|kotlin/String|
+            public get(): R|kotlin/String| {
+                ^ String()
+            }
+
+        context(a: R|kotlin/Any|)
+        public open override val b: R|kotlin/String|
+            public get(): R|kotlin/String| {
+                ^ String()
+            }
+
+    }
