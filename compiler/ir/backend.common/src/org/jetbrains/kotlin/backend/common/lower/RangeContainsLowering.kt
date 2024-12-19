@@ -293,8 +293,8 @@ private class Transformer(
         }.getValue(if (useCompareTo) builtIns.intClass else comparisonClass.symbol)
         val compareToFun = comparisonClass.functions.singleOrNull {
             it.name == OperatorNameConventions.COMPARE_TO &&
-                    it.dispatchReceiverParameter != null && it.extensionReceiverParameter == null &&
-                    it.valueParameters.size == 1 && (!isNumericRange || it.valueParameters[0].type == comparisonClass.defaultType)
+                    it.hasShape(dispatchReceiver = true, regularParameters = 1) &&
+                    (!isNumericRange || it.parameters[1].type == comparisonClass.defaultType)
         } ?: return null
 
         // contains() function for ComparableRange is implemented as `value >= start && value <= endInclusive` (`value` is the argument).
