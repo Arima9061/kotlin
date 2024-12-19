@@ -26571,6 +26571,11 @@ public class LightAnalysisModeTestGenerated extends AbstractLightAnalysisModeTes
         public void testJvmSynthetic() {
           runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/jvmSynthetic.kt");
         }
+
+        @TestMetadata("throws.kt")
+        public void testThrows() {
+          runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/throws.kt");
+        }
       }
 
       @TestMetadata("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/inherit")

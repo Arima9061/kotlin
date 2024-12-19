@@ -31542,6 +31542,12 @@ public class IrBlackBoxCodegenWithIrInlinerTestGenerated extends AbstractIrBlack
         public void testJvmSynthetic() {
           runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/jvmSynthetic.kt");
         }
+
+        @Test
+        @TestMetadata("throws.kt")
+        public void testThrows() {
+          runTest("compiler/testData/codegen/box/inlineClasses/jvmExposeBoxed/featureInteraction/throws.kt");
+        }
       }
 
       @Nested
