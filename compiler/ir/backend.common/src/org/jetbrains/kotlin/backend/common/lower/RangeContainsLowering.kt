@@ -311,8 +311,8 @@ private class Transformer(
             }
         } else {
             irCall(lowerCompFun).apply {
-                putValueArgument(0, lowerExpression)
-                putValueArgument(1, argExpression.shallowCopy())
+                arguments[0] = lowerExpression
+                arguments[1] = argExpression.shallowCopy()
             }
         }
         val upperClause = if (useCompareTo) {
