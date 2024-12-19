@@ -3,14 +3,8 @@
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
-@file:Suppress("DEPRECATION")
-
 package org.jetbrains.kotlin.gradle.plugin.abi
 
-import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.TestVariant
-import com.android.build.gradle.api.UnitTestVariant
-import org.gradle.api.DomainObjectCollection
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
@@ -65,9 +59,9 @@ internal val KotlinTarget.emitsKlib: Boolean
                 platformType == KotlinPlatformType.js
     }
 
-@Suppress("DEPRECATION", "TYPEALIAS_EXPANSION_DEPRECATION")
-internal val BaseVariant.isTestVariant: Boolean
-    get() = this is TestVariant || this is UnitTestVariant
+@Suppress("TYPEALIAS_EXPANSION_DEPRECATION")
+internal val org.jetbrains.kotlin.gradle.utils.DeprecatedAndroidBaseVariant.isTestVariant: Boolean
+    get() = this is org.jetbrains.kotlin.gradle.utils.DeprecatedAndroidTestVariant || this is org.jetbrains.kotlin.gradle.utils.DeprecatedAndroidUnitTestVariant
 
 
 internal fun Project.prepareAbiClasspath(): Configuration {
