@@ -120,7 +120,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                                 override fun visitGetField(expression: IrGetField): IrExpression {
                                     expression.transformChildrenVoid()
                                     if (expression.symbol.owner.parent == klass)
-                                        return builder.irGet(initFunction.valueParameters.single())
+                                        return builder.irGet(initFunction.parameters.single())
                                     return expression
                                 }
 
