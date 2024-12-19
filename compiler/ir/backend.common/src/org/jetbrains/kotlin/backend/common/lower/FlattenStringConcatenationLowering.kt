@@ -100,13 +100,10 @@ class FlattenStringConcatenationLowering(val context: CommonBackendContext) : Fi
 
         /** @return true if the function is Any.toString or an override of Any.toString */
         val IrSimpleFunction.isToString: Boolean
-            get() {
-                if (name != OperatorNameConventions.TO_STRING || valueParameters.isNotEmpty() || !returnType.isString())
-                    return false
-
-                return (dispatchReceiverParameter != null && extensionReceiverParameter == null
-                        && (dispatchReceiverParameter?.type?.isAny() == true || this.overriddenSymbols.isNotEmpty()))
-            }
+            get() = name == OperatorNameConventions.TO_STRING
+                    && hasShape(dispatchReceiver = true)
+                    && returnType.isString()
+                    && (parameters[0].type.isAny() || overriddenSymbols.isNotEmpty())
 
         /** @return true if the function is Any?.toString */
         private val IrSimpleFunction.isNullableToString: Boolean
