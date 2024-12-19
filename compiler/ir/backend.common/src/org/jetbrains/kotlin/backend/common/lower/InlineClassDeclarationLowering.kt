@@ -86,7 +86,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                     statements += context.createIrBuilder(initFunction.symbol).irBlockBody(initFunction) {
                         val builder = this
                         fun unboxedInlineClassValue() = builder.irReinterpretCast(
-                            builder.irGet(initFunction.valueParameters.single()),
+                            builder.irGet(initFunction.parameters.single()),
                             type = klass.defaultType,
                         )
 
