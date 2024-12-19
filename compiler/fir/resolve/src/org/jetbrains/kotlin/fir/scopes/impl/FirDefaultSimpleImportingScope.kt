@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2021 JetBrains s.r.o. and Kotlin Programming Language contributors.
+ * Copyright 2010-2024 JetBrains s.r.o. and Kotlin Programming Language contributors.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
@@ -27,7 +27,7 @@ class FirDefaultSimpleImportingScope(
     private fun FirImport.resolve(importResolveTransformer: FirImportResolveTransformer) =
         importResolveTransformer.transformImport(this, null) as? FirResolvedImport
 
-    override val simpleImports: Map<Name, List<FirResolvedImport>> = run {
+    override val simpleImports: Map<Name, List<FirResolvedImport>> by lazy(LazyThreadSafetyMode.PUBLICATION) {
         val importResolveTransformer = FirImportResolveTransformer(session)
         val defaultImportProvider = session.defaultImportProvider
         val allDefaultImports = priority.getAllDefaultImports(defaultImportProvider, LanguageVersionSettingsImpl.DEFAULT)
