@@ -11,6 +11,8 @@ import org.gradle.api.artifacts.Configuration
 import org.jetbrains.kotlin.gradle.dsl.abi.AbiValidationMultiplatformVariantSpec
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider
+import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider.Companion.kotlinPropertiesProvider
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 
 /**
@@ -98,20 +100,15 @@ private fun Project.processNonJvmTargets(
 }
 
 private fun Project.bannedCanonicalTargetsInTest(): Set<String> {
-    val prop = properties[BANNED_TARGETS_PROPERTY_NAME] as String?
+    val prop = kotlinPropertiesProvider.abiValidationBannedTargets
     prop ?: return emptySet()
 
     return prop.split(",").map { it.trim() }.toSet().also {
         if (it.isNotEmpty()) {
             logger.warn(
-                "WARNING: Following property is not empty: $BANNED_TARGETS_PROPERTY_NAME. " +
+                "WARNING: Following property is not empty: ${PropertiesProvider.PropertyNames.ABI_VALIDATION_BANNED_TARGETS} " +
                         "If you're don't know what it means, please make sure that its value is empty."
             )
         }
     }
 }
-
-/**
- * Tests artificially marked as unsupported by compiler, used in integration tests.
- */
-private const val BANNED_TARGETS_PROPERTY_NAME = "abi.validation.kotlin.klib.targets.disabled.for.testing"
