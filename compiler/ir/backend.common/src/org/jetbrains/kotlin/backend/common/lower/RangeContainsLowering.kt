@@ -317,11 +317,11 @@ private class Transformer(
         }
         val upperClause = if (useCompareTo) {
             irCall(upperCompFun).apply {
-                putValueArgument(0, irCall(compareToFun).apply {
+                arguments[0] = irCall(compareToFun).apply {
                     dispatchReceiver = argExpression.shallowCopy()
                     putValueArgument(0, upperExpression)
-                })
-                putValueArgument(1, irInt(0))
+                }
+                arguments[1] = irInt(0)
             }
         } else {
             irCall(upperCompFun).apply {
