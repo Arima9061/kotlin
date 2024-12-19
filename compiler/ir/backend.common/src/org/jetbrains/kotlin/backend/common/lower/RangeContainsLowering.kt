@@ -58,8 +58,8 @@ private class Transformer(
 
     private fun matchStdlibExtensionContainsCall(expression: IrCall): Boolean {
         val callee = expression.symbol.owner
-        return callee.valueParameters.size == 1 &&
-                callee.extensionReceiverParameter?.type?.isSubtypeOfClass(context.ir.symbols.closedRange) == true &&
+        return callee.hasShape(extensionReceiver = true, regularParameters = 1) &&
+                callee.parameters[0].type.isSubtypeOfClass(context.ir.symbols.closedRange) &&
                 callee.kotlinFqName == FqName("kotlin.ranges.${OperatorNameConventions.CONTAINS}")
     }
 
