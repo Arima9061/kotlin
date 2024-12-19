@@ -188,7 +188,8 @@ class ClosureAnnotator(irElement: IrElement, declaration: IrDeclaration) {
 
             this.declarations.firstOrNull { it is IrConstructor && it.isPrimary }?.let {
                 val constructor = it as IrConstructor
-                constructor.valueParameters.forEach { v -> closureBuilder.declareVariable(v) }
+                constructor.parameters.filter { it.kind == IrParameterKind.Regular || it.kind == IrParameterKind.Context }
+                    .forEach { v -> closureBuilder.declareVariable(v) }
             }
 
             closureBuilder
