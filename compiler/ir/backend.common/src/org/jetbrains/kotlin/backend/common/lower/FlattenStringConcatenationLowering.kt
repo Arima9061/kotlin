@@ -93,7 +93,7 @@ class FlattenStringConcatenationLowering(val context: CommonBackendContext) : Fi
                 return receiverParameter != null
                         && receiverParameter.type.isStringClassType()
                         && function.returnType.isStringClassType()
-                        && function.valueParameters.size == 1
+                        && function.parameters.count { it.kind == IrParameterKind.Regular } == 1
                         && function.name == OperatorNameConventions.PLUS
                         && function.fqNameWhenAvailable?.parent() in PARENT_NAMES
             }
