@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irInt
 import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrDeclaration
+import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrSymbolOwner
 import org.jetbrains.kotlin.ir.expressions.IrBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
@@ -82,7 +83,8 @@ private class Transformer(
             return super.visitCall(expression)  // Preserve the call to not().
         }
 
-        if (expression.extensionReceiver != null && !matchStdlibExtensionContainsCall(expression)) {
+        val hasExtensionReceiver = expression.symbol.owner.parameters.any { it.kind == IrParameterKind.ExtensionReceiver }
+        if (hasExtensionReceiver && !matchStdlibExtensionContainsCall(expression)) {
             // We can only optimize calls to the stdlib extension functions and not a user-defined extension.
             // TODO: This breaks the optimization for *Range.reversed().contains(). The function called there is the extension function
             // Iterable.contains(). Figure out if we can safely match on that as well.
