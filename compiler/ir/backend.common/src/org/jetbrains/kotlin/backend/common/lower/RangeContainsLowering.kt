@@ -434,7 +434,7 @@ internal class ComparableRangeToHandler(private val context: CommonBackendContex
 
     override fun build(expression: IrCall, data: Nothing?, scopeOwner: IrSymbol) =
         ComparableRangeInfo(
-            start = expression.extensionReceiver!!,
-            endInclusive = expression.getValueArgument(0)!!
+            start = expression.arguments[0]!!,
+            endInclusive = expression.arguments[1]!!
         )
 }
