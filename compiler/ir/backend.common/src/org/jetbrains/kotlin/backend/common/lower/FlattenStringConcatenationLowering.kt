@@ -11,6 +11,7 @@ import org.jetbrains.kotlin.backend.common.phaser.PhaseDescription
 import org.jetbrains.kotlin.builtins.StandardNames
 import org.jetbrains.kotlin.ir.IrElement
 import org.jetbrains.kotlin.ir.declarations.IrFile
+import org.jetbrains.kotlin.ir.declarations.IrParameterKind
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
@@ -85,7 +86,9 @@ class FlattenStringConcatenationLowering(val context: CommonBackendContext) : Fi
         private val IrCall.isStringPlusCall: Boolean
             get() {
                 val function = symbol.owner
-                val receiverParameter = function.dispatchReceiverParameter ?: function.extensionReceiverParameter
+                val receiverParameter = function.parameters.firstOrNull {
+                    it.kind == IrParameterKind.DispatchReceiver || it.kind == IrParameterKind.ExtensionReceiver
+                }
 
                 return receiverParameter != null
                         && receiverParameter.type.isStringClassType()
