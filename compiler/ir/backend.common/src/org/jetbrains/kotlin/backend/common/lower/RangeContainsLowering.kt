@@ -93,7 +93,9 @@ private class Transformer(
 
         // The HeaderInfoBuilder extracts information (e.g., lower/upper bounds, direction) from the range expression, which is the
         // receiver for the contains() call.
-        val receiver = expression.dispatchReceiver ?: expression.extensionReceiver
+        val receiver = expression.arguments.zip(expression.symbol.owner.parameters).firstOrNull { (_, param) ->
+            param.kind == IrParameterKind.DispatchReceiver || param.kind == IrParameterKind.ExtensionReceiver
+        }?.first
         val headerInfo = receiver?.accept(headerInfoBuilder, expression)
             ?: return super.visitCall(expression)  // The receiver is not a supported range (or not a range at all).
 
