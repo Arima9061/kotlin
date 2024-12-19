@@ -254,17 +254,8 @@ class InlineClassLowering(val context: CommonBackendContext) {
 
                             return context.createIrBuilder(staticMethod.symbol).irGet(
                                 when (valueDeclaration) {
-                                    function.dispatchReceiverParameter, function.parentAsClass.thisReceiver ->
-                                        staticMethod.valueParameters[0]
-
-                                    function.extensionReceiverParameter ->
-                                        staticMethod.valueParameters[1]
-
-                                    in function.valueParameters -> {
-                                        val offset = if (function.extensionReceiverParameter != null) 2 else 1
-                                        staticMethod.valueParameters[valueDeclaration.indexInOldValueParameters + offset]
-                                    }
-
+                                    function.parentAsClass.thisReceiver -> staticMethod.parameters[0]
+                                    in function.parameters -> staticMethod.parameters[valueDeclaration.indexInParameters]
                                     else -> return expression
                                 }
                             )
