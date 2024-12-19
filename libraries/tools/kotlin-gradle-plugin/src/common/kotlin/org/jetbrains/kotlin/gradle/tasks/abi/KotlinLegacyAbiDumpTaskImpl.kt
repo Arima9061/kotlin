@@ -18,11 +18,13 @@ import org.jetbrains.kotlin.abi.tools.api.AbiToolsInterface
 import org.jetbrains.kotlin.abi.tools.api.v2.KlibTarget
 import org.jetbrains.kotlin.gradle.plugin.abi.AbiValidationPaths.LEGACY_JVM_DUMP_EXTENSION
 import org.jetbrains.kotlin.gradle.plugin.abi.AbiValidationPaths.LEGACY_KLIB_DUMP_EXTENSION
+import org.jetbrains.kotlin.gradle.plugin.diagnostics.ToolingDiagnostic
+import org.jetbrains.kotlin.gradle.plugin.diagnostics.UsesKotlinToolingDiagnostics
 import org.jetbrains.kotlin.gradle.utils.listProperty
 import org.jetbrains.kotlin.incremental.deleteDirectoryContents
 
 @CacheableTask
-internal abstract class KotlinLegacyAbiDumpTaskImpl : AbiToolsTask(), KotlinLegacyAbiDumpTask {
+internal abstract class KotlinLegacyAbiDumpTaskImpl : AbiToolsTask(), KotlinLegacyAbiDumpTask, UsesKotlinToolingDiagnostics {
     @get:OutputDirectory
     abstract override val dumpDir: DirectoryProperty
 
@@ -147,9 +149,13 @@ internal abstract class KotlinLegacyAbiDumpTaskImpl : AbiToolsTask(), KotlinLega
                 }
 
                 unsupported.map { unsupportedTarget ->
-                    logger.warn(
-                        "Target ${unsupportedTarget.targetName} is not supported by the host compiler and a " +
-                                "KLib ABI dump could not be directly generated for it."
+                    reportDiagnostic(
+                        ToolingDiagnostic(
+                            "ABI_VALIDATION_TARGET_COMPILATION_NOT_SUPPORTED",
+                            "Target ${unsupportedTarget.targetName} is not supported by the host compiler and a " +
+                                    "KLib ABI dump could not be directly generated for it.",
+                            ToolingDiagnostic.Severity.WARNING
+                        )
                     )
                     mergedDump.inferAbiForUnsupportedTarget(referenceDump, unsupportedTarget)
                 }.forEach { inferredDump ->

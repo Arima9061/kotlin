@@ -13,6 +13,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider
 import org.jetbrains.kotlin.gradle.plugin.PropertiesProvider.Companion.kotlinPropertiesProvider
+import org.jetbrains.kotlin.gradle.plugin.diagnostics.ToolingDiagnostic
+import org.jetbrains.kotlin.gradle.plugin.diagnostics.reportDiagnostic
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 
 /**
@@ -105,9 +107,13 @@ private fun Project.bannedCanonicalTargetsInTest(): Set<String> {
 
     return prop.split(",").map { it.trim() }.toSet().also {
         if (it.isNotEmpty()) {
-            logger.warn(
-                "WARNING: Following property is not empty: ${PropertiesProvider.PropertyNames.ABI_VALIDATION_BANNED_TARGETS} " +
-                        "If you're don't know what it means, please make sure that its value is empty."
+            reportDiagnostic(
+                ToolingDiagnostic(
+                    "ABI_VALIDATION_BANNED_TARGETS_FOR_TESTS",
+                    "WARNING: Following property is not empty: ${PropertiesProvider.PropertyNames.ABI_VALIDATION_BANNED_TARGETS} " +
+                            "If you're don't know what it means, please make sure that its value is empty.",
+                    ToolingDiagnostic.Severity.WARNING
+                )
             )
         }
     }
