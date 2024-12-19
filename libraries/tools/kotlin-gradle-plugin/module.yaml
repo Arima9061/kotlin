@@ -1,0 +1,85 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.1.20-dev-6663
+  - com.google.guava:guava:33.3.1-jre
+  - com.android.tools.build:gradle-api:7.3.1
+  - com.android.tools.build:gradle:7.3.1
+  - com.android.tools.build:builder:7.3.1
+  - com.android.tools.build:builder-model:7.3.1
+  - com.android.tools:common:30.3.1
+  - com.jetbrains.intellij.platform:util:233.13135.128
+  - com.jetbrains.intellij.platform:util-rt:233.13135.128
+  - org.jetbrains.teamcity:serviceMessages:2019.1.4
+  - com.gradle:develocity-gradle-plugin:3.17.5
+  - com.google.code.gson:gson:2.11.0
+  - com.github.gundy:semver4j:nodeps:0.16.4
+  - org.jetbrains.intellij.deps:asm-all:9.0
+  - org.apache.commons:commons-compress:1.27.1
+  - dev.gradleplugins:gradle-api:7.6
+  - org.jetbrains:annotations:13.0
+  - com.google.guava:failureaccess:1.0.2
+  - com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  - com.google.code.findbugs:jsr305:3.0.2
+  - org.checkerframework:checker-qual:3.43.0
+  - com.google.errorprone:error_prone_annotations:2.28.0
+  - com.google.j2objc:j2objc-annotations:3.0.0
+  - commons-codec:commons-codec:1.17.1
+  - commons-io:commons-io:2.18.0
+  - org.apache.commons:commons-lang3:3.16.0
+  - org.codehaus.groovy:groovy:3.0.13
+  - com.google.errorprone:error_prone_annotations:2.27.0
+  - org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin.common
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-model.common
+  - ../kotlin-gradle-plugin-model
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-model.common
+  - #org.jetbrains.kotlin.kotlin.libraries.tools.gradle.fus-statistics-gradle-plugin.common
+  - ../gradle/fus-statistics-gradle-plugin
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-api.common
+  - ../kotlin-gradle-plugin-api
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-api.common
+  - ../kotlin-gradle-plugin-idea-proto
+  - ../kotlin-gradle-plugin-idea
+  - #kotlin.compiler.cli.main
+  - #org.jetbrains.kotlin.kotlin.compiler.cli-common.main
+  - #org.jetbrains.kotlin.kotlin.compiler.compiler.version.main
+  - #org.jetbrains.kotlin.kotlin.compiler.config.main
+  - #org.jetbrains.kotlin.kotlin.compiler.config.jvm.main
+  - #org.jetbrains.kotlin.kotlin.compiler.ir.tree.main
+  - #org.jetbrains.kotlin.kotlin.compiler.plugin-api.main
+  - #org.jetbrains.kotlin.kotlin.compiler.util.main
+  - #org.jetbrains.kotlin.kotlin.core.compiler.common.main
+  - #org.jetbrains.kotlin.kotlin.core.compiler.common.jvm.main
+  - #org.jetbrains.kotlin.kotlin.core.descriptors.main
+  - #org.jetbrains.kotlin.kotlin.core.util.runtime.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-build-common.main
+  - #org.jetbrains.kotlin.kotlin.wasm.wasm.config.main
+  - #org.jetbrains.kotlin.kotlin.daemon-common.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-daemon-client.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-compiler-types.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-compiler-runner-unshaded.main
+  - ../kotlin-gradle-statistics
+  - ../kotlin-gradle-build-metrics
+  - #org.jetbrains.kotlin.kotlin.compiler.build-tools.kotlin-build-tools-jdk-utils.main
+  - ../kotlin-tooling-metadata
+  - #org.jetbrains.kotlin.kotlin.compiler.build-tools.kotlin-build-statistics.main
+  - #kotlin.native.swift.swift-export-standalone.main
+  - ../../../native/commonizer-api
+  - #org.jetbrains.kotlin.kotlin.kotlin-util-klib-metadata.main
+  - ../kotlin-gradle-plugin-annotations
+  - #org.jetbrains.kotlin.kotlin.native.kotlin-native-utils.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-tooling-core.main
+  - #org.jetbrains.kotlin.kotlin.compiler.build-tools.kotlin-build-tools-api.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-util-klib.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-util-io.main
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-Xsam-conversions=class, -Xdont-warn-on-error-suppression, -Xmulti-dollar-interpolation, -Xnon-local-break-continue, -opt-in, kotlin.RequiresOptIn,org.jetbrains.kotlin.gradle.InternalKotlinGradlePluginApi,org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi,org.jetbrains.kotlin.gradle.ExternalKotlinTargetApi,org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi,org.jetbrains.kotlin.gradle.DeprecatedTargetPresetApi,org.jetbrains.kotlin.buildtools.api.ExperimentalBuildToolsApi,org.jetbrains.kotlin.gradle.ComposeKotlinGradlePluginApi,org.jetbrains.kotlin.gradle.swiftexport.ExperimentalSwiftExportDsl,kotlin.RequiresOptIn,org.jetbrains.kotlin.utils.addToStdlib.UnsafeCastFunction, -Xskip-prerelease-check, -Xsuppress-version-warnings, -Xwhen-guards]

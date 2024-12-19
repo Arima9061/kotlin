@@ -1,0 +1,14 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - #kotlin.compiler.test-infrastructure-utils.test
+  - #kotlin.compiler.tests-common.test
+  - #kotlin.compiler.tests-compiler-utils.test
+  - #kotlin.compiler.incremental-compilation-impl.test
+  - #kotlin.kotlin-build-common.test

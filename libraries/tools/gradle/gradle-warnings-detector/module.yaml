@@ -1,0 +1,18 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlin:kotlin-stdlib:2.1.20-dev-6663
+  - dev.gradleplugins:gradle-api:7.6
+  - org.jetbrains:annotations:13.0
+  - org.codehaus.groovy:groovy:3.0.13
+  - #org.jetbrains.kotlin.kotlin.gradle.gradle-warnings-detector.common
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-Xsam-conversions=class, -Xdont-warn-on-error-suppression, -Xmulti-dollar-interpolation, -Xnon-local-break-continue, -opt-in, kotlin.RequiresOptIn, -Xskip-prerelease-check, -Xsuppress-version-warnings, -Xwhen-guards]

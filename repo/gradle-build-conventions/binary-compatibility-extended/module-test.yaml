@@ -1,0 +1,28 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlinx:binary-compatibility-validator:0.15.1
+  - org.jetbrains.kotlin:kotlin-gradle-plugin:gradle85:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-reflect:2.0.20
+  - org.jetbrains.kotlin:kotlin-stdlib:2.0.20
+  - io.github.java-diff-utils:java-diff-utils:4.12
+  - org.jetbrains.kotlin:kotlin-gradle-plugin-model:2.1.20-dev-6663
+  - org.jetbrains.kotlin:fus-statistics-gradle-plugin:gradle85:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.1.20-dev-6663
+  - org.jetbrains:annotations:13.0
+  - org.jetbrains.kotlin:kotlin-gradle-plugin-api:gradle85:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-native-utils:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-tooling-core:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-build-tools-api:2.1.20-dev-6663
+  - org.jetbrains.kotlin:kotlin-util-io:2.1.20-dev-6663
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-java-parameters, -Xjsr305=strict, -Xsam-conversions=class, -XXLanguage:+DisableCompatibilityModeForNewInference, -XXLanguage:-TypeEnhancementImprovementsInStrictMode]

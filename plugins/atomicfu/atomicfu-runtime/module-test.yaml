@@ -1,0 +1,14 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlin:kotlin-stdlib-js:klib:2.1.20-dev-6663
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-Xir-module-name=org.jetbrains.kotlin:kotlinx-atomicfu-runtime, -Xir-per-module-output-name=kotlin-kotlinx-atomicfu-runtime, -Xir-produce-klib-dir, -main, call, -Xdont-warn-on-error-suppression, -Xmulti-dollar-interpolation, -Xnon-local-break-continue, -opt-in, kotlin.RequiresOptIn, -Xskip-prerelease-check, -Xwhen-guards]

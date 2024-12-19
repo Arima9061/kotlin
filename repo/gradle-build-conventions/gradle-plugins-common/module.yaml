@@ -1,0 +1,21 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlin:kotlin-reflect:2.0.20
+  - org.jetbrains.kotlin:kotlin-build-gradle-plugin:0.0.40
+  - org.jetbrains.kotlin:kotlin-stdlib:2.0.20
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20
+  - org.jetbrains:annotations:13.0
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.20
+  - org.jetbrains.kotlin:kotlin-stdlib:1.8.20
+  - org.jetbrains.kotlin:kotlin-stdlib-common:1.8.20
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-java-parameters, -Xjsr305=strict, -Xsam-conversions=class, -Werror, -XXLanguage:+DisableCompatibilityModeForNewInference, -XXLanguage:-TypeEnhancementImprovementsInStrictMode]

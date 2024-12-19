@@ -1,0 +1,36 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - com.android.tools.build:gradle:7.3.1
+  - com.android.tools.build:builder:7.3.1
+  - com.android.tools.build:builder-model:7.3.1
+  - com.android.tools.build:gradle-api:7.3.1
+  - com.android.tools.build:manifest-merger:30.3.1
+  - com.android:zipflinger:7.3.1
+  - com.android.tools.build:apksig:7.3.1
+  - com.android.tools.build:apkzlib:7.3.1
+  - com.squareup:javawriter:2.5.0
+  - org.ow2.asm:asm:9.1
+  - ../kotlin-gradle-plugin-idea
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin.common
+  - ../kotlin-gradle-plugin-annotations
+  - #org.jetbrains.kotlin.kotlin.native.kotlin-native-utils.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-tooling-core.main
+  - #org.jetbrains.kotlin.kotlin.compiler.build-tools.kotlin-build-tools-api.main
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-model.common
+  - ../kotlin-gradle-plugin-model
+  - #org.jetbrains.kotlin.kotlin.libraries.tools.gradle.fus-statistics-gradle-plugin.common
+  - ../gradle/fus-statistics-gradle-plugin
+  - #org.jetbrains.kotlin.kotlin.kotlin-gradle-plugin-api.common
+  - ../kotlin-gradle-plugin-api
+  - #org.jetbrains.kotlin.kotlin.kotlin-util-io.main
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-Xsam-conversions=class, -Xdont-warn-on-error-suppression, -Xmulti-dollar-interpolation, -Xnon-local-break-continue, -opt-in, org.jetbrains.kotlin.gradle.ExternalKotlinTargetApi,org.jetbrains.kotlin.gradle.InternalKotlinGradlePluginApi,kotlin.RequiresOptIn, -Xskip-prerelease-check, -Xsuppress-version-warnings, -Xwhen-guards]

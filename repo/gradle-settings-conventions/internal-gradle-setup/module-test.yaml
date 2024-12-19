@@ -1,0 +1,18 @@
+product:
+  type: lib
+  platforms: [jvm]
+
+repositories:
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies
+  - https://maven.pkg.jetbrains.space/kotlin/p/kotlin/bootstrap
+
+dependencies:
+  - org.jetbrains.kotlin:kotlin-reflect:2.0.20
+  - org.jetbrains.kotlin:kotlin-stdlib:2.0.20
+  - org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.7.3
+  - org.jetbrains:annotations:13.0
+  - org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.7.3
+
+settings:
+  kotlin:
+    freeCompilerArgs: [-java-parameters, -Xjsr305=strict, -Xsam-conversions=class, -XXLanguage:+DisableCompatibilityModeForNewInference, -XXLanguage:-TypeEnhancementImprovementsInStrictMode]
