@@ -17,6 +17,7 @@ import org.jetbrains.kotlin.ir.expressions.impl.IrConstImpl
 import org.jetbrains.kotlin.ir.expressions.impl.IrStringConcatenationImpl
 import org.jetbrains.kotlin.ir.types.*
 import org.jetbrains.kotlin.ir.util.fqNameWhenAvailable
+import org.jetbrains.kotlin.ir.util.hasShape
 import org.jetbrains.kotlin.ir.util.isTopLevelInPackage
 import org.jetbrains.kotlin.ir.util.isUnsigned
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
@@ -107,8 +108,9 @@ class FlattenStringConcatenationLowering(val context: CommonBackendContext) : Fi
         /** @return true if the function is Any?.toString */
         private val IrSimpleFunction.isNullableToString: Boolean
             get() = isTopLevelInPackage(OperatorNameConventions.TO_STRING.asString(), StandardNames.BUILT_INS_PACKAGE_FQ_NAME)
-                    && valueParameters.isEmpty() && returnType.isString()
-                    && dispatchReceiverParameter == null && extensionReceiverParameter?.type?.isNullableAny() == true
+                    && returnType.isString()
+                    && hasShape(extensionReceiver = true)
+                    && parameters[0].type.isNullableAny()
 
         /** @return true if the given expression is a call to [toString] */
         private val IrCall.isToStringCall: Boolean
