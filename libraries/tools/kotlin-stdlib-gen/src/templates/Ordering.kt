@@ -437,7 +437,7 @@ object Ordering : TemplateGroupBase() {
 
         doc {
             """
-            Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.            
+            Returns a list of all elements sorted according to natural sort order of the value returned by specified [selector] function.
             """
         }
         appendStableSortBySelectorNote()
