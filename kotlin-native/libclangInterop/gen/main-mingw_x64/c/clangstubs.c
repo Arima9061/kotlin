@@ -215,7 +215,7 @@ JNIEXPORT jlong JNICALL Java_clang_clang_kniBridge61 (JNIEnv* jniEnv, jclass jcl
     return (jlong)clang_getFile((struct CXTranslationUnitImpl*)p0, (char*)p1);
 }
 JNIEXPORT jlong JNICALL Java_clang_clang_kniBridge62 (JNIEnv* jniEnv, jclass jclss, jlong p0, jlong p1, jlong p2) {
-    return (jlong)clang_getFileContents((struct CXTranslationUnitImpl*)p0, (void*)p1, (unsigned long*)p2);
+    return (jlong)clang_getFileContents((struct CXTranslationUnitImpl*)p0, (void*)p1, (unsigned long long*)p2);
 }
 JNIEXPORT void JNICALL Java_clang_clang_kniBridge63 (JNIEnv* jniEnv, jclass jclss, jlong p0, jlong p1, jint p2, jint p3, jlong p4) {
     CXSourceLocation kniStructResult = clang_getLocation((struct CXTranslationUnitImpl*)p0, (void*)p1, p2, p3);
