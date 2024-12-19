@@ -169,8 +169,8 @@ class InlineClassLowering(val context: CommonBackendContext) {
                         // Secondary ctors of inline class must delegate to some other constructors.
                         // Use these delegating call later to initialize this variable.
                         lateinit var thisVar: IrVariable
-                        val parameterMapping = staticMethod.valueParameters.associateBy {
-                            irConstructor.valueParameters[it.indexInOldValueParameters].symbol
+                        val parameterMapping = staticMethod.parameters.associateBy {
+                            irConstructor.parameters[it.indexInParameters].symbol
                         }
 
                         (constructorBody as IrBlockBody).statements.forEach { statement ->
