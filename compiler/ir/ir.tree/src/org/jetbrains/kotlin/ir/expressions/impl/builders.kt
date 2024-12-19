@@ -472,7 +472,7 @@ fun IrInlinedFunctionBlockImpl(
     endOffset: Int,
     type: IrType,
     inlinedFunctionSymbol: IrFunctionSymbol?,
-    fileEntry: IrFileEntry,
+    inlinedFunctionFileEntry: IrFileEntry,
     origin: IrStatementOrigin? = null,
 ) = IrInlinedFunctionBlockImpl(
     constructorIndicator = null,
@@ -480,7 +480,7 @@ fun IrInlinedFunctionBlockImpl(
     endOffset = endOffset,
     type = type,
     inlinedFunctionSymbol = inlinedFunctionSymbol,
-    fileEntry = fileEntry,
+    inlinedFunctionFileEntry = inlinedFunctionFileEntry,
     origin = origin,
 )
 
@@ -489,7 +489,7 @@ fun IrInlinedFunctionBlockImpl(
     endOffset: Int,
     type: IrType,
     inlinedFunctionSymbol: IrFunctionSymbol?,
-    fileEntry: IrFileEntry,
+    inlinedFunctionFileEntry: IrFileEntry,
     origin: IrStatementOrigin?,
     statements: List<IrStatement>,
 ) = IrInlinedFunctionBlockImpl(
@@ -498,7 +498,7 @@ fun IrInlinedFunctionBlockImpl(
     endOffset = endOffset,
     type = type,
     inlinedFunctionSymbol = inlinedFunctionSymbol,
-    fileEntry = fileEntry,
+    inlinedFunctionFileEntry = inlinedFunctionFileEntry,
     origin = origin,
 ).apply {
     this.statements.addAll(statements)

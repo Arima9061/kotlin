@@ -300,7 +300,7 @@ open class FunctionInlining(
                 endOffset = callSite.endOffset,
                 type = returnType,
                 inlinedFunctionSymbol = inlineFunctionToStore.symbol,
-                fileEntry = inlineFunctionToStore.fileEntry,
+                inlinedFunctionFileEntry = inlineFunctionToStore.fileEntry,
                 origin = null,
                 statements = copiedParameters + newStatementsFromDefault + newStatements
             ).apply {
