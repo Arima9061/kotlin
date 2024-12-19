@@ -1,1433 +1,611 @@
-/AdditionalKDocResolutionProvider.kt::public AdditionalKDocResolutionProvider
-/AdditionalKDocResolutionProvider.kt:AdditionalKDocResolutionProvider:public resolveKdocFqName(KaSession, FqName, KtElement)
-/AdditionalKDocResolutionProvider.kt:Companion:public EP_NAME
-/AdditionalKDocResolutionProvider.kt:Companion:public resolveKdocFqName(KaSession, FqName, KtElement)
-/CodeFragmentCapturedValue.kt::public sealed CodeFragmentCapturedValue
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public BackingField
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public ContainingClass
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public ContextReceiver
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public CoroutineContext
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public ExtensionReceiver
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public ForeignValue
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public Local
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public LocalDelegate
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public SuperClass
-/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:public open displayText
-/DebugSymbolRenderer.kt::public DebugSymbolRenderer
-/DebugSymbolRenderer.kt:DebugSymbolRenderer:public render(KaSession, KaSymbol)
-/DebugSymbolRenderer.kt:DebugSymbolRenderer:public renderAnnotationApplication(KaSession, KaAnnotation)
-/DebugSymbolRenderer.kt:DebugSymbolRenderer:public renderForSubstitutionOverrideUnwrappingTest(KaSession, KaSymbol)
-/DebugSymbolRenderer.kt:DebugSymbolRenderer:public renderType(KaSession, KaType)
-/KaAnalysisPermissionRegistry.kt::public KaAnalysisPermissionRegistry
-/KaAnalysisPermissionRegistry.kt:Companion:public getInstance()
-/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:public KaExplicitAnalysisRestriction
-/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:public explicitAnalysisRestriction
-/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:public isAnalysisAllowedInWriteAction
-/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:public isAnalysisAllowedOnEdt
-/KaAnalysisScopeProvider.kt::public KaAnalysisScopeProvider
-/KaAnalysisScopeProvider.kt:KaAnalysisScopeProvider:public analysisScope
-/KaAnalysisScopeProvider.kt:KaAnalysisScopeProvider:public canBeAnalysed()
-/KaAnnotated.kt::public KaAnnotated
-/KaAnnotated.kt:KaAnnotated:public annotations
-/KaAnnotatedSymbol.kt::public KaAnnotatedSymbol
-/KaAnnotation.kt::public KaAnnotation
-/KaAnnotation.kt:KaAnnotation:public arguments
-/KaAnnotation.kt:KaAnnotation:public classId
-/KaAnnotation.kt:KaAnnotation:public constructorSymbol
-/KaAnnotation.kt:KaAnnotation:public psi
-/KaAnnotation.kt:KaAnnotation:public useSiteTarget
-/KaAnnotationArgumentsRenderer.kt::public KaAnnotationArgumentsRenderer
-/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:public IF_ANY
-/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:public NONE
-/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:public renderAnnotationArguments(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
-/KaAnnotationList.kt::public KaAnnotationList
-/KaAnnotationList.kt:KaAnnotationList:public classIds
-/KaAnnotationList.kt:KaAnnotationList:public operator contains(ClassId)
-/KaAnnotationList.kt:KaAnnotationList:public operator get(ClassId)
-/KaAnnotationListRenderer.kt::public KaAnnotationListRenderer
-/KaAnnotationListRenderer.kt:KaAnnotationListRenderer:public FOR_SOURCE
-/KaAnnotationListRenderer.kt:KaAnnotationListRenderer:public renderAnnotations(KaSession, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
-/KaAnnotationQualifierRenderer.kt::public KaAnnotationQualifierRenderer
-/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:public WITH_QUALIFIED_NAMES
-/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:public WITH_SHORT_NAMES
-/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:public renderQualifier(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
-/KaAnnotationRenderer.kt::public KaAnnotationRenderer
-/KaAnnotationRenderer.kt:Builder:public build()
-/KaAnnotationRenderer.kt:Builder:public lateinit annotationArgumentsRenderer
-/KaAnnotationRenderer.kt:Builder:public lateinit annotationFilter
-/KaAnnotationRenderer.kt:Builder:public lateinit annotationListRenderer
-/KaAnnotationRenderer.kt:Builder:public lateinit annotationUseSiteTargetRenderer
-/KaAnnotationRenderer.kt:Builder:public lateinit annotationsQualifiedNameRenderer
-/KaAnnotationRenderer.kt:Companion:public inline operator invoke(Builder.() -> Unit)
-/KaAnnotationRenderer.kt:KaAnnotationRenderer:public Builder
-/KaAnnotationRenderer.kt:KaAnnotationRenderer:public inline with(Builder.() -> Unit)
-/KaAnnotationRenderer.kt:KaAnnotationRenderer:public renderAnnotations(KaSession, KaAnnotated, PrettyPrinter)
-/KaAnnotationRendererForSource.kt::public KaAnnotationRendererForSource
-/KaAnnotationRendererForSource.kt:KaAnnotationRendererForSource:public WITH_QUALIFIED_NAMES
-/KaAnnotationRendererForSource.kt:KaAnnotationRendererForSource:public WITH_SHORT_NAMES
-/KaAnnotationUseSiteTargetRenderer.kt::public KaAnnotationUseSiteTargetRenderer
-/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:public WITHOUT_USE_SITE
-/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:public WITH_NON_DEFAULT_USE_SITE
-/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:public WITH_USES_SITE
-/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:public renderUseSiteTarget(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
-/KaAnnotationValue.kt::public renderAsSourceCode()
-/KaAnnotationValue.kt::public sealed KaAnnotationValue
-/KaAnnotationValue.kt:ArrayValue:public values
-/KaAnnotationValue.kt:ClassLiteralValue:public classId
-/KaAnnotationValue.kt:ClassLiteralValue:public type
-/KaAnnotationValue.kt:ConstantValue:public value
-/KaAnnotationValue.kt:EnumEntryValue:public callableId
-/KaAnnotationValue.kt:KaAnnotationValue:public ArrayValue
-/KaAnnotationValue.kt:KaAnnotationValue:public ClassLiteralValue
-/KaAnnotationValue.kt:KaAnnotationValue:public ConstantValue
-/KaAnnotationValue.kt:KaAnnotationValue:public EnumEntryValue
-/KaAnnotationValue.kt:KaAnnotationValue:public NestedAnnotationValue
-/KaAnnotationValue.kt:KaAnnotationValue:public UnsupportedValue
-/KaAnnotationValue.kt:KaAnnotationValue:public sourcePsi
-/KaAnnotationValue.kt:NestedAnnotationValue:public annotation
-/KaAnonymousFunctionSymbolRenderer.kt::public KaAnonymousFunctionSymbolRenderer
-/KaAnonymousFunctionSymbolRenderer.kt:KaAnonymousFunctionSymbolRenderer:public AS_SOURCE
-/KaAnonymousFunctionSymbolRenderer.kt:KaAnonymousFunctionSymbolRenderer:public renderSymbol(KaSession, KaAnonymousFunctionSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaAnonymousObjectSymbolRenderer.kt::public KaAnonymousObjectSymbolRenderer
-/KaAnonymousObjectSymbolRenderer.kt:KaAnonymousObjectSymbolRenderer:public AS_SOURCE
-/KaAnonymousObjectSymbolRenderer.kt:KaAnonymousObjectSymbolRenderer:public renderSymbol(KaSession, KaAnonymousObjectSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaBackingFieldSymbolRenderer.kt::public KaBackingFieldSymbolRenderer
-/KaBackingFieldSymbolRenderer.kt:KaBackingFieldSymbolRenderer:public AS_FIELD_KEYWORD
-/KaBackingFieldSymbolRenderer.kt:KaBackingFieldSymbolRenderer:public renderSymbol(KaSession, KaBackingFieldSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaCall.kt::public KaAnnotationCall
-/KaCall.kt::public KaCompoundAccessCall
-/KaCall.kt::public KaCompoundArrayAccessCall
-/KaCall.kt::public KaCompoundVariableAccessCall
-/KaCall.kt::public KaDelegatedConstructorCall
-/KaCall.kt::public KaSimpleFunctionCall
-/KaCall.kt::public KaSimpleVariableAccessCall
-/KaCall.kt::public sealed KaCall
-/KaCall.kt::public sealed KaCallableMemberCall
-/KaCall.kt::public sealed KaFunctionCall
-/KaCall.kt::public sealed KaVariableAccessCall
-/KaCall.kt:KaCallableMemberCall:public partiallyAppliedSymbol
-/KaCall.kt:KaCallableMemberCall:public typeArgumentsMapping
-/KaCall.kt:KaCompoundAccessCall:public compoundOperation
-/KaCall.kt:KaCompoundArrayAccessCall:public getPartiallyAppliedSymbol
-/KaCall.kt:KaCompoundArrayAccessCall:public indexArguments
-/KaCall.kt:KaCompoundArrayAccessCall:public setPartiallyAppliedSymbol
-/KaCall.kt:KaCompoundVariableAccessCall:public variablePartiallyAppliedSymbol
-/KaCall.kt:KaDelegatedConstructorCall:public enum Kind
-/KaCall.kt:KaDelegatedConstructorCall:public kind
-/KaCall.kt:KaFunctionCall:public argumentMapping
-/KaCall.kt:KaSimpleFunctionCall:public isImplicitInvoke
-/KaCall.kt:KaSimpleVariableAccessCall:public simpleAccess
-/KaCall.kt:Kind:SUPER_CALL
-/KaCall.kt:Kind:THIS_CALL
-/KaCallCandidateInfo.kt::public KaApplicableCallCandidateInfo
-/KaCallCandidateInfo.kt::public KaInapplicableCallCandidateInfo
-/KaCallCandidateInfo.kt::public sealed KaCallCandidateInfo
-/KaCallCandidateInfo.kt:KaCallCandidateInfo:public candidate
-/KaCallCandidateInfo.kt:KaCallCandidateInfo:public isInBestCandidates
-/KaCallCandidateInfo.kt:KaInapplicableCallCandidateInfo:public diagnostic
-/KaCallInfo.kt::public KaErrorCallInfo
-/KaCallInfo.kt::public KaSuccessCallInfo
-/KaCallInfo.kt::public calls
-/KaCallInfo.kt::public inline singleCallOrNull()
-/KaCallInfo.kt::public inline successfulCallOrNull()
-/KaCallInfo.kt::public sealed KaCallInfo
-/KaCallInfo.kt::public singleConstructorCallOrNull()
-/KaCallInfo.kt::public singleFunctionCallOrNull()
-/KaCallInfo.kt::public singleVariableAccessCall()
-/KaCallInfo.kt::public successfulConstructorCallOrNull()
-/KaCallInfo.kt::public successfulFunctionCallOrNull()
-/KaCallInfo.kt::public successfulVariableAccessCall()
-/KaCallInfo.kt:KaErrorCallInfo:public candidateCalls
-/KaCallInfo.kt:KaErrorCallInfo:public diagnostic
-/KaCallInfo.kt:KaSuccessCallInfo:public call
-/KaCallableParameterRenderer.kt::public KaCallableParameterRenderer
-/KaCallableParameterRenderer.kt:KaCallableParameterRenderer:public PARAMETERS_IN_PARENS
-/KaCallableParameterRenderer.kt:KaCallableParameterRenderer:public renderValueParameters(KaSession, KaCallableSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaCallableReceiverRenderer.kt::public KaCallableReceiverRenderer
-/KaCallableReceiverRenderer.kt:KaCallableReceiverRenderer:public AS_TYPE_WITH_IN_APPROXIMATION
-/KaCallableReceiverRenderer.kt:KaCallableReceiverRenderer:public renderReceiver(KaSession, KaReceiverParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaCallableReturnTypeFilter.kt::public KaCallableReturnTypeFilter
-/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:public ALWAYS
-/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:public NO_UNIT_FOR_FUNCTIONS
-/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:public shouldRenderReturnType(KaSession, KaType, KaCallableSymbol)
-/KaCallableReturnTypeRenderer.kt::public KaCallableReturnTypeRenderer
-/KaCallableReturnTypeRenderer.kt:KaCallableReturnTypeRenderer:public WITH_OUT_APPROXIMATION
-/KaCallableReturnTypeRenderer.kt:KaCallableReturnTypeRenderer:public renderReturnType(KaSession, KaCallableSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaCallableSignature.kt::public sealed KaCallableSignature
-/KaCallableSignature.kt:KaCallableSignature:public callableId
-/KaCallableSignature.kt:KaCallableSignature:public receiverType
-/KaCallableSignature.kt:KaCallableSignature:public returnType
-/KaCallableSignature.kt:KaCallableSignature:public substitute(KaSubstitutor)
-/KaCallableSignatureRenderer.kt::public KaCallableSignatureRenderer
-/KaCallableSignatureRenderer.kt:KaCallableSignatureRenderer:public FOR_SOURCE
-/KaCallableSignatureRenderer.kt:KaCallableSignatureRenderer:public renderCallableSignature(KaSession, KaCallableSymbol, KtKeywordToken?, KaDeclarationRenderer, PrettyPrinter)
-/KaCallableSymbol.kt::public receiverType
-/KaCallableSymbol.kt::public sealed KaCallableSymbol
-/KaCallableSymbol.kt:KaCallableSymbol:public abstract callableId
-/KaCallableSymbol.kt:KaCallableSymbol:public abstract isExtension
-/KaCallableSymbol.kt:KaCallableSymbol:public abstract receiverParameter
-/KaCallableSymbol.kt:KaCallableSymbol:public abstract returnType
-/KaCapturedTypeRenderer.kt::public KaCapturedTypeRenderer
-/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:public AS_CAPTURED_TYPE_WITH_PROJECTION
-/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:public AS_PROJECTION
-/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:public renderType(KaSession, KaCapturedType, KaTypeRenderer, PrettyPrinter)
-/KaClassInitializerRenderer.kt::public KaClassInitializerRenderer
-/KaClassInitializerRenderer.kt:KaClassInitializerRenderer:public INIT_BLOCK_WITH_BRACES
-/KaClassInitializerRenderer.kt:KaClassInitializerRenderer:public renderClassInitializer(KaSession, KaClassInitializerSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaClassInitializerSymbol.kt::public abstract KaClassInitializerSymbol
-/KaClassLikeSymbol.kt::public abstract KaAnonymousObjectSymbol
-/KaClassLikeSymbol.kt::public abstract KaNamedClassSymbol
-/KaClassLikeSymbol.kt::public abstract KaTypeAliasSymbol
-/KaClassLikeSymbol.kt::public abstract KaTypeParameterSymbol
-/KaClassLikeSymbol.kt::public enum KaClassKind
-/KaClassLikeSymbol.kt::public nameOrAnonymous
-/KaClassLikeSymbol.kt::public sealed KaClassLikeSymbol
-/KaClassLikeSymbol.kt::public sealed KaClassSymbol
-/KaClassLikeSymbol.kt::public sealed KaClassifierSymbol
-/KaClassLikeSymbol.kt:KaClassKind:ANNOTATION_CLASS
-/KaClassLikeSymbol.kt:KaClassKind:ANONYMOUS_OBJECT
-/KaClassLikeSymbol.kt:KaClassKind:CLASS
-/KaClassLikeSymbol.kt:KaClassKind:COMPANION_OBJECT
-/KaClassLikeSymbol.kt:KaClassKind:ENUM_CLASS
-/KaClassLikeSymbol.kt:KaClassKind:INTERFACE
-/KaClassLikeSymbol.kt:KaClassKind:OBJECT
-/KaClassLikeSymbol.kt:KaClassKind:public isClass
-/KaClassLikeSymbol.kt:KaClassKind:public isObject
-/KaClassLikeSymbol.kt:KaClassLikeSymbol:public abstract classId
-/KaClassLikeSymbol.kt:KaClassSymbol:public abstract classKind
-/KaClassLikeSymbol.kt:KaClassSymbol:public abstract superTypes
-/KaClassLikeSymbol.kt:KaClassifierSymbol:public abstract name
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract companionObject
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract isData
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract isExternal
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract isFun
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract isInline
-/KaClassLikeSymbol.kt:KaNamedClassSymbol:public abstract isInner
-/KaClassLikeSymbol.kt:KaTypeAliasSymbol:public abstract expandedType
-/KaClassLikeSymbol.kt:KaTypeParameterSymbol:public abstract isReified
-/KaClassLikeSymbol.kt:KaTypeParameterSymbol:public abstract upperBounds
-/KaClassLikeSymbol.kt:KaTypeParameterSymbol:public abstract variance
-/KaClassTypeQualifier.kt::public KaResolvedClassTypeQualifier
-/KaClassTypeQualifier.kt::public KaUnresolvedClassTypeQualifier
-/KaClassTypeQualifier.kt::public sealed KaClassTypeQualifier
-/KaClassTypeQualifier.kt:KaClassTypeQualifier:public name
-/KaClassTypeQualifier.kt:KaClassTypeQualifier:public typeArguments
-/KaClassTypeQualifierRenderer.kt::public KaClassTypeQualifierRenderer
-/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:public WITH_QUALIFIED_NAMES
-/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:public WITH_SHORT_NAMES
-/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:public WITH_SHORT_NAMES_WITH_NESTED_CLASSIFIERS
-/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:public renderClassTypeQualifier(KaSession, KaType, List<KaClassTypeQualifier>, KaTypeRenderer, PrettyPrinter)
-/KaClassifierBodyRenderer.kt::public KaClassifierBodyRenderer
-/KaClassifierBodyRenderer.kt::public abstract KaClassifierBodyWithMembersRenderer
-/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:public BODY_WITH_MEMBERS
-/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:public BODY_WITH_MEMBERS_OR_EMPTY_BRACES
-/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:public EMPTY_BRACES
-/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:public NO_BODY
-/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:public renderBody(KaSession, KaDeclarationContainerSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaClassifierBodyRenderer.kt:KaClassifierBodyWithMembersRenderer:public abstract renderEmptyBodyForEmptyMemberScope(KaDeclarationContainerSymbol)
-/KaCompilerFacility.kt::public KaCodeCompilationException
-/KaCompilerFacility.kt::public KaCompiledFile
-/KaCompilerFacility.kt::public KaCompilerFacility
-/KaCompilerFacility.kt::public classBuilderFactory
-/KaCompilerFacility.kt::public fun KaCompiledClassHandler
-/KaCompilerFacility.kt::public isClassFile
-/KaCompilerFacility.kt::public sealed KaCompilationResult
-/KaCompilerFacility.kt::public sealed KaCompilerTarget
-/KaCompilerFacility.kt:Companion:public CODE_FRAGMENT_CLASS_NAME
-/KaCompilerFacility.kt:Companion:public CODE_FRAGMENT_METHOD_NAME
-/KaCompilerFacility.kt:KaCompilationResult:public Failure
-/KaCompilerFacility.kt:KaCompilationResult:public Success
-/KaCompilerFacility.kt:KaCompiledClassHandler:public handleClassDefinition(PsiFile?, String)
-/KaCompilerFacility.kt:KaCompiledFile:public content
-/KaCompilerFacility.kt:KaCompiledFile:public path
-/KaCompilerFacility.kt:KaCompiledFile:public sourceFiles
-/KaCompilerFacility.kt:KaCompilerFacility:public compile(KtFile, CompilerConfiguration, KaCompilerTarget, (KaDiagnostic) -> Boolean)
-/KaCompilerFacility.kt:KaCompilerTarget:public Jvm
-/KaCompilerPluginGeneratedDeclarationsProvider.kt::public KaCompilerPluginGeneratedDeclarations
-/KaCompilerPluginGeneratedDeclarationsProvider.kt::public KaCompilerPluginGeneratedDeclarationsProvider
-/KaCompilerPluginGeneratedDeclarationsProvider.kt:KaCompilerPluginGeneratedDeclarations:public topLevelDeclarationsScope
-/KaCompilerPluginGeneratedDeclarationsProvider.kt:KaCompilerPluginGeneratedDeclarationsProvider:public compilerPluginGeneratedDeclarations
-/KaCompletionCandidateChecker.kt::public KaCompletionCandidateChecker
-/KaCompletionCandidateChecker.kt::public KaCompletionExtensionCandidateChecker
-/KaCompletionCandidateChecker.kt::public sealed KaExtensionApplicabilityResult
-/KaCompletionCandidateChecker.kt:Applicable:public abstract receiverCastRequired
-/KaCompletionCandidateChecker.kt:Applicable:public abstract substitutor
-/KaCompletionCandidateChecker.kt:KaCompletionCandidateChecker:public createExtensionCandidateChecker(KtFile, KtSimpleNameExpression, KtExpression?)
-/KaCompletionCandidateChecker.kt:KaCompletionExtensionCandidateChecker:public computeApplicability(KaCallableSymbol)
-/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:public ApplicableAsExtensionCallable
-/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:public ApplicableAsFunctionalVariableCall
-/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:public NonApplicable
-/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:public sealed Applicable
-/KaCompoundOperation.kt::public KaCompoundAssignOperation
-/KaCompoundOperation.kt::public KaCompoundUnaryOperation
-/KaCompoundOperation.kt::public sealed KaCompoundOperation
-/KaCompoundOperation.kt:KaCompoundAssignOperation:public enum Kind
-/KaCompoundOperation.kt:KaCompoundAssignOperation:public kind
-/KaCompoundOperation.kt:KaCompoundAssignOperation:public operand
-/KaCompoundOperation.kt:KaCompoundOperation:public operationPartiallyAppliedSymbol
-/KaCompoundOperation.kt:KaCompoundUnaryOperation:public enum Kind
-/KaCompoundOperation.kt:KaCompoundUnaryOperation:public enum Precedence
-/KaCompoundOperation.kt:KaCompoundUnaryOperation:public kind
-/KaCompoundOperation.kt:KaCompoundUnaryOperation:public precedence
-/KaCompoundOperation.kt:Kind:DEC
-/KaCompoundOperation.kt:Kind:DIV_ASSIGN
-/KaCompoundOperation.kt:Kind:INC
-/KaCompoundOperation.kt:Kind:MINUS_ASSIGN
-/KaCompoundOperation.kt:Kind:PLUS_ASSIGN
-/KaCompoundOperation.kt:Kind:REM_ASSIGN
-/KaCompoundOperation.kt:Kind:TIMES_ASSIGN
-/KaCompoundOperation.kt:Precedence:POSTFIX
-/KaCompoundOperation.kt:Precedence:PREFIX
-/KaConstantValue.kt::public sealed KaConstantValue
-/KaConstantValue.kt:ErrorValue:public errorMessage
-/KaConstantValue.kt:KaConstantValue:public BooleanValue
-/KaConstantValue.kt:KaConstantValue:public ByteValue
-/KaConstantValue.kt:KaConstantValue:public CharValue
-/KaConstantValue.kt:KaConstantValue:public DoubleValue
-/KaConstantValue.kt:KaConstantValue:public ErrorValue
-/KaConstantValue.kt:KaConstantValue:public FloatValue
-/KaConstantValue.kt:KaConstantValue:public IntValue
-/KaConstantValue.kt:KaConstantValue:public LongValue
-/KaConstantValue.kt:KaConstantValue:public NullValue
-/KaConstantValue.kt:KaConstantValue:public ShortValue
-/KaConstantValue.kt:KaConstantValue:public StringValue
-/KaConstantValue.kt:KaConstantValue:public UByteValue
-/KaConstantValue.kt:KaConstantValue:public UIntValue
-/KaConstantValue.kt:KaConstantValue:public ULongValue
-/KaConstantValue.kt:KaConstantValue:public UShortValue
-/KaConstantValue.kt:KaConstantValue:public render()
-/KaConstantValue.kt:KaConstantValue:public sourcePsi
-/KaConstantValue.kt:KaConstantValue:public value
-/KaConstructorSymbolRenderer.kt::public KaConstructorSymbolRenderer
-/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:public AS_RAW_SIGNATURE
-/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:public AS_SOURCE
-/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:public renderSymbol(KaSession, KaConstructorSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaContextReceiver.kt::public KaContextReceiversOwner
-/KaContextReceiver.kt::public abstract KaContextReceiver
-/KaContextReceiver.kt:KaContextReceiver:public abstract label
-/KaContextReceiver.kt:KaContextReceiver:public abstract type
-/KaContextReceiver.kt:KaContextReceiversOwner:public contextReceivers
-/KaContextReceiverLabelRenderer.kt::public KaContextReceiverLabelRenderer
-/KaContextReceiverLabelRenderer.kt:KaContextReceiverLabelRenderer:public WITH_LABEL
-/KaContextReceiverLabelRenderer.kt:KaContextReceiverLabelRenderer:public renderLabel(KaSession, KaContextReceiver, KaContextReceiversRenderer, PrettyPrinter)
-/KaContextReceiverListRenderer.kt::public KaContextReceiverListRenderer
-/KaContextReceiverListRenderer.kt:KaContextReceiverListRenderer:public AS_SOURCE
-/KaContextReceiverListRenderer.kt:KaContextReceiverListRenderer:public renderContextReceivers(KaSession, KaContextReceiversOwner, KaContextReceiversRenderer, KaTypeRenderer, PrettyPrinter)
-/KaContextReceiversRenderer.kt::public KaContextReceiversRenderer
-/KaContextReceiversRenderer.kt:Builder:public build()
-/KaContextReceiversRenderer.kt:Builder:public lateinit contextReceiverLabelRenderer
-/KaContextReceiversRenderer.kt:Builder:public lateinit contextReceiverListRenderer
-/KaContextReceiversRenderer.kt:Companion:public inline operator invoke(Builder.() -> Unit)
-/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:public Builder
-/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:public inline with(Builder.() -> Unit)
-/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:public renderContextReceivers(KaSession, KaContextReceiversOwner, KaTypeRenderer, PrettyPrinter)
-/KaContextReceiversRendererForSource.kt::public KaContextReceiversRendererForSource
-/KaContextReceiversRendererForSource.kt:KaContextReceiversRendererForSource:public WITH_LABELS
-/KaContractBooleanExpression.kt::public KaContractBooleanConstantExpression
-/KaContractBooleanExpression.kt::public KaContractBooleanValueParameterExpression
-/KaContractBooleanExpression.kt::public sealed KaContractBooleanExpression
-/KaContractBooleanExpression.kt:KaContractBooleanConstantExpression:public booleanConstant
-/KaContractBooleanExpression.kt:KaContractBooleanValueParameterExpression:public parameterSymbol
-/KaDataFlowProvider.kt::public KaDataFlowExitPointSnapshot
-/KaDataFlowProvider.kt::public KaDataFlowProvider
-/KaDataFlowProvider.kt::public KaImplicitReceiverSmartCast
-/KaDataFlowProvider.kt::public KaSmartCastInfo
-/KaDataFlowProvider.kt::public enum KaImplicitReceiverSmartCastKind
-/KaDataFlowProvider.kt:KaDataFlowExitPointSnapshot:public DefaultExpressionInfo
-/KaDataFlowProvider.kt:KaDataFlowExitPointSnapshot:public VariableReassignment
-/KaDataFlowProvider.kt:KaDataFlowProvider:public computeExitPointSnapshot(List<KtExpression>)
-/KaDataFlowProvider.kt:KaDataFlowProvider:public implicitReceiverSmartCasts
-/KaDataFlowProvider.kt:KaDataFlowProvider:public smartCastInfo
-/KaDataFlowProvider.kt:KaImplicitReceiverSmartCast:public kind
-/KaDataFlowProvider.kt:KaImplicitReceiverSmartCast:public type
-/KaDataFlowProvider.kt:KaImplicitReceiverSmartCastKind:DISPATCH
-/KaDataFlowProvider.kt:KaImplicitReceiverSmartCastKind:EXTENSION
-/KaDataFlowProvider.kt:KaSmartCastInfo:public isStable
-/KaDataFlowProvider.kt:KaSmartCastInfo:public smartCastType
-/KaDeclarationContainerSymbol.kt::public KaDeclarationContainerSymbol
-/KaDeclarationModifiersRenderer.kt::public KaDeclarationModifiersRenderer
-/KaDeclarationModifiersRenderer.kt:Builder:public build()
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit keywordsRenderer
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit modalityProvider
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit modifierListRenderer
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit modifiersSorter
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit otherModifiersProvider
-/KaDeclarationModifiersRenderer.kt:Builder:public lateinit visibilityProvider
-/KaDeclarationModifiersRenderer.kt:Companion:public inline operator invoke(Builder.() -> Unit)
-/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:public Builder
-/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:public inline with(Builder.() -> Unit)
-/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:public renderDeclarationModifiers(KaSession, KaDeclarationSymbol, PrettyPrinter)
-/KaDeclarationModifiersRendererForSource.kt::public KaDeclarationModifiersRendererForSource
-/KaDeclarationModifiersRendererForSource.kt:KaDeclarationModifiersRendererForSource:public NO_IMPLICIT_MODIFIERS
-/KaDeclarationNameRenderer.kt::public KaDeclarationNameRenderer
-/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:public QUOTED
-/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:public UNQUOTED
-/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:public renderName(KaSession, KaNamedSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:public renderName(KaSession, Name, KaNamedSymbol?, KaDeclarationRenderer, PrettyPrinter)
-/KaDeclarationRenderer.kt::public KaDeclarationRenderer
-/KaDeclarationRenderer.kt:Builder:public build()
-/KaDeclarationRenderer.kt:Builder:public lateinit accessorBodyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit annotationRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit anonymousFunctionRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit anonymousObjectRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit backingFieldRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit bodyMemberScopeProvider
-/KaDeclarationRenderer.kt:Builder:public lateinit bodyMemberScopeSorter
-/KaDeclarationRenderer.kt:Builder:public lateinit callableReceiverRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit callableSignatureRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit classInitializerRender
-/KaDeclarationRenderer.kt:Builder:public lateinit classifierBodyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit codeStyle
-/KaDeclarationRenderer.kt:Builder:public lateinit constructorRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit contextReceiversRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit declarationTypeApproximator
-/KaDeclarationRenderer.kt:Builder:public lateinit destructuringDeclarationRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit enumEntryRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit functionLikeBodyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit getterRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit javaFieldRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit keywordsRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit kotlinPropertyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit localVariableRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit modifiersRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit nameRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit namedClassRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit namedFunctionRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit parameterDefaultValueRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit propertyAccessorsRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit propertyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit returnTypeFilter
-/KaDeclarationRenderer.kt:Builder:public lateinit returnTypeRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit samConstructorRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit scriptInitializerRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit scriptRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit setterRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit singleTypeParameterRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit superTypeListRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit superTypeRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit superTypesArgumentRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit superTypesFilter
-/KaDeclarationRenderer.kt:Builder:public lateinit syntheticJavaPropertyRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit typeAliasRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit typeParametersFilter
-/KaDeclarationRenderer.kt:Builder:public lateinit typeParametersRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit typeRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit valueParameterRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit valueParametersRenderer
-/KaDeclarationRenderer.kt:Builder:public lateinit variableInitializerRenderer
-/KaDeclarationRenderer.kt:Companion:public operator invoke(Builder.() -> Unit)
-/KaDeclarationRenderer.kt:KaDeclarationRenderer:public open Builder
-/KaDeclarationRenderer.kt:KaDeclarationRenderer:public renderDeclaration(KaSession, KaDeclarationSymbol, PrettyPrinter)
-/KaDeclarationRenderer.kt:KaDeclarationRenderer:public with(Builder.() -> Unit)
-/KaDeclarationRendererForDebug.kt::public KaDeclarationRendererForDebug
-/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:public WITH_QUALIFIED_NAMES
-/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:public WITH_QUALIFIED_NAMES_DENOTABLE
-/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:public WITH_SHORT_NAMES
-/KaDeclarationRendererForSource.kt::public KaDeclarationRendererForSource
-/KaDeclarationRendererForSource.kt:KaDeclarationRendererForSource:public WITH_QUALIFIED_NAMES
-/KaDeclarationRendererForSource.kt:KaDeclarationRendererForSource:public WITH_SHORT_NAMES
-/KaDeclarationSymbol.kt::public sealed KaDeclarationSymbol
-/KaDeclarationSymbol.kt::public typeParameters
-/KaDeclarationSymbol.kt:KaDeclarationSymbol:public compilerVisibility
-/KaDeclarationSymbol.kt:KaDeclarationSymbol:public isActual
-/KaDeclarationSymbol.kt:KaDeclarationSymbol:public isExpect
-/KaDeclarationSymbol.kt:KaDeclarationSymbol:public modality
-/KaDeclarationSymbol.kt:KaDeclarationSymbol:public visibility
-/KaDefaultImport.kt::public KaDefaultImport
-/KaDefaultImport.kt::public enum KaDefaultImportPriority
-/KaDefaultImport.kt:KaDefaultImport:public importPath
-/KaDefaultImport.kt:KaDefaultImport:public priority
-/KaDefaultImport.kt:KaDefaultImportPriority:HIGH
-/KaDefaultImport.kt:KaDefaultImportPriority:LOW
-/KaDefaultImports.kt::public KaDefaultImports
-/KaDefaultImports.kt:KaDefaultImports:public defaultImports
-/KaDefaultImports.kt:KaDefaultImports:public excludedFromDefaultImports
-/KaDefaultImportsProvider.kt::public KaDefaultImportsProvider
-/KaDefaultImportsProvider.kt::public getDefaultImports(Project)
-/KaDefaultImportsProvider.kt:Companion:public getService(Project)
-/KaDefaultImportsProvider.kt:KaDefaultImportsProvider:public getDefaultImports(TargetPlatform)
-/KaDefinitelyNotNullTypeRenderer.kt::public KaDefinitelyNotNullTypeRenderer
-/KaDefinitelyNotNullTypeRenderer.kt:KaDefinitelyNotNullTypeRenderer:public AS_TYPE_INTERSECTION
-/KaDefinitelyNotNullTypeRenderer.kt:KaDefinitelyNotNullTypeRenderer:public renderType(KaSession, KaDefinitelyNotNullType, KaTypeRenderer, PrettyPrinter)
-/KaDestructuringDeclarationRenderer.kt::public KaDestructuringDeclarationRenderer
-/KaDestructuringDeclarationRenderer.kt:KaDestructuringDeclarationRenderer:public WITH_ENTRIES
-/KaDestructuringDeclarationRenderer.kt:KaDestructuringDeclarationRenderer:public renderSymbol(KaSession, KaDestructuringDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaDestructuringDeclarationSymbol.kt::public abstract KaDestructuringDeclarationSymbol
-/KaDestructuringDeclarationSymbol.kt:KaDestructuringDeclarationSymbol:public abstract entries
-/KaDiagnostic.kt::public KaDiagnostic
-/KaDiagnostic.kt::public KaDiagnosticWithPsi
-/KaDiagnostic.kt::public enum KaSeverity
-/KaDiagnostic.kt::public getDefaultMessageWithFactoryName()
-/KaDiagnostic.kt:KaDiagnostic:public defaultMessage
-/KaDiagnostic.kt:KaDiagnostic:public diagnosticClass
-/KaDiagnostic.kt:KaDiagnostic:public factoryName
-/KaDiagnostic.kt:KaDiagnostic:public severity
-/KaDiagnostic.kt:KaDiagnosticWithPsi:public psi
-/KaDiagnostic.kt:KaDiagnosticWithPsi:public textRanges
-/KaDiagnostic.kt:KaSeverity:ERROR
-/KaDiagnostic.kt:KaSeverity:INFO
-/KaDiagnostic.kt:KaSeverity:WARNING
-/KaDiagnosticProvider.kt::public KaDiagnosticProvider
-/KaDiagnosticProvider.kt::public enum KaDiagnosticCheckerFilter
-/KaDiagnosticProvider.kt:KaDiagnosticCheckerFilter:EXTENDED_AND_COMMON_CHECKERS
-/KaDiagnosticProvider.kt:KaDiagnosticCheckerFilter:ONLY_COMMON_CHECKERS
-/KaDiagnosticProvider.kt:KaDiagnosticCheckerFilter:ONLY_EXTENDED_CHECKERS
-/KaDiagnosticProvider.kt:KaDiagnosticProvider:public collectDiagnostics(KaDiagnosticCheckerFilter)
-/KaDiagnosticProvider.kt:KaDiagnosticProvider:public diagnostics(KaDiagnosticCheckerFilter)
-/KaDynamicTypeRenderer.kt::public KaDynamicTypeRenderer
-/KaDynamicTypeRenderer.kt:KaDynamicTypeRenderer:public AS_DYNAMIC_WORD
-/KaDynamicTypeRenderer.kt:KaDynamicTypeRenderer:public renderType(KaSession, KaDynamicType, KaTypeRenderer, PrettyPrinter)
-/KaEnumEntrySymbolRenderer.kt::public KaEnumEntrySymbolRenderer
-/KaEnumEntrySymbolRenderer.kt:KaEnumEntrySymbolRenderer:public AS_SOURCE
-/KaEnumEntrySymbolRenderer.kt:KaEnumEntrySymbolRenderer:public renderSymbol(KaSession, KaEnumEntrySymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaEvaluator.kt::public KaEvaluator
-/KaEvaluator.kt:KaEvaluator:public evaluate()
-/KaEvaluator.kt:KaEvaluator:public evaluateAsAnnotationValue()
-/KaExpandedTypeRenderingMode.kt::public enum KaExpandedTypeRenderingMode
-/KaExpandedTypeRenderingMode.kt:KaExpandedTypeRenderingMode:RENDER_ABBREVIATED_TYPE
-/KaExpandedTypeRenderingMode.kt:KaExpandedTypeRenderingMode:RENDER_ABBREVIATED_TYPE_WITH_EXPANDED_TYPE_COMMENT
-/KaExpandedTypeRenderingMode.kt:KaExpandedTypeRenderingMode:RENDER_EXPANDED_TYPE
-/KaExpandedTypeRenderingMode.kt:KaExpandedTypeRenderingMode:RENDER_EXPANDED_TYPE_WITH_ABBREVIATED_TYPE_COMMENT
-/KaExpressionInformationProvider.kt::public KaExpressionInformationProvider
-/KaExpressionInformationProvider.kt:KaExpressionInformationProvider:public computeMissingCases()
-/KaExpressionInformationProvider.kt:KaExpressionInformationProvider:public isUsedAsExpression
-/KaExpressionInformationProvider.kt:KaExpressionInformationProvider:public targetSymbol
-/KaExpressionTypeProvider.kt::public KaExpressionTypeProvider
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public expectedType
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public expressionType
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public functionType
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public isDefinitelyNotNull
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public isDefinitelyNull
-/KaExpressionTypeProvider.kt:KaExpressionTypeProvider:public returnType
-/KaFileSymbol.kt::public abstract KaFileSymbol
-/KaFlexibleTypeRenderer.kt::public KaFlexibleTypeRenderer
-/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:public AS_RANGE
-/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:public AS_SHORT
-/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:public renderType(KaSession, KaFlexibleType, KaTypeRenderer, PrettyPrinter)
-/KaFunctionLikeBodyRenderer.kt::public KaFunctionLikeBodyRenderer
-/KaFunctionLikeBodyRenderer.kt:KaFunctionLikeBodyRenderer:public NO_BODY
-/KaFunctionLikeBodyRenderer.kt:KaFunctionLikeBodyRenderer:public renderBody(KaSession, KaFunctionSymbol, PrettyPrinter)
-/KaFunctionSignature.kt::public KaFunctionSignature
-/KaFunctionSignature.kt:KaFunctionSignature:public valueParameters
-/KaFunctionSymbol.kt::public abstract KaAnonymousFunctionSymbol
-/KaFunctionSymbol.kt::public abstract KaConstructorSymbol
-/KaFunctionSymbol.kt::public abstract KaNamedFunctionSymbol
-/KaFunctionSymbol.kt::public abstract KaSamConstructorSymbol
-/KaFunctionSymbol.kt::public sealed KaFunctionSymbol
-/KaFunctionSymbol.kt:KaConstructorSymbol:public abstract containingClassId
-/KaFunctionSymbol.kt:KaConstructorSymbol:public abstract isPrimary
-/KaFunctionSymbol.kt:KaFunctionSymbol:public abstract hasStableParameterNames
-/KaFunctionSymbol.kt:KaFunctionSymbol:public abstract valueParameters
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract contractEffects
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isBuiltinFunctionInvoke
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isExternal
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isInfix
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isInline
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isOperator
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isOverride
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isStatic
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isSuspend
-/KaFunctionSymbol.kt:KaNamedFunctionSymbol:public abstract isTailRec
-/KaFunctionSymbolRenderer.kt::public KaNamedFunctionSymbolRenderer
-/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:public AS_RAW_SIGNATURE
-/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:public AS_SOURCE
-/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:public renderSymbol(KaSession, KaNamedFunctionSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaFunctionalTypeRenderer.kt::public KaFunctionalTypeRenderer
-/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:public AS_CLASS_TYPE
-/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:public AS_CLASS_TYPE_FOR_REFLECTION_TYPES
-/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:public AS_FUNCTIONAL_TYPE
-/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:public renderType(KaSession, KaFunctionType, KaTypeRenderer, PrettyPrinter)
-/KaImportOptimizer.kt::public KaImportOptimizer
-/KaImportOptimizer.kt::public KaImportOptimizerResult
-/KaImportOptimizer.kt:KaImportOptimizer:public analyzeImportsToOptimize(KtFile)
-/KaImportOptimizer.kt:KaImportOptimizer:public importableFqName
-/KaInitializerValue.kt::public KaConstantInitializerValue
-/KaInitializerValue.kt::public KaConstantValueForAnnotation
-/KaInitializerValue.kt::public KaNonConstantInitializerValue
-/KaInitializerValue.kt::public sealed KaInitializerValue
-/KaInitializerValue.kt:KaInitializerValue:public abstract initializerPsi
-/KaIntersectionTypeRenderer.kt::public KaIntersectionTypeRenderer
-/KaIntersectionTypeRenderer.kt:KaIntersectionTypeRenderer:public AS_INTERSECTION
-/KaIntersectionTypeRenderer.kt:KaIntersectionTypeRenderer:public renderType(KaSession, KaIntersectionType, KaTypeRenderer, PrettyPrinter)
-/KaJavaFieldSymbolRenderer.kt::public KaJavaFieldSymbolRenderer
-/KaJavaFieldSymbolRenderer.kt:KaJavaFieldSymbolRenderer:public AS_SOURCE
-/KaJavaFieldSymbolRenderer.kt:KaJavaFieldSymbolRenderer:public renderSymbol(KaSession, KaJavaFieldSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaJavaInteroperabilityComponent.kt::public KaJavaInteroperabilityComponent
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public asKaType(PsiElement)
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public asPsiType(PsiElement, Boolean, KaTypeMappingMode, Boolean, Boolean?, Boolean, Boolean)
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public callableSymbol
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public containingJvmClassName
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public isPrimitiveBacked
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public javaGetterName
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public javaSetterName
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public mapToJvmType(TypeMappingMode)
-/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent:public namedClassSymbol
-/KaKeywordRenderer.kt::public KaKeywordRenderer
-/KaKeywordRenderer.kt:KaKeywordRenderer:public AS_WORD
-/KaKeywordRenderer.kt:KaKeywordRenderer:public NONE
-/KaKeywordRenderer.kt:KaKeywordRenderer:public renderKeyword(KaSession, KtKeywordToken, KaAnnotated, KaKeywordsRenderer, PrettyPrinter)
-/KaKeywordRenderer.kt:KaKeywordRenderer:public renderKeywords(KaSession, List<KtKeywordToken>, KaAnnotated, KaKeywordsRenderer, PrettyPrinter)
-/KaKeywordsFilter.kt::public KaRendererKeywordFilter
-/KaKeywordsFilter.kt:Companion:public onlyWith(KtKeywordToken)
-/KaKeywordsFilter.kt:Companion:public onlyWith(TokenSet)
-/KaKeywordsFilter.kt:Companion:public operator invoke(KaSession.(modifier: KtKeywordToken, annotated: KaAnnotated) -> Boolean)
-/KaKeywordsFilter.kt:Companion:public without(KtKeywordToken)
-/KaKeywordsFilter.kt:Companion:public without(TokenSet)
-/KaKeywordsFilter.kt:KaRendererKeywordFilter:public ALL
-/KaKeywordsFilter.kt:KaRendererKeywordFilter:public NONE
-/KaKeywordsFilter.kt:KaRendererKeywordFilter:public filter(KaSession, KtKeywordToken, KaAnnotated)
-/KaKeywordsFilter.kt:KaRendererKeywordFilter:public infix and(KaRendererKeywordFilter)
-/KaKeywordsFilter.kt:KaRendererKeywordFilter:public infix or(KaRendererKeywordFilter)
-/KaKeywordsRenderer.kt::public KaKeywordsRenderer
-/KaKeywordsRenderer.kt:Builder:public build()
-/KaKeywordsRenderer.kt:Builder:public lateinit keywordFilter
-/KaKeywordsRenderer.kt:Builder:public lateinit keywordRenderer
-/KaKeywordsRenderer.kt:Companion:public AS_WORD
-/KaKeywordsRenderer.kt:Companion:public NONE
-/KaKeywordsRenderer.kt:Companion:public inline operator invoke(Builder.() -> Unit)
-/KaKeywordsRenderer.kt:KaKeywordsRenderer:public Builder
-/KaKeywordsRenderer.kt:KaKeywordsRenderer:public inline with(Builder.() -> Unit)
-/KaKeywordsRenderer.kt:KaKeywordsRenderer:public renderKeyword(KaSession, KtKeywordToken, KaAnnotated, PrettyPrinter)
-/KaKeywordsRenderer.kt:KaKeywordsRenderer:public renderKeywords(KaSession, List<KtKeywordToken>, KaAnnotated, PrettyPrinter)
-/KaKotlinPropertySymbolRenderer.kt::public KaKotlinPropertySymbolRenderer
-/KaKotlinPropertySymbolRenderer.kt:KaKotlinPropertySymbolRenderer:public AS_SOURCE
-/KaKotlinPropertySymbolRenderer.kt:KaKotlinPropertySymbolRenderer:public renderSymbol(KaSession, KaKotlinPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaLifetimeOwner.kt::public KaLifetimeOwner
-/KaLifetimeOwner.kt::public inline assertIsValidAndAccessible()
-/KaLifetimeOwner.kt::public inline withValidityAssertion(() -> R)
-/KaLifetimeOwner.kt::public isValid()
-/KaLifetimeOwner.kt::public validityAsserted(T)
-/KaLifetimeOwnerField.kt::public value KaLifetimeOwnerField
-/KaLifetimeToken.kt::public KaInaccessibleLifetimeOwnerAccessException
-/KaLifetimeToken.kt::public KaInvalidLifetimeOwnerAccessException
-/KaLifetimeToken.kt::public abstract KaIllegalLifetimeOwnerAccessException
-/KaLifetimeToken.kt::public abstract KaLifetimeToken
-/KaLifetimeToken.kt::public inline assertIsAccessible()
-/KaLifetimeToken.kt::public inline assertIsValid()
-/KaLifetimeToken.kt::public inline assertIsValidAndAccessible()
-/KaLifetimeToken.kt:KaLifetimeToken:public abstract getInaccessibilityReason()
-/KaLifetimeToken.kt:KaLifetimeToken:public abstract getInvalidationReason()
-/KaLifetimeToken.kt:KaLifetimeToken:public abstract isAccessible()
-/KaLifetimeToken.kt:KaLifetimeToken:public abstract isValid()
-/KaLocalVariableSymbolRenderer.kt::public KaLocalVariableSymbolRenderer
-/KaLocalVariableSymbolRenderer.kt:KaLocalVariableSymbolRenderer:public AS_SOURCE
-/KaLocalVariableSymbolRenderer.kt:KaLocalVariableSymbolRenderer:public renderSymbol(KaSession, KaLocalVariableSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaMetadataCalculator.kt::public KaMetadataCalculator
-/KaMetadataCalculator.kt:KaMetadataCalculator:public calculateMetadata(Multimap<KtElement, PsiElement>)
-/KaMetadataCalculator.kt:KaMetadataCalculator:public calculateMetadata(Multimap<KtElement, PsiElement>)
-/KaModifierListRenderer.kt::public KaModifierListRenderer
-/KaModifierListRenderer.kt:KaModifierListRenderer:public AS_LIST
-/KaModifierListRenderer.kt:KaModifierListRenderer:public renderModifiers(KaSession, KaDeclarationSymbol, KaDeclarationModifiersRenderer, PrettyPrinter)
-/KaModifiersSorter.kt::public KaModifiersSorter
-/KaModifiersSorter.kt:KaModifiersSorter:public CANONICAL
-/KaModifiersSorter.kt:KaModifiersSorter:public sort(KaSession, List<KtModifierKeywordToken>, KaDeclarationSymbol)
-/KaModule.kt::public KaBuiltinsModule
-/KaModule.kt::public KaDanglingFileModule
-/KaModule.kt::public KaLibraryModule
-/KaModule.kt::public KaLibrarySourceModule
-/KaModule.kt::public KaModule
-/KaModule.kt::public KaNotUnderContentRootModule
-/KaModule.kt::public KaScriptDependencyModule
-/KaModule.kt::public KaScriptModule
-/KaModule.kt::public KaSourceModule
-/KaModule.kt::public isStable
-/KaModule.kt:KaDanglingFileModule:public contextModule
-/KaModule.kt:KaDanglingFileModule:public file
-/KaModule.kt:KaDanglingFileModule:public isCodeFragment
-/KaModule.kt:KaDanglingFileModule:public resolutionMode
-/KaModule.kt:KaLibraryModule:public binaryRoots
-/KaModule.kt:KaLibraryModule:public binaryVirtualFiles
-/KaModule.kt:KaLibraryModule:public isSdk
-/KaModule.kt:KaLibraryModule:public libraryName
-/KaModule.kt:KaLibraryModule:public librarySources
-/KaModule.kt:KaLibrarySourceModule:public binaryLibrary
-/KaModule.kt:KaLibrarySourceModule:public libraryName
-/KaModule.kt:KaModule:public contentScope
-/KaModule.kt:KaModule:public directDependsOnDependencies
-/KaModule.kt:KaModule:public directFriendDependencies
-/KaModule.kt:KaModule:public directRegularDependencies
-/KaModule.kt:KaModule:public moduleDescription
-/KaModule.kt:KaModule:public project
-/KaModule.kt:KaModule:public stableModuleName
-/KaModule.kt:KaModule:public targetPlatform
-/KaModule.kt:KaModule:public transitiveDependsOnDependencies
-/KaModule.kt:KaNotUnderContentRootModule:public file
-/KaModule.kt:KaNotUnderContentRootModule:public name
-/KaModule.kt:KaScriptDependencyModule:public file
-/KaModule.kt:KaScriptModule:public file
-/KaModule.kt:KaScriptModule:public languageVersionSettings
-/KaModule.kt:KaSourceModule:public languageVersionSettings
-/KaModule.kt:KaSourceModule:public name
-/KaModule.kt:KaSourceModule:public psiRoots
-/KaModuleProvider.kt::public KaModuleProvider
-/KaModuleProvider.kt:Companion:public getInstance(Project)
-/KaNamedAnnotationValue.kt::public KaNamedAnnotationValue
-/KaNamedAnnotationValue.kt:KaNamedAnnotationValue:public expression
-/KaNamedAnnotationValue.kt:KaNamedAnnotationValue:public name
-/KaNamedClassOrObjectSymbolRenderer.kt::public KaNamedClassSymbolRenderer
-/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:public AS_SOURCE
-/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:public AS_SOURCE_WITHOUT_PRIMARY_CONSTRUCTOR
-/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:public open AsSourceRenderer
-/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:public renderSymbol(KaSession, KaNamedClassSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaOriginalPsiProvider.kt::public KaOriginalPsiProvider
-/KaOriginalPsiProvider.kt:KaOriginalPsiProvider:public getOriginalDeclaration()
-/KaOriginalPsiProvider.kt:KaOriginalPsiProvider:public getOriginalKtFile()
-/KaOriginalPsiProvider.kt:KaOriginalPsiProvider:public recordOriginalDeclaration(KtDeclaration)
-/KaOriginalPsiProvider.kt:KaOriginalPsiProvider:public recordOriginalKtFile(KtFile)
-/KaPackageSymbol.kt::public abstract KaPackageSymbol
-/KaPackageSymbol.kt:KaPackageSymbol:public abstract fqName
-/KaParameterDefaultValueRenderer.kt::public KaParameterDefaultValueRenderer
-/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:public NO_DEFAULT_VALUE
-/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:public THREE_DOTS
-/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:public renderDefaultValue(KaSession, KaValueParameterSymbol, PrettyPrinter)
-/KaPartiallyAppliedSymbol.kt::public KaPartiallyAppliedFunctionSymbol
-/KaPartiallyAppliedSymbol.kt::public KaPartiallyAppliedSymbol
-/KaPartiallyAppliedSymbol.kt::public KaPartiallyAppliedVariableSymbol
-/KaPartiallyAppliedSymbol.kt:KaPartiallyAppliedSymbol:public dispatchReceiver
-/KaPartiallyAppliedSymbol.kt:KaPartiallyAppliedSymbol:public extensionReceiver
-/KaPartiallyAppliedSymbol.kt:KaPartiallyAppliedSymbol:public signature
-/KaPropertyAccessorBodyRenderer.kt::public KaPropertyAccessorBodyRenderer
-/KaPropertyAccessorBodyRenderer.kt:KaPropertyAccessorBodyRenderer:public NO_BODY
-/KaPropertyAccessorBodyRenderer.kt:KaPropertyAccessorBodyRenderer:public renderBody(KaSession, KaPropertyAccessorSymbol, PrettyPrinter)
-/KaPropertyAccessorSymbol.kt::public abstract KaPropertyGetterSymbol
-/KaPropertyAccessorSymbol.kt::public abstract KaPropertySetterSymbol
-/KaPropertyAccessorSymbol.kt::public sealed KaPropertyAccessorSymbol
-/KaPropertyAccessorSymbol.kt:KaPropertyAccessorSymbol:public abstract hasBody
-/KaPropertyAccessorSymbol.kt:KaPropertyAccessorSymbol:public abstract isDefault
-/KaPropertyAccessorSymbol.kt:KaPropertyAccessorSymbol:public abstract isInline
-/KaPropertyAccessorSymbol.kt:KaPropertyAccessorSymbol:public abstract isOverride
-/KaPropertyAccessorSymbol.kt:KaPropertySetterSymbol:public abstract parameter
-/KaPropertyAccessorsRenderer.kt::public KaPropertyAccessorsRenderer
-/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:public ALL
-/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:public NONE
-/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:public NO_DEFAULT
-/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:public renderAccessors(KaSession, KaPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaPropertyGetterSymbolRenderer.kt::public KaPropertyGetterSymbolRenderer
-/KaPropertyGetterSymbolRenderer.kt:KaPropertyGetterSymbolRenderer:public AS_SOURCE
-/KaPropertyGetterSymbolRenderer.kt:KaPropertyGetterSymbolRenderer:public renderSymbol(KaSession, KaPropertyGetterSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaPropertySetterSymbolRenderer.kt::public KaPropertySetterSymbolRenderer
-/KaPropertySetterSymbolRenderer.kt:KaPropertySetterSymbolRenderer:public AS_SOURCE
-/KaPropertySetterSymbolRenderer.kt:KaPropertySetterSymbolRenderer:public renderSymbol(KaSession, KaPropertySetterSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaPsiBasedSymbolPointer.kt::public KaPsiBasedSymbolPointer
-/KaPsiBasedSymbolPointer.kt::public SmartPointerIncompatiblePsiFile
-/KaPsiBasedSymbolPointer.kt::public inline symbolPointerOfType()
-/KaPsiBasedSymbolPointer.kt::public symbolPointer()
-/KaPsiBasedSymbolPointer.kt:Companion:public createForSymbolFromPsi(KtElement, KClass<S>)
-/KaPsiBasedSymbolPointer.kt:Companion:public createForSymbolFromSource(S, KClass<S>)
-/KaPsiBasedSymbolPointer.kt:Companion:public inline createForSymbolFromPsi(KtElement)
-/KaPsiBasedSymbolPointer.kt:Companion:public inline createForSymbolFromSource(@kotlin.internal.NoInfer S)
-/KaPsiBasedSymbolPointer.kt:Companion:public withDisabledPsiBasedPointers(Boolean, () -> T)
-/KaPsiBasedSymbolPointer.kt:KaPsiBasedSymbolPointer:public KaPsiBasedSymbolPointer(KtElement, KClass<S>)
-/KaReceiverValue.kt::public KaExplicitReceiverValue
-/KaReceiverValue.kt::public KaImplicitReceiverValue
-/KaReceiverValue.kt::public KaSmartCastedReceiverValue
-/KaReceiverValue.kt::public sealed KaReceiverValue
-/KaReceiverValue.kt:KaExplicitReceiverValue:public expression
-/KaReceiverValue.kt:KaExplicitReceiverValue:public isSafeNavigation
-/KaReceiverValue.kt:KaReceiverValue:public type
-/KaReceiverValue.kt:KaSmartCastedReceiverValue:public original
-/KaReferenceShortener.kt::public KaReferenceShortener
-/KaReferenceShortener.kt::public ShortenCommand
-/KaReferenceShortener.kt::public data QualifierToShortenInfo
-/KaReferenceShortener.kt::public data ShortenOptions
-/KaReferenceShortener.kt::public data ThisLabelToShortenInfo
-/KaReferenceShortener.kt::public data TypeToShortenInfo
-/KaReferenceShortener.kt::public enum ShortenStrategy
-/KaReferenceShortener.kt:Companion:public ALL_ENABLED
-/KaReferenceShortener.kt:Companion:public DEFAULT
-/KaReferenceShortener.kt:Companion:public defaultCallableShortenStrategy
-/KaReferenceShortener.kt:Companion:public defaultClassShortenStrategy
-/KaReferenceShortener.kt:KaReferenceShortener:public collectPossibleReferenceShortenings(KtFile, TextRange, ShortenOptions, (KaClassLikeSymbol) -> ShortenStrategy, (KaCallableSymbol) -> ShortenStrategy)
-/KaReferenceShortener.kt:KaReferenceShortener:public collectPossibleReferenceShorteningsInElement(KtElement, ShortenOptions, (KaClassLikeSymbol) -> ShortenStrategy, (KaCallableSymbol) -> ShortenStrategy)
-/KaReferenceShortener.kt:ShortenCommand:public importsToAdd
-/KaReferenceShortener.kt:ShortenCommand:public isEmpty
-/KaReferenceShortener.kt:ShortenCommand:public kDocQualifiersToShorten
-/KaReferenceShortener.kt:ShortenCommand:public listOfQualifierToShortenInfo
-/KaReferenceShortener.kt:ShortenCommand:public listOfTypeToShortenInfo
-/KaReferenceShortener.kt:ShortenCommand:public starImportsToAdd
-/KaReferenceShortener.kt:ShortenCommand:public targetFile
-/KaReferenceShortener.kt:ShortenCommand:public thisLabelsToShorten
-/KaReferenceShortener.kt:ShortenStrategy:DO_NOT_SHORTEN
-/KaReferenceShortener.kt:ShortenStrategy:SHORTEN_AND_IMPORT
-/KaReferenceShortener.kt:ShortenStrategy:SHORTEN_AND_STAR_IMPORT
-/KaReferenceShortener.kt:ShortenStrategy:SHORTEN_IF_ALREADY_IMPORTED
-/KaRenderer.kt::public KaRenderer
-/KaRenderer.kt:KaRenderer:public render(KaDeclarationRenderer)
-/KaRenderer.kt:KaRenderer:public render(KaTypeRenderer, Variance)
-/KaRendererAnnotationsFilter.kt::public KaRendererAnnotationsFilter
-/KaRendererAnnotationsFilter.kt:Companion:public operator invoke(KaSession.(annotation: KaAnnotation, owner: KaAnnotated) -> Boolean)
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public ALL
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public NONE
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public NO_NULLABILITY
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public NO_PARAMETER_NAME
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public filter(KaSession, KaAnnotation, KaAnnotated)
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public infix and(KaRendererAnnotationsFilter)
-/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:public infix or(KaRendererAnnotationsFilter)
-/KaRendererBodyMemberScopeProvider.kt::public KaRendererBodyMemberScopeProvider
-/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:public ALL
-/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:public ALL_DECLARED
-/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:public NONE
-/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:public getMemberScope(KaSession, KaDeclarationContainerSymbol)
-/KaRendererBodyMemberScopeSorter.kt::public KaRendererBodyMemberScopeSorter
-/KaRendererBodyMemberScopeSorter.kt:KaRendererBodyMemberScopeSorter:public ENUM_ENTRIES_AT_BEGINING
-/KaRendererBodyMemberScopeSorter.kt:KaRendererBodyMemberScopeSorter:public sortMembers(KaSession, List<KaDeclarationSymbol>, KaDeclarationContainerSymbol)
-/KaRendererCodeStyle.kt::public KaRecommendedRendererCodeStyle
-/KaRendererCodeStyle.kt::public KaRendererCodeStyle
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getIndentSize(KaSession)
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getSeparatorAfterContextReceivers(KaSession)
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getSeparatorBetweenAnnotationAndOwner(KaSession, KaAnnotated)
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getSeparatorBetweenAnnotations(KaSession, KaAnnotated)
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getSeparatorBetweenMembers(KaSession, KaDeclarationSymbol, KaDeclarationSymbol)
-/KaRendererCodeStyle.kt:KaRendererCodeStyle:public getSeparatorBetweenModifiers(KaSession)
-/KaRendererModalityModifierProvider.kt::public KaRendererModalityModifierProvider
-/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:public WITHOUT_IMPLICIT_MODALITY
-/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:public WITH_IMPLICIT_MODALITY
-/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:public getModalityModifier(KaSession, KaDeclarationSymbol)
-/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:public onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
-/KaRendererOtherModifiersProvider.kt::public KaRendererOtherModifiersProvider
-/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:public ALL
-/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:public getOtherModifiers(KaSession, KaDeclarationSymbol)
-/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:public infix and(KaRendererOtherModifiersProvider)
-/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:public onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
-/KaRendererTypeApproximator.kt::public KaRendererTypeApproximator
-/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:public NO_APPROXIMATION
-/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:public TO_DENOTABLE
-/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:public approximateType(KaSession, KaType, Variance)
-/KaRendererVisibilityModifierProvider.kt::public KaRendererVisibilityModifierProvider
-/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:public NO_IMPLICIT_VISIBILITY
-/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:public WITH_IMPLICIT_VISIBILITY
-/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:public getVisibilityModifier(KaSession, KaDeclarationSymbol)
-/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:public onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
-/KaResolveExtension.kt::public abstract KaResolveExtension
-/KaResolveExtension.kt:KaResolveExtension:public abstract getContainedPackages()
-/KaResolveExtension.kt:KaResolveExtension:public abstract getKtFiles()
-/KaResolveExtension.kt:KaResolveExtension:public open getShadowedScope()
-/KaResolveExtensionFile.kt::public abstract KaResolveExtensionFile
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract buildFileText()
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract createNavigationTargetsProvider()
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract getFileName()
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract getFilePackageName()
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract getTopLevelCallableNames()
-/KaResolveExtensionFile.kt:KaResolveExtensionFile:public abstract getTopLevelClassifierNames()
-/KaResolveExtensionInfoProvider.kt::public KaResolveExtensionInfoProvider
-/KaResolveExtensionInfoProvider.kt:KaResolveExtensionInfoProvider:public isFromResolveExtension
-/KaResolveExtensionInfoProvider.kt:KaResolveExtensionInfoProvider:public isResolveExtensionFile
-/KaResolveExtensionInfoProvider.kt:KaResolveExtensionInfoProvider:public resolveExtensionNavigationElements
-/KaResolveExtensionInfoProvider.kt:KaResolveExtensionInfoProvider:public resolveExtensionScopeWithTopLevelDeclarations
-/KaResolveExtensionNavigationTargetsProvider.kt::public abstract KaResolveExtensionNavigationTargetsProvider
-/KaResolveExtensionNavigationTargetsProvider.kt:KaResolveExtensionNavigationTargetsProvider:public abstract getNavigationTargets(KtElement)
-/KaResolveExtensionProvider.kt::public abstract KaResolveExtensionProvider
-/KaResolveExtensionProvider.kt:Companion:public EP_NAME
-/KaResolveExtensionProvider.kt:Companion:public provideExtensionsFor(KaModule)
-/KaResolveExtensionProvider.kt:KaResolveExtensionProvider:public abstract provideExtensionsFor(KaModule)
-/KaResolver.kt::public KaResolver
-/KaResolver.kt:KaResolver:public isImplicitReferenceToCompanion()
-/KaResolver.kt:KaResolver:public resolveToCall()
-/KaResolver.kt:KaResolver:public resolveToCallCandidates()
-/KaResolver.kt:KaResolver:public resolveToSymbol()
-/KaResolver.kt:KaResolver:public resolveToSymbols()
-/KaSamConstructorSymbolRenderer.kt::public KaSamConstructorSymbolRenderer
-/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:public AS_FUNCTION
-/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:public NOT_RENDER
-/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:public renderSymbol(KaSession, KaSamConstructorSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaScope.kt::public KaScope
-/KaScope.kt:KaScope:public callables
-/KaScope.kt:KaScope:public callables((Name) -> Boolean)
-/KaScope.kt:KaScope:public callables(Collection<Name>)
-/KaScope.kt:KaScope:public callables(Name)
-/KaScope.kt:KaScope:public classifiers
-/KaScope.kt:KaScope:public classifiers((Name) -> Boolean)
-/KaScope.kt:KaScope:public classifiers(Collection<Name>)
-/KaScope.kt:KaScope:public classifiers(Name)
-/KaScope.kt:KaScope:public constructors
-/KaScope.kt:KaScope:public declarations
-/KaScope.kt:KaScope:public getPackageSymbols((Name) -> Boolean)
-/KaScopeLike.kt::public KaScopeLike
-/KaScopeLike.kt:KaScopeLike:public getAllPossibleNames()
-/KaScopeLike.kt:KaScopeLike:public getPossibleCallableNames()
-/KaScopeLike.kt:KaScopeLike:public getPossibleClassifierNames()
-/KaScopeLike.kt:KaScopeLike:public mayContainName(Name)
-/KaScopeProvider.kt::public KaImplicitReceiver
-/KaScopeProvider.kt::public KaScopeContext
-/KaScopeProvider.kt::public KaScopeKinds
-/KaScopeProvider.kt::public KaScopeProvider
-/KaScopeProvider.kt::public KaScopeWithKind
-/KaScopeProvider.kt::public KaScopeWithKindImpl
-/KaScopeProvider.kt::public sealed KaScopeKind
-/KaScopeProvider.kt:KaImplicitReceiver:public ownerSymbol
-/KaScopeProvider.kt:KaImplicitReceiver:public scopeIndexInTower
-/KaScopeProvider.kt:KaImplicitReceiver:public type
-/KaScopeProvider.kt:KaScopeContext:public implicitReceivers
-/KaScopeProvider.kt:KaScopeContext:public scopes
-/KaScopeProvider.kt:KaScopeKind:public DefaultSimpleImportingScope
-/KaScopeProvider.kt:KaScopeKind:public DefaultStarImportingScope
-/KaScopeProvider.kt:KaScopeKind:public ExplicitSimpleImportingScope
-/KaScopeProvider.kt:KaScopeKind:public ExplicitStarImportingScope
-/KaScopeProvider.kt:KaScopeKind:public LocalScope
-/KaScopeProvider.kt:KaScopeKind:public PackageMemberScope
-/KaScopeProvider.kt:KaScopeKind:public ScriptMemberScope
-/KaScopeProvider.kt:KaScopeKind:public StaticMemberScope
-/KaScopeProvider.kt:KaScopeKind:public TypeParameterScope
-/KaScopeProvider.kt:KaScopeKind:public TypeScope
-/KaScopeProvider.kt:KaScopeKind:public indexInTower
-/KaScopeProvider.kt:KaScopeKind:public sealed ImportingScope
-/KaScopeProvider.kt:KaScopeKind:public sealed NonLocalScope
-/KaScopeProvider.kt:KaScopeKinds:public DefaultSimpleImportingScope
-/KaScopeProvider.kt:KaScopeKinds:public DefaultStarImportingScope
-/KaScopeProvider.kt:KaScopeKinds:public ExplicitSimpleImportingScope
-/KaScopeProvider.kt:KaScopeKinds:public ExplicitStarImportingScope
-/KaScopeProvider.kt:KaScopeKinds:public LocalScope
-/KaScopeProvider.kt:KaScopeKinds:public PackageMemberScope
-/KaScopeProvider.kt:KaScopeKinds:public ScriptMemberScope
-/KaScopeProvider.kt:KaScopeKinds:public StaticMemberScope
-/KaScopeProvider.kt:KaScopeKinds:public TypeParameterScope
-/KaScopeProvider.kt:KaScopeKinds:public TypeScope
-/KaScopeProvider.kt:KaScopeProvider:public asCompositeScope()
-/KaScopeProvider.kt:KaScopeProvider:public combinedDeclaredMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public combinedMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public compositeScope((KaScopeKind) -> Boolean)
-/KaScopeProvider.kt:KaScopeProvider:public declarationScope
-/KaScopeProvider.kt:KaScopeProvider:public declaredMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public delegatedMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public fileScope
-/KaScopeProvider.kt:KaScopeProvider:public importingScopeContext
-/KaScopeProvider.kt:KaScopeProvider:public memberScope
-/KaScopeProvider.kt:KaScopeProvider:public packageScope
-/KaScopeProvider.kt:KaScopeProvider:public scope
-/KaScopeProvider.kt:KaScopeProvider:public scopeContext(KtElement)
-/KaScopeProvider.kt:KaScopeProvider:public staticDeclaredMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public staticMemberScope
-/KaScopeProvider.kt:KaScopeProvider:public syntheticJavaPropertiesScope
-/KaScopeProvider.kt:KaScopeWithKind:public kind
-/KaScopeProvider.kt:KaScopeWithKind:public scope
-/KaScriptInitializerRenderer.kt::public KaScriptInitializerRenderer
-/KaScriptInitializerRenderer.kt:KaScriptInitializerRenderer:public NO_INITIALIZER
-/KaScriptInitializerRenderer.kt:KaScriptInitializerRenderer:public renderInitializer(KaSession, KaScriptSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaScriptSymbol.kt::public abstract KaScriptSymbol
-/KaScriptSymbolRenderer.kt::public KaScriptSymbolRenderer
-/KaScriptSymbolRenderer.kt:KaScriptSymbolRenderer:public AS_SOURCE
-/KaScriptSymbolRenderer.kt:KaScriptSymbolRenderer:public renderSymbol(KaSession, KaScriptSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaSession.kt::public KaSession
-/KaSession.kt:KaSession:public restore()
-/KaSession.kt:KaSession:public restoreSymbol()
-/KaSession.kt:KaSession:public useSiteModule
-/KaSession.kt:KaSession:public useSiteSession
-/KaSessionComponent.kt::public KaSessionComponent
-/KaSessionProvider.kt::public abstract KaSessionProvider
-/KaSessionProvider.kt:Companion:public getInstance(Project)
-/KaSessionProvider.kt:KaSessionProvider:public abstract afterLeavingAnalysis(KaSession, KaModule)
-/KaSessionProvider.kt:KaSessionProvider:public abstract afterLeavingAnalysis(KaSession, KtElement)
-/KaSessionProvider.kt:KaSessionProvider:public abstract beforeEnteringAnalysis(KaSession, KaModule)
-/KaSessionProvider.kt:KaSessionProvider:public abstract beforeEnteringAnalysis(KaSession, KtElement)
-/KaSessionProvider.kt:KaSessionProvider:public abstract clearCaches()
-/KaSessionProvider.kt:KaSessionProvider:public abstract getAnalysisSession(KaModule)
-/KaSessionProvider.kt:KaSessionProvider:public abstract getAnalysisSession(KtElement)
-/KaSessionProvider.kt:KaSessionProvider:public inline analyze(KaModule, KaSession.() -> R)
-/KaSessionProvider.kt:KaSessionProvider:public inline analyze(KtElement, KaSession.() -> R)
-/KaSignatureSubstitutor.kt::public KaSignatureSubstitutor
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public asSignature()
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public asSignature()
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public asSignature()
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public substitute(KaSubstitutor)
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public substitute(KaSubstitutor)
-/KaSignatureSubstitutor.kt:KaSignatureSubstitutor:public substitute(KaSubstitutor)
-/KaSimpleVariableAccess.kt::public sealed KaSimpleVariableAccess
-/KaSimpleVariableAccess.kt:KaSimpleVariableAccess:public Read
-/KaSimpleVariableAccess.kt:KaSimpleVariableAccess:public Write
-/KaSimpleVariableAccess.kt:Write:public value
-/KaSingleTypeParameterSymbolRenderer.kt::public KaSingleTypeParameterSymbolRenderer
-/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:public NO
-/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:public WITHOUT_BOUNDS
-/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:public WITH_COMMA_SEPARATED_BOUNDS
-/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:public renderSymbol(KaSession, KaTypeParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaSourceProvider.kt::public KaSourceProvider
-/KaSourceProvider.kt:KaSourceProvider:public klibSourceFileName
-/KaSubstitutor.kt::public KaSubstitutor
-/KaSubstitutor.kt:KaSubstitutor:public Empty
-/KaSubstitutor.kt:KaSubstitutor:public substitute(KaType)
-/KaSubstitutor.kt:KaSubstitutor:public substituteOrNull(KaType)
-/KaSubstitutorProvider.kt::public KaSubstitutorBuilder
-/KaSubstitutorProvider.kt::public KaSubstitutorProvider
-/KaSubstitutorProvider.kt::public inline buildSubstitutor(KaSubstitutorBuilder.() -> Unit)
-/KaSubstitutorProvider.kt:KaSubstitutorBuilder:public mappings
-/KaSubstitutorProvider.kt:KaSubstitutorBuilder:public substitution(KaTypeParameterSymbol, KaType)
-/KaSubstitutorProvider.kt:KaSubstitutorBuilder:public substitutions(Map<KaTypeParameterSymbol, KaType>)
-/KaSubstitutorProvider.kt:KaSubstitutorProvider:public createInheritanceTypeSubstitutor(KaClassSymbol, KaClassSymbol)
-/KaSubstitutorProvider.kt:KaSubstitutorProvider:public createSubstitutor(Map<KaTypeParameterSymbol, KaType>)
-/KaSuperTypeListRenderer.kt::public KaSuperTypeListRenderer
-/KaSuperTypeListRenderer.kt:KaSuperTypeListRenderer:public AS_LIST
-/KaSuperTypeListRenderer.kt:KaSuperTypeListRenderer:public renderSuperTypes(KaSession, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaSuperTypeRenderer.kt::public KaSuperTypeRenderer
-/KaSuperTypeRenderer.kt:KaSuperTypeRenderer:public WITH_OUT_APPROXIMATION
-/KaSuperTypeRenderer.kt:KaSuperTypeRenderer:public renderSuperType(KaSession, KaType, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaSuperTypesCallArgumentsRenderer.kt::public KaSuperTypesCallArgumentsRenderer
-/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:public EMPTY_PARENS
-/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:public NO_ARGS
-/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:public renderSuperTypeArguments(KaSession, KaType, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaSuperTypesFilter.kt::public fun KaSuperTypesFilter
-/KaSuperTypesFilter.kt:Companion:public operator invoke(KaSession.(type: KaType, symbol: KaClassSymbol) -> Boolean)
-/KaSuperTypesFilter.kt:KaSuperTypesFilter:public ALL
-/KaSuperTypesFilter.kt:KaSuperTypesFilter:public NONE
-/KaSuperTypesFilter.kt:KaSuperTypesFilter:public NO_ANY_FOR_INTERFACES
-/KaSuperTypesFilter.kt:KaSuperTypesFilter:public NO_DEFAULT_TYPES
-/KaSuperTypesFilter.kt:KaSuperTypesFilter:public filter(KaSession, KaType, KaClassSymbol)
-/KaSymbol.kt::public KaSymbol
-/KaSymbol.kt::public enum KaSymbolOrigin
-/KaSymbol.kt::public inline psi()
-/KaSymbol.kt::public inline psiSafe()
-/KaSymbol.kt::public inline sourcePsi()
-/KaSymbol.kt::public inline sourcePsiSafe()
-/KaSymbol.kt::public name
-/KaSymbol.kt:KaSymbol:public createPointer()
-/KaSymbol.kt:KaSymbol:public location
-/KaSymbol.kt:KaSymbol:public origin
-/KaSymbol.kt:KaSymbol:public psi
-/KaSymbol.kt:KaSymbolOrigin:DELEGATED
-/KaSymbol.kt:KaSymbolOrigin:INTERSECTION_OVERRIDE
-/KaSymbol.kt:KaSymbolOrigin:JAVA_LIBRARY
-/KaSymbol.kt:KaSymbolOrigin:JAVA_SOURCE
-/KaSymbol.kt:KaSymbolOrigin:JAVA_SYNTHETIC_PROPERTY
-/KaSymbol.kt:KaSymbolOrigin:JS_DYNAMIC
-/KaSymbol.kt:KaSymbolOrigin:LIBRARY
-/KaSymbol.kt:KaSymbolOrigin:NATIVE_FORWARD_DECLARATION
-/KaSymbol.kt:KaSymbolOrigin:PLUGIN
-/KaSymbol.kt:KaSymbolOrigin:PROPERTY_BACKING_FIELD
-/KaSymbol.kt:KaSymbolOrigin:SAM_CONSTRUCTOR
-/KaSymbol.kt:KaSymbolOrigin:SOURCE
-/KaSymbol.kt:KaSymbolOrigin:SOURCE_MEMBER_GENERATED
-/KaSymbol.kt:KaSymbolOrigin:SUBSTITUTION_OVERRIDE
-/KaSymbol.kt:KaSymbolOrigin:TYPEALIASED_CONSTRUCTOR
-/KaSymbolBasedReference.kt::public KaSymbolBasedReference
-/KaSymbolBasedReference.kt:KaSymbolBasedReference:public resolveToSymbols()
-/KaSymbolInformationProvider.kt::public KaSymbolInformationProvider
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public annotationApplicableTargets
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public canBeOperator
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public deprecationStatus
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public deprecationStatus(AnnotationUseSiteTarget?)
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public getterDeprecationStatus
-/KaSymbolInformationProvider.kt:KaSymbolInformationProvider:public setterDeprecationStatus
-/KaSymbolLocation.kt::public enum KaSymbolLocation
-/KaSymbolLocation.kt::public isLocal
-/KaSymbolLocation.kt::public isTopLevel
-/KaSymbolLocation.kt:KaSymbolLocation:CLASS
-/KaSymbolLocation.kt:KaSymbolLocation:LOCAL
-/KaSymbolLocation.kt:KaSymbolLocation:PROPERTY
-/KaSymbolLocation.kt:KaSymbolLocation:TOP_LEVEL
-/KaSymbolModality.kt::public enum KaSymbolModality
-/KaSymbolModality.kt:KaSymbolModality:ABSTRACT
-/KaSymbolModality.kt:KaSymbolModality:FINAL
-/KaSymbolModality.kt:KaSymbolModality:OPEN
-/KaSymbolModality.kt:KaSymbolModality:SEALED
-/KaSymbolPointer.kt::public abstract KaSymbolPointer
-/KaSymbolPointer.kt::public inline symbolPointer((KaSession) -> S?)
-/KaSymbolPointer.kt::public inline symbolPointerDelegator(KaSymbolPointer<T>, KaSession.(T) -> R?)
-/KaSymbolPointer.kt:KaSymbolPointer:public abstract restoreSymbol(KaSession)
-/KaSymbolPointer.kt:KaSymbolPointer:public open pointsToTheSameSymbolAs(KaSymbolPointer<KaSymbol>)
-/KaSymbolProvider.kt::public KaSymbolProvider
-/KaSymbolProvider.kt:KaSymbolProvider:public classSymbol
-/KaSymbolProvider.kt:KaSymbolProvider:public findClass(ClassId)
-/KaSymbolProvider.kt:KaSymbolProvider:public findClassLike(ClassId)
-/KaSymbolProvider.kt:KaSymbolProvider:public findPackage(FqName)
-/KaSymbolProvider.kt:KaSymbolProvider:public findTopLevelCallables(FqName, Name)
-/KaSymbolProvider.kt:KaSymbolProvider:public findTypeAlias(ClassId)
-/KaSymbolProvider.kt:KaSymbolProvider:public namedClassSymbol
-/KaSymbolProvider.kt:KaSymbolProvider:public rootPackageSymbol
-/KaSymbolRelationProvider.kt::public KaSymbolRelationProvider
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public allOverriddenSymbols
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public constructedClass
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public containingDeclaration
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public containingFile
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public containingModule
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public containingSymbol
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public directlyOverriddenSymbols
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public fakeOverrideOriginal
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public getExpectsForActual()
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public getImplementationStatus(KaClassSymbol)
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public intersectionOverriddenSymbols
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public isDirectSubClassOf(KaClassSymbol)
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public isSubClassOf(KaClassSymbol)
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public originalConstructorIfTypeAliased
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public samConstructor
-/KaSymbolRelationProvider.kt:KaSymbolRelationProvider:public sealedClassInheritors
-/KaSymbolVisibility.kt::public asKaSymbolVisibility
-/KaSymbolVisibility.kt::public enum KaSymbolVisibility
-/KaSymbolVisibility.kt:KaSymbolVisibility:INTERNAL
-/KaSymbolVisibility.kt:KaSymbolVisibility:LOCAL
-/KaSymbolVisibility.kt:KaSymbolVisibility:PACKAGE_PRIVATE
-/KaSymbolVisibility.kt:KaSymbolVisibility:PACKAGE_PROTECTED
-/KaSymbolVisibility.kt:KaSymbolVisibility:PRIVATE
-/KaSymbolVisibility.kt:KaSymbolVisibility:PROTECTED
-/KaSymbolVisibility.kt:KaSymbolVisibility:PUBLIC
-/KaSymbolVisibility.kt:KaSymbolVisibility:UNKNOWN
-/KaSyntheticJavaPropertySymbolRenderer.kt::public KaSyntheticJavaPropertySymbolRenderer
-/KaSyntheticJavaPropertySymbolRenderer.kt:KaSyntheticJavaPropertySymbolRenderer:public AS_SOURCE
-/KaSyntheticJavaPropertySymbolRenderer.kt:KaSyntheticJavaPropertySymbolRenderer:public renderSymbol(KaSession, KaSyntheticJavaPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaType.kt::public KaErrorType
-/KaType.kt::public KaType
-/KaType.kt::public KaTypePointer
-/KaType.kt::public abstract KaCapturedType
-/KaType.kt::public abstract KaClassErrorType
-/KaType.kt::public abstract KaDefinitelyNotNullType
-/KaType.kt::public abstract KaDynamicType
-/KaType.kt::public abstract KaFlexibleType
-/KaType.kt::public abstract KaFunctionType
-/KaType.kt::public abstract KaIntersectionType
-/KaType.kt::public abstract KaTypeParameterType
-/KaType.kt::public abstract KaUsualClassType
-/KaType.kt::public enum KaTypeNullability
-/KaType.kt::public sealed KaClassType
-/KaType.kt:Companion:public create(Boolean)
-/KaType.kt:KaCapturedType:public abstract projection
-/KaType.kt:KaClassErrorType:public abstract candidateSymbols
-/KaType.kt:KaClassErrorType:public abstract qualifiers
-/KaType.kt:KaClassType:public abstract classId
-/KaType.kt:KaClassType:public abstract qualifiers
-/KaType.kt:KaClassType:public abstract typeArguments
-/KaType.kt:KaDefinitelyNotNullType:public abstract original
-/KaType.kt:KaErrorType:public errorMessage
-/KaType.kt:KaErrorType:public presentableText
-/KaType.kt:KaFlexibleType:public abstract lowerBound
-/KaType.kt:KaFlexibleType:public abstract upperBound
-/KaType.kt:KaFunctionType:public abstract arity
-/KaType.kt:KaFunctionType:public abstract hasContextReceivers
-/KaType.kt:KaFunctionType:public abstract hasReceiver
-/KaType.kt:KaFunctionType:public abstract isReflectType
-/KaType.kt:KaFunctionType:public abstract isSuspend
-/KaType.kt:KaFunctionType:public abstract parameterTypes
-/KaType.kt:KaFunctionType:public abstract receiverType
-/KaType.kt:KaFunctionType:public abstract returnType
-/KaType.kt:KaIntersectionType:public abstract conjuncts
-/KaType.kt:KaType:public abbreviation
-/KaType.kt:KaType:public createPointer()
-/KaType.kt:KaType:public nullability
-/KaType.kt:KaTypeNullability:NON_NULLABLE
-/KaType.kt:KaTypeNullability:NULLABLE
-/KaType.kt:KaTypeNullability:UNKNOWN
-/KaType.kt:KaTypeParameterType:public abstract name
-/KaType.kt:KaTypePointer:public restore(KaSession)
-/KaTypeAliasSymbolRenderer.kt::public KaTypeAliasSymbolRenderer
-/KaTypeAliasSymbolRenderer.kt:KaTypeAliasSymbolRenderer:public AS_SOURCE
-/KaTypeAliasSymbolRenderer.kt:KaTypeAliasSymbolRenderer:public renderSymbol(KaSession, KaTypeAliasSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaTypeCreator.kt::public KaClassTypeBuilder
-/KaTypeCreator.kt::public KaTypeBuilder
-/KaTypeCreator.kt::public KaTypeCreator
-/KaTypeCreator.kt::public KaTypeParameterTypeBuilder
-/KaTypeCreator.kt:KaClassTypeBuilder:public argument(KaType, Variance)
-/KaTypeCreator.kt:KaClassTypeBuilder:public argument(KaTypeProjection)
-/KaTypeCreator.kt:KaClassTypeBuilder:public arguments
-/KaTypeCreator.kt:KaClassTypeBuilder:public nullability
-/KaTypeCreator.kt:KaTypeCreator:public buildClassType(ClassId, KaClassTypeBuilder.() -> Unit)
-/KaTypeCreator.kt:KaTypeCreator:public buildClassType(KaClassLikeSymbol, KaClassTypeBuilder.() -> Unit)
-/KaTypeCreator.kt:KaTypeCreator:public buildStarTypeProjection()
-/KaTypeCreator.kt:KaTypeCreator:public buildTypeParameterType(KaTypeParameterSymbol, KaTypeParameterTypeBuilder.() -> Unit)
-/KaTypeCreator.kt:KaTypeParameterTypeBuilder:public nullability
-/KaTypeErrorTypeRenderer.kt::public KaErrorTypeRenderer
-/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:public AS_CODE_IF_POSSIBLE
-/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:public AS_ERROR_WORD
-/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:public WITH_ERROR_MESSAGE
-/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:public renderType(KaSession, KaErrorType, KaTypeRenderer, PrettyPrinter)
-/KaTypeInformationProvider.kt::public DefaultTypeClassIds
-/KaTypeInformationProvider.kt::public KaTypeInformationProvider
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public ANY
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public BOOLEAN
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public BYTE
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public CHAR
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public CHAR_SEQUENCE
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public DOUBLE
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public FLOAT
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public INT
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public LONG
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public NOTHING
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public PRIMITIVES
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public SHORT
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public STRING
-/KaTypeInformationProvider.kt:DefaultTypeClassIds:public UNIT
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public canBeNull
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public defaultInitializer
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public expandedSymbol
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public fullyExpandedType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public functionTypeKind
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public hasFlexibleNullability
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isAnyType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isArrayOrPrimitiveArray
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isBooleanType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isByteType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isCharSequenceType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isCharType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isClassType(ClassId)
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isDenotable
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isDoubleType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isFloatType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isFunctionType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isFunctionalInterface
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isIntType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isKFunctionType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isKSuspendFunctionType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isLongType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isMarkedNullable
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isNestedArray
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isNothingType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isPrimitive
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isShortType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isStringType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isSuspendFunctionType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isUByteType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isUIntType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isULongType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isUShortType
-/KaTypeInformationProvider.kt:KaTypeInformationProvider:public isUnitType
-/KaTypeMappingMode.kt::public enum KaTypeMappingMode
-/KaTypeMappingMode.kt:KaTypeMappingMode:DEFAULT
-/KaTypeMappingMode.kt:KaTypeMappingMode:DEFAULT_UAST
-/KaTypeMappingMode.kt:KaTypeMappingMode:GENERIC_ARGUMENT
-/KaTypeMappingMode.kt:KaTypeMappingMode:RETURN_TYPE
-/KaTypeMappingMode.kt:KaTypeMappingMode:RETURN_TYPE_BOXED
-/KaTypeMappingMode.kt:KaTypeMappingMode:SUPER_TYPE
-/KaTypeMappingMode.kt:KaTypeMappingMode:SUPER_TYPE_KOTLIN_COLLECTIONS_AS_IS
-/KaTypeMappingMode.kt:KaTypeMappingMode:VALUE_PARAMETER
-/KaTypeNameRenderer.kt::public KaTypeNameRenderer
-/KaTypeNameRenderer.kt:KaTypeNameRenderer:public QUOTED
-/KaTypeNameRenderer.kt:KaTypeNameRenderer:public UNQUOTED
-/KaTypeNameRenderer.kt:KaTypeNameRenderer:public renderName(KaSession, Name, KaType, KaTypeRenderer, PrettyPrinter)
-/KaTypeParameterRendererFilter.kt::public KaTypeParameterRendererFilter
-/KaTypeParameterRendererFilter.kt:Companion:public operator invoke(KaSession.(typeParameter: KaTypeParameterSymbol, owner: KaDeclarationSymbol) -> Boolean)
-/KaTypeParameterRendererFilter.kt:KaTypeParameterRendererFilter:public NO_FOR_CONSTURCTORS
-/KaTypeParameterRendererFilter.kt:KaTypeParameterRendererFilter:public filter(KaSession, KaTypeParameterSymbol, KaDeclarationSymbol)
-/KaTypeParameterTypeRenderer.kt::public KaTypeParameterTypeRenderer
-/KaTypeParameterTypeRenderer.kt:KaTypeParameterTypeRenderer:public AS_SOURCE
-/KaTypeParameterTypeRenderer.kt:KaTypeParameterTypeRenderer:public renderType(KaSession, KaTypeParameterType, KaTypeRenderer, PrettyPrinter)
-/KaTypeParametersRenderer.kt::public KaTypeParametersRenderer
-/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:public NO_TYPE_PARAMETERS
-/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:public WIHTOUT_BOUNDS
-/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:public WITH_BOUNDS_IN_WHERE_CLAUSE
-/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:public renderTypeParameters(KaSession, KaDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:public renderWhereClause(KaSession, KaDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaTypeProjection.kt::public KaStarTypeProjection
-/KaTypeProjection.kt::public KaTypeArgumentWithVariance
-/KaTypeProjection.kt::public sealed KaTypeProjection
-/KaTypeProjection.kt:KaTypeArgumentWithVariance:public variance
-/KaTypeProjection.kt:KaTypeProjection:public type
-/KaTypeProjectionRenderer.kt::public KaTypeProjectionRenderer
-/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:public WITHOUT_VARIANCE
-/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:public WITH_VARIANCE
-/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:public renderTypeProjection(KaSession, KaTypeProjection, KaTypeRenderer, PrettyPrinter)
-/KaTypeProvider.kt::public KaTypeProvider
-/KaTypeProvider.kt::public abstract KaBuiltinTypes
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract annotationType
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract any
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract boolean
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract byte
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract char
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract double
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract float
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract int
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract long
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract nothing
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract nullableAny
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract nullableNothing
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract short
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract string
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract throwable
-/KaTypeProvider.kt:KaBuiltinTypes:public abstract unit
-/KaTypeProvider.kt:KaTypeProvider:public allSupertypes
-/KaTypeProvider.kt:KaTypeProvider:public allSupertypes(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public approximateToSubPublicDenotable(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public approximateToSubPublicDenotableOrSelf(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public approximateToSuperPublicDenotable(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public approximateToSuperPublicDenotableOrSelf(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public arrayElementType
-/KaTypeProvider.kt:KaTypeProvider:public builtinTypes
-/KaTypeProvider.kt:KaTypeProvider:public collectImplicitReceiverTypes(KtElement)
-/KaTypeProvider.kt:KaTypeProvider:public commonSupertype
-/KaTypeProvider.kt:KaTypeProvider:public commonSupertype
-/KaTypeProvider.kt:KaTypeProvider:public defaultType
-/KaTypeProvider.kt:KaTypeProvider:public defaultType
-/KaTypeProvider.kt:KaTypeProvider:public directSupertypes
-/KaTypeProvider.kt:KaTypeProvider:public directSupertypes(Boolean)
-/KaTypeProvider.kt:KaTypeProvider:public dispatchReceiverType
-/KaTypeProvider.kt:KaTypeProvider:public enhancedType
-/KaTypeProvider.kt:KaTypeProvider:public enhancedTypeOrSelf
-/KaTypeProvider.kt:KaTypeProvider:public hasCommonSubtypeWith(KaType)
-/KaTypeProvider.kt:KaTypeProvider:public lowerBoundIfFlexible()
-/KaTypeProvider.kt:KaTypeProvider:public receiverType
-/KaTypeProvider.kt:KaTypeProvider:public type
-/KaTypeProvider.kt:KaTypeProvider:public upperBoundIfFlexible()
-/KaTypeProvider.kt:KaTypeProvider:public withNullability(KaTypeNullability)
-/KaTypeRelationChecker.kt::public KaTypeRelationChecker
-/KaTypeRelationChecker.kt::public enum KaSubtypingErrorTypePolicy
-/KaTypeRelationChecker.kt:KaSubtypingErrorTypePolicy:LENIENT
-/KaTypeRelationChecker.kt:KaSubtypingErrorTypePolicy:STRICT
-/KaTypeRelationChecker.kt:KaTypeRelationChecker:public isSubtypeOf(ClassId, KaSubtypingErrorTypePolicy)
-/KaTypeRelationChecker.kt:KaTypeRelationChecker:public isSubtypeOf(KaClassLikeSymbol, KaSubtypingErrorTypePolicy)
-/KaTypeRelationChecker.kt:KaTypeRelationChecker:public isSubtypeOf(KaType, KaSubtypingErrorTypePolicy)
-/KaTypeRelationChecker.kt:KaTypeRelationChecker:public semanticallyEquals(KaType, KaSubtypingErrorTypePolicy)
-/KaTypeRenderer.kt::public KaTypeRenderer
-/KaTypeRenderer.kt:Builder:public build()
-/KaTypeRenderer.kt:Builder:public lateinit annotationsRenderer
-/KaTypeRenderer.kt:Builder:public lateinit capturedTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit classIdRenderer
-/KaTypeRenderer.kt:Builder:public lateinit contextReceiversRenderer
-/KaTypeRenderer.kt:Builder:public lateinit definitelyNotNullTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit dynamicTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit errorTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit expandedTypeRenderingMode
-/KaTypeRenderer.kt:Builder:public lateinit flexibleTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit functionalTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit intersectionTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit keywordsRenderer
-/KaTypeRenderer.kt:Builder:public lateinit typeApproximator
-/KaTypeRenderer.kt:Builder:public lateinit typeNameRenderer
-/KaTypeRenderer.kt:Builder:public lateinit typeParameterTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit typeProjectionRenderer
-/KaTypeRenderer.kt:Builder:public lateinit unresolvedClassErrorTypeRenderer
-/KaTypeRenderer.kt:Builder:public lateinit usualClassTypeRenderer
-/KaTypeRenderer.kt:Companion:public operator invoke(Builder.() -> Unit)
-/KaTypeRenderer.kt:KaTypeRenderer:public Builder
-/KaTypeRenderer.kt:KaTypeRenderer:public renderType(KaSession, KaType, PrettyPrinter)
-/KaTypeRenderer.kt:KaTypeRenderer:public with(Builder.() -> Unit)
-/KaTypeRendererForDebug.kt::public KaTypeRendererForDebug
-/KaTypeRendererForDebug.kt:KaTypeRendererForDebug:public WITH_QUALIFIED_NAMES
-/KaTypeRendererForDebug.kt:KaTypeRendererForDebug:public WITH_SHORT_NAMES
-/KaTypeRendererForSource.kt::public KaTypeRendererForSource
-/KaTypeRendererForSource.kt:KaTypeRendererForSource:public WITH_QUALIFIED_NAMES
-/KaTypeRendererForSource.kt:KaTypeRendererForSource:public WITH_SHORT_NAMES
-/KaTypeScope.kt::public KaTypeScope
-/KaTypeScope.kt:KaTypeScope:public getCallableSignatures((Name) -> Boolean)
-/KaTypeScope.kt:KaTypeScope:public getCallableSignatures(Collection<Name>)
-/KaTypeScope.kt:KaTypeScope:public getCallableSignatures(Name)
-/KaTypeScope.kt:KaTypeScope:public getClassifierSymbols((Name) -> Boolean)
-/KaTypeScope.kt:KaTypeScope:public getClassifierSymbols(Collection<Name>)
-/KaTypeScope.kt:KaTypeScope:public getClassifierSymbols(Name)
-/KaTypeScope.kt:KaTypeScope:public getConstructors()
-/KaUnresolvedClassErrorTypeRenderer.kt::public KaUnresolvedClassErrorTypeRenderer
-/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:public AS_ERROR_WORD
-/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:public UNRESOLVED_QUALIFIER
-/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:public WITH_ERROR_MESSAGE
-/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:public renderType(KaSession, KaClassErrorType, KaTypeRenderer, PrettyPrinter)
-/KaUsualClassTypeRenderer.kt::public KaUsualClassTypeRenderer
-/KaUsualClassTypeRenderer.kt:KaUsualClassTypeRenderer:public AS_CLASS_TYPE_WITH_TYPE_ARGUMENTS
-/KaUsualClassTypeRenderer.kt:KaUsualClassTypeRenderer:public renderType(KaSession, KaUsualClassType, KaTypeRenderer, PrettyPrinter)
-/KaValueParameterSymbolRenderer.kt::public KaValueParameterSymbolRenderer
-/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:public AS_SOURCE
-/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:public TYPE_ONLY
-/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:public renderSymbol(KaSession, KaValueParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
-/KaVariableInitializerRenderer.kt::public KaVariableInitializerRenderer
-/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:public NO_INITIALIZER
-/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:public ONLY_CONST_VALUE_INITIALIZERS
-/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:public renderInitializer(KaSession, KaVariableSymbol, PrettyPrinter)
-/KaVariableSignature.kt::public KaVariableSignature
-/KaVariableSignature.kt:KaVariableSignature:public name
-/KaVariableSymbol.kt::public KaEnumEntryInitializerSymbol
-/KaVariableSymbol.kt::public abstract KaBackingFieldSymbol
-/KaVariableSymbol.kt::public abstract KaEnumEntrySymbol
-/KaVariableSymbol.kt::public abstract KaJavaFieldSymbol
-/KaVariableSymbol.kt::public abstract KaKotlinPropertySymbol
-/KaVariableSymbol.kt::public abstract KaLocalVariableSymbol
-/KaVariableSymbol.kt::public abstract KaReceiverParameterSymbol
-/KaVariableSymbol.kt::public abstract KaSyntheticJavaPropertySymbol
-/KaVariableSymbol.kt::public abstract KaValueParameterSymbol
-/KaVariableSymbol.kt::public sealed KaParameterSymbol
-/KaVariableSymbol.kt::public sealed KaPropertySymbol
-/KaVariableSymbol.kt::public sealed KaVariableSymbol
-/KaVariableSymbol.kt:KaBackingFieldSymbol:public abstract owningProperty
-/KaVariableSymbol.kt:KaEnumEntrySymbol:public abstract enumEntryInitializer
-/KaVariableSymbol.kt:KaJavaFieldSymbol:public abstract isStatic
-/KaVariableSymbol.kt:KaKotlinPropertySymbol:public abstract isConst
-/KaVariableSymbol.kt:KaKotlinPropertySymbol:public abstract isLateInit
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract backingFieldSymbol
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract getter
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract hasBackingField
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract hasGetter
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract hasSetter
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract initializer
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract isDelegatedProperty
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract isExternal
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract isFromPrimaryConstructor
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract isOverride
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract isStatic
-/KaVariableSymbol.kt:KaPropertySymbol:public abstract setter
-/KaVariableSymbol.kt:KaReceiverParameterSymbol:public abstract owningCallableSymbol
-/KaVariableSymbol.kt:KaSyntheticJavaPropertySymbol:public abstract javaGetterSymbol
-/KaVariableSymbol.kt:KaSyntheticJavaPropertySymbol:public abstract javaSetterSymbol
-/KaVariableSymbol.kt:KaValueParameterSymbol:public abstract hasDefaultValue
-/KaVariableSymbol.kt:KaValueParameterSymbol:public abstract isCrossinline
-/KaVariableSymbol.kt:KaValueParameterSymbol:public abstract isImplicitLambdaParameter
-/KaVariableSymbol.kt:KaValueParameterSymbol:public abstract isNoinline
-/KaVariableSymbol.kt:KaValueParameterSymbol:public abstract isVararg
-/KaVariableSymbol.kt:KaValueParameterSymbol:public open generatedPrimaryConstructorProperty
-/KaVariableSymbol.kt:KaVariableSymbol:public abstract isVal
-/KaVisibilityChecker.kt::public KaVisibilityChecker
-/KaVisibilityChecker.kt:KaVisibilityChecker:public isPublicApi(KaDeclarationSymbol)
-/KaVisibilityChecker.kt:KaVisibilityChecker:public isVisible(KaDeclarationSymbol, KaFileSymbol, KtExpression?, PsiElement)
-/KaVisibilityChecker.kt:KaVisibilityChecker:public isVisibleInClass(KaClassSymbol)
-/analyze.kt::public inline analyze(KaModule, KaSession.() -> R)
-/analyze.kt::public inline analyze(KtElement, KaSession.() -> R)
-/analyze.kt::public inline analyzeCopy(KtElement, KaDanglingFileResolutionMode, KaSession.() -> R)
-/apiUtils.kt::public getApiKClassOf(Any)
-/contextModule.kt::public analysisContextModule
-/contractEffects.kt::public KaContractCallsInPlaceContractEffectDeclaration
-/contractEffects.kt::public KaContractConditionalContractEffectDeclaration
-/contractEffects.kt::public sealed KaContractEffectDeclaration
-/contractEffects.kt::public sealed KaContractReturnsContractEffectDeclaration
-/contractEffects.kt:KaContractCallsInPlaceContractEffectDeclaration:public occurrencesRange
-/contractEffects.kt:KaContractCallsInPlaceContractEffectDeclaration:public valueParameterReference
-/contractEffects.kt:KaContractConditionalContractEffectDeclaration:public condition
-/contractEffects.kt:KaContractConditionalContractEffectDeclaration:public effect
-/contractEffects.kt:KaContractReturnsContractEffectDeclaration:public KaContractReturnsNotNullEffectDeclaration
-/contractEffects.kt:KaContractReturnsContractEffectDeclaration:public KaContractReturnsSpecificValueEffectDeclaration
-/contractEffects.kt:KaContractReturnsContractEffectDeclaration:public KaContractReturnsSuccessfullyEffectDeclaration
-/contractEffects.kt:KaContractReturnsSpecificValueEffectDeclaration:public value
-/contractLogicalCombinators.kt::public KaContractBinaryLogicExpression
-/contractLogicalCombinators.kt::public KaContractLogicalNotExpression
-/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:public enum KaLogicOperation
-/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:public left
-/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:public operation
-/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:public right
-/contractLogicalCombinators.kt:KaContractLogicalNotExpression:public argument
-/contractLogicalCombinators.kt:KaLogicOperation:AND
-/contractLogicalCombinators.kt:KaLogicOperation:OR
-/contractPredicates.kt::public KaContractIsInstancePredicateExpression
-/contractPredicates.kt::public KaContractIsNullPredicateExpression
-/contractPredicates.kt:KaContractIsInstancePredicateExpression:public argument
-/contractPredicates.kt:KaContractIsInstancePredicateExpression:public isNegated
-/contractPredicates.kt:KaContractIsInstancePredicateExpression:public negated()
-/contractPredicates.kt:KaContractIsInstancePredicateExpression:public type
-/contractPredicates.kt:KaContractIsNullPredicateExpression:public argument
-/contractPredicates.kt:KaContractIsNullPredicateExpression:public isNegated
-/contractPredicates.kt:KaContractIsNullPredicateExpression:public negated()
-/contractValues.kt::public KaContractConstantValue
-/contractValues.kt::public KaContractParameterValue
-/contractValues.kt:KaContractConstantType:FALSE
-/contractValues.kt:KaContractConstantType:NULL
-/contractValues.kt:KaContractConstantType:TRUE
-/contractValues.kt:KaContractConstantValue:public constantType
-/contractValues.kt:KaContractConstantValue:public enum KaContractConstantType
-/contractValues.kt:KaContractParameterValue:public parameterSymbol
-/danglingFiles.kt::public contextModule
-/danglingFiles.kt::public danglingFileResolutionMode
-/danglingFiles.kt::public enum KaDanglingFileResolutionMode
-/danglingFiles.kt::public isDangling
-/danglingFiles.kt::public refinedContextModule
-/danglingFiles.kt::public withDanglingFileResolutionMode(KtFile, KaDanglingFileResolutionMode, () -> R)
-/danglingFiles.kt:KaDanglingFileResolutionMode:IGNORE_SELF
-/danglingFiles.kt:KaDanglingFileResolutionMode:PREFER_SELF
-/dependencies.kt::public allDirectDependencies()
-/dependencies.kt::public inline allDirectDependenciesOfType()
-/dependencies.kt::public inline directDependsOnDependenciesOfType()
-/dependencies.kt::public inline directFriendDependenciesOfType()
-/dependencies.kt::public inline directRegularDependenciesOfType()
-/exceptionAttachmentBuilderHelpers.kt::public withClassEntry(String, Any?)
-/exceptionAttachmentBuilderHelpers.kt::public withKaModuleEntry(String, KaModule?)
-/exceptionAttachmentBuilderHelpers.kt::public withPsiEntry(String, PsiElement?, (PsiElement) -> KaModule)
-/exceptionAttachmentBuilderHelpers.kt::public withPsiEntry(String, PsiElement?, KaModule?)
-/markers.kt::public KaNamedSymbol
-/markers.kt::public KaTypeParameterOwnerSymbol
-/markers.kt:KaNamedSymbol:public name
-/markers.kt:KaTypeParameterOwnerSymbol:public typeParameters
-/permissions.kt::public inline allowAnalysisFromWriteAction(() -> T)
-/permissions.kt::public inline allowAnalysisOnEdt(() -> T)
-/permissions.kt::public inline forbidAnalysis(String, () -> R)
-/rendererUtils.kt::public renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter)
-/rendererUtils.kt::public renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter, KtKeywordToken)
-/rendererUtils.kt::public renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter, List<KtKeywordToken>)
-/typeUtils.kt::public abbreviationOrSelf
+base/KaConstantValue.kt:ErrorValue:errorMessage
+compile/CodeFragmentCapturedValue.kt:@KaExperimentalApi sealed CodeFragmentCapturedValue
+compile/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:@KaExperimentalApi ContextReceiver
+compile/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:@KaExperimentalApi ExtensionReceiver
+compile/CodeFragmentCapturedValue.kt:CodeFragmentCapturedValue:open displayText
+components/KaAnalysisScopeProvider.kt:KaAnalysisScopeProvider
+components/KaCompilerFacility.kt:@KaExperimentalApi @KaImplementationDetail classBuilderFactory
+components/KaCompilerFacility.kt:@KaExperimentalApi KaCompiledFile
+components/KaCompilerFacility.kt:@KaExperimentalApi KaCompilerFacility
+components/KaCompletionCandidateChecker.kt:@KaIdeApi KaCompletionCandidateChecker
+components/KaCompletionCandidateChecker.kt:@KaIdeApi KaCompletionExtensionCandidateChecker
+components/KaCompletionCandidateChecker.kt:Applicable:@KaExperimentalApi abstract substitutor
+components/KaCompletionCandidateChecker.kt:Applicable:abstract receiverCastRequired
+components/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:@KaIdeApi @KaExperimentalApi ApplicableAsExtensionCallable
+components/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:@KaIdeApi @KaExperimentalApi ApplicableAsFunctionalVariableCall
+components/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:@KaIdeApi @KaExperimentalApi NonApplicable
+components/KaCompletionCandidateChecker.kt:KaExtensionApplicabilityResult:@KaIdeApi @KaExperimentalApi sealed Applicable
+components/KaDataFlowProvider.kt:@KaNonPublicApi KaDataFlowExitPointSnapshot
+components/KaDataFlowProvider.kt:KaDataFlowProvider
+components/KaDataFlowProvider.kt:KaDataFlowProvider:@KaNonPublicApi computeExitPointSnapshot(List<KtExpression>)
+components/KaDiagnosticProvider.kt:KaDiagnosticProvider
+components/KaEvaluator.kt:KaEvaluator
+components/KaExpressionInformationProvider.kt:KaExpressionInformationProvider
+components/KaExpressionTypeProvider.kt:KaExpressionTypeProvider
+components/KaImportOptimizer.kt:@KaIdeApi KaImportOptimizer
+components/KaJavaInteroperabilityComponent.kt:KaJavaInteroperabilityComponent
+components/KaMetadataCalculator.kt:@KaNonPublicApi KaMetadataCalculator
+components/KaReferenceShortener.kt:@KaIdeApi KaReferenceShortener
+components/KaReferenceShortener.kt:@KaIdeApi ShortenCommand
+components/KaReferenceShortener.kt:@KaIdeApi enum ShortenStrategy
+components/KaReferenceShortener.kt:Companion:@KaIdeApi defaultCallableShortenStrategy
+components/KaReferenceShortener.kt:Companion:@KaIdeApi defaultClassShortenStrategy
+components/KaReferenceShortener.kt:Companion:ALL_ENABLED
+components/KaReferenceShortener.kt:Companion:DEFAULT
+components/KaReferenceShortener.kt:ShortenCommand:importsToAdd
+components/KaReferenceShortener.kt:ShortenCommand:isEmpty
+components/KaReferenceShortener.kt:ShortenCommand:kDocQualifiersToShorten
+components/KaReferenceShortener.kt:ShortenCommand:listOfQualifierToShortenInfo
+components/KaReferenceShortener.kt:ShortenCommand:listOfTypeToShortenInfo
+components/KaReferenceShortener.kt:ShortenCommand:starImportsToAdd
+components/KaReferenceShortener.kt:ShortenCommand:targetFile
+components/KaReferenceShortener.kt:ShortenCommand:thisLabelsToShorten
+components/KaResolveExtensionInfoProvider.kt:@KaExperimentalApi KaResolveExtensionInfoProvider
+components/KaResolver.kt:KaResolver
+components/KaScopeProvider.kt:@KaIdeApi KaScopeKinds
+components/KaScopeProvider.kt:@KaIdeApi KaScopeWithKindImpl
+components/KaScopeProvider.kt:KaScopeKind:LocalScope
+components/KaScopeProvider.kt:KaScopeKind:sealed NonLocalScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi DefaultSimpleImportingScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi DefaultStarImportingScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi ExplicitSimpleImportingScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi ExplicitStarImportingScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi LocalScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi PackageMemberScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi ScriptMemberScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi StaticMemberScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi TypeParameterScope
+components/KaScopeProvider.kt:KaScopeKinds:@KaIdeApi TypeScope
+components/KaScopeProvider.kt:KaScopeProvider
+components/KaScopeProvider.kt:sealed KaScopeKind
+components/KaSignatureSubstitutor.kt:@KaExperimentalApi KaSignatureSubstitutor
+components/KaSourceProvider.kt:@KaNonPublicApi KaSourceProvider
+components/KaSubstitutorProvider.kt:@KaExperimentalApi KaSubstitutorBuilder
+components/KaSubstitutorProvider.kt:@KaExperimentalApi KaSubstitutorProvider
+components/KaSymbolInformationProvider.kt:@KaExperimentalApi KaSymbolInformationProvider
+components/KaSymbolRelationProvider.kt:KaSymbolRelationProvider
+components/KaTypeCreator.kt:KaClassTypeBuilder:arguments
+components/KaTypeCreator.kt:KaTypeBuilder
+components/KaTypeCreator.kt:KaTypeCreator
+components/KaTypeInformationProvider.kt:DefaultTypeClassIds
+components/KaTypeInformationProvider.kt:KaTypeInformationProvider
+components/KaTypeProvider.kt:KaTypeProvider
+components/KaTypeProvider.kt:KaTypeProvider:@Deprecated("Use `defaultType` from `KaClassifierSymbol` directly", level = DeprecationLevel.HIDDEN) defaultType
+components/KaTypeProvider.kt:abstract KaBuiltinTypes
+components/KaTypeRelationChecker.kt:KaTypeRelationChecker
+components/KaVisibilityChecker.kt:KaVisibilityChecker
+contracts/description/booleans/KaContractBooleanExpression.kt:KaContractBooleanConstantExpression:booleanConstant
+contracts/description/booleans/KaContractBooleanExpression.kt:KaContractBooleanValueParameterExpression:parameterSymbol
+contracts/description/booleans/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:@KaExperimentalApi enum KaLogicOperation
+contracts/description/booleans/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:left
+contracts/description/booleans/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:operation
+contracts/description/booleans/contractLogicalCombinators.kt:KaContractBinaryLogicExpression:right
+contracts/description/booleans/contractLogicalCombinators.kt:KaContractLogicalNotExpression:argument
+contracts/description/booleans/contractLogicalCombinators.kt:KaLogicOperation:AND
+contracts/description/booleans/contractLogicalCombinators.kt:KaLogicOperation:OR
+contracts/description/booleans/contractPredicates.kt:KaContractIsInstancePredicateExpression:argument
+contracts/description/booleans/contractPredicates.kt:KaContractIsInstancePredicateExpression:isNegated
+contracts/description/booleans/contractPredicates.kt:KaContractIsInstancePredicateExpression:negated()
+contracts/description/booleans/contractPredicates.kt:KaContractIsInstancePredicateExpression:type
+contracts/description/booleans/contractPredicates.kt:KaContractIsNullPredicateExpression:argument
+contracts/description/booleans/contractPredicates.kt:KaContractIsNullPredicateExpression:isNegated
+contracts/description/booleans/contractPredicates.kt:KaContractIsNullPredicateExpression:negated()
+contracts/description/contractEffects.kt:KaContractCallsInPlaceContractEffectDeclaration:occurrencesRange
+contracts/description/contractEffects.kt:KaContractCallsInPlaceContractEffectDeclaration:valueParameterReference
+contracts/description/contractEffects.kt:KaContractConditionalContractEffectDeclaration:condition
+contracts/description/contractEffects.kt:KaContractConditionalContractEffectDeclaration:effect
+contracts/description/contractEffects.kt:KaContractReturnsSpecificValueEffectDeclaration:value
+contracts/description/contractValues.kt:KaContractConstantType:FALSE
+contracts/description/contractValues.kt:KaContractConstantType:NULL
+contracts/description/contractValues.kt:KaContractConstantType:TRUE
+contracts/description/contractValues.kt:KaContractConstantValue:@KaExperimentalApi enum KaContractConstantType
+contracts/description/contractValues.kt:KaContractConstantValue:constantType
+contracts/description/contractValues.kt:KaContractParameterValue:parameterSymbol
+diagnostics/KaDiagnostic.kt:KaDiagnostic:diagnosticClass
+diagnostics/KaDiagnostic.kt:KaSeverity:ERROR
+diagnostics/KaDiagnostic.kt:KaSeverity:INFO
+diagnostics/KaDiagnostic.kt:KaSeverity:WARNING
+imports/KaDefaultImport.kt:KaDefaultImportPriority:HIGH
+imports/KaDefaultImport.kt:KaDefaultImportPriority:LOW
+imports/KaDefaultImportsProvider.kt:Companion:getService(Project)
+lifetime/KaLifetimeToken.kt:@KaImplementationDetail KaInaccessibleLifetimeOwnerAccessException
+lifetime/KaLifetimeToken.kt:@KaImplementationDetail KaInvalidLifetimeOwnerAccessException
+lifetime/KaLifetimeToken.kt:@KaImplementationDetail abstract KaIllegalLifetimeOwnerAccessException
+lifetime/KaLifetimeToken.kt:@OptIn(KaImplementationDetail::class) @Suppress("NOTHING_TO_INLINE") inline assertIsAccessible()
+lifetime/KaLifetimeToken.kt:@OptIn(KaImplementationDetail::class) @Suppress("NOTHING_TO_INLINE") inline assertIsValid()
+lifetime/KaLifetimeToken.kt:@Suppress("NOTHING_TO_INLINE") inline assertIsValidAndAccessible()
+permissions/KaAnalysisPermissionRegistry.kt:Companion:getInstance()
+permissions/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:@KaImplementationDetail KaExplicitAnalysisRestriction
+permissions/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:explicitAnalysisRestriction
+permissions/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:isAnalysisAllowedInWriteAction
+permissions/KaAnalysisPermissionRegistry.kt:KaAnalysisPermissionRegistry:isAnalysisAllowedOnEdt
+permissions/permissions.kt:@RequiresOptIn("Analysis should not be allowed to be run from a write action, as otherwise it may cause incorrect behavior and IDE freezes.") annotation KaAllowAnalysisFromWriteAction
+permissions/permissions.kt:@RequiresOptIn("Analysis should not be allowed to be run from the EDT, as otherwise it may cause IDE freezes.") annotation KaAllowAnalysisOnEdt
+projectStructure/KaModuleProvider.kt:Companion:getInstance(Project)
+projectStructure/KaModuleProvider.kt:Companion:getModule(Project, PsiElement, KaModule?)
+projectStructure/KaModuleProvider.kt:KaModuleProvider
+renderer/base/KaKeywordRenderer.kt:@KaExperimentalApi KaKeywordRenderer
+renderer/base/KaKeywordRenderer.kt:KaKeywordRenderer:@KaExperimentalApi AS_WORD
+renderer/base/KaKeywordRenderer.kt:KaKeywordRenderer:@KaExperimentalApi NONE
+renderer/base/KaKeywordRenderer.kt:KaKeywordRenderer:renderKeyword(KaSession, KtKeywordToken, KaAnnotated, KaKeywordsRenderer, PrettyPrinter)
+renderer/base/KaKeywordRenderer.kt:KaKeywordRenderer:renderKeywords(KaSession, List<KtKeywordToken>, KaAnnotated, KaKeywordsRenderer, PrettyPrinter)
+renderer/base/KaKeywordsRenderer.kt:@KaExperimentalApi KaKeywordsRenderer
+renderer/base/KaKeywordsRenderer.kt:Builder:build()
+renderer/base/KaKeywordsRenderer.kt:Builder:lateinit keywordFilter
+renderer/base/KaKeywordsRenderer.kt:Builder:lateinit keywordRenderer
+renderer/base/KaKeywordsRenderer.kt:Companion:AS_WORD
+renderer/base/KaKeywordsRenderer.kt:Companion:NONE
+renderer/base/KaKeywordsRenderer.kt:Companion:inline operator invoke(Builder.() -> Unit)
+renderer/base/KaKeywordsRenderer.kt:KaKeywordsRenderer:@KaExperimentalApi Builder
+renderer/base/KaKeywordsRenderer.kt:KaKeywordsRenderer:inline with(Builder.() -> Unit)
+renderer/base/KaKeywordsRenderer.kt:KaKeywordsRenderer:renderKeyword(KaSession, KtKeywordToken, KaAnnotated, PrettyPrinter)
+renderer/base/KaKeywordsRenderer.kt:KaKeywordsRenderer:renderKeywords(KaSession, List<KtKeywordToken>, KaAnnotated, PrettyPrinter)
+renderer/base/annotations/KaAnnotationRenderer.kt:@KaExperimentalApi KaAnnotationRenderer
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:build()
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:lateinit annotationArgumentsRenderer
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:lateinit annotationFilter
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:lateinit annotationListRenderer
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:lateinit annotationUseSiteTargetRenderer
+renderer/base/annotations/KaAnnotationRenderer.kt:Builder:lateinit annotationsQualifiedNameRenderer
+renderer/base/annotations/KaAnnotationRenderer.kt:Companion:inline operator invoke(Builder.() -> Unit)
+renderer/base/annotations/KaAnnotationRenderer.kt:KaAnnotationRenderer:@KaExperimentalApi Builder
+renderer/base/annotations/KaAnnotationRenderer.kt:KaAnnotationRenderer:inline with(Builder.() -> Unit)
+renderer/base/annotations/KaAnnotationRenderer.kt:KaAnnotationRenderer:renderAnnotations(KaSession, KaAnnotated, PrettyPrinter)
+renderer/base/annotations/KaAnnotationRendererForSource.kt:@KaExperimentalApi KaAnnotationRendererForSource
+renderer/base/annotations/KaAnnotationRendererForSource.kt:KaAnnotationRendererForSource:WITH_QUALIFIED_NAMES
+renderer/base/annotations/KaAnnotationRendererForSource.kt:KaAnnotationRendererForSource:WITH_SHORT_NAMES
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:@KaExperimentalApi KaRendererAnnotationsFilter
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:Companion:operator invoke(KaSession.(annotation: KaAnnotation, owner: KaAnnotated) -> Boolean)
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:@KaExperimentalApi ALL
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:@KaExperimentalApi NONE
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:@KaExperimentalApi NO_NULLABILITY
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:@KaExperimentalApi NO_PARAMETER_NAME
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:filter(KaSession, KaAnnotation, KaAnnotated)
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:infix and(KaRendererAnnotationsFilter)
+renderer/base/annotations/KaRendererAnnotationsFilter.kt:KaRendererAnnotationsFilter:infix or(KaRendererAnnotationsFilter)
+renderer/base/annotations/renderers/KaAnnotationArgumentsRenderer.kt:@KaExperimentalApi KaAnnotationArgumentsRenderer
+renderer/base/annotations/renderers/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:@KaExperimentalApi IF_ANY
+renderer/base/annotations/renderers/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:@KaExperimentalApi NONE
+renderer/base/annotations/renderers/KaAnnotationArgumentsRenderer.kt:KaAnnotationArgumentsRenderer:renderAnnotationArguments(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
+renderer/base/annotations/renderers/KaAnnotationListRenderer.kt:@KaExperimentalApi KaAnnotationListRenderer
+renderer/base/annotations/renderers/KaAnnotationListRenderer.kt:KaAnnotationListRenderer:@KaExperimentalApi FOR_SOURCE
+renderer/base/annotations/renderers/KaAnnotationListRenderer.kt:KaAnnotationListRenderer:renderAnnotations(KaSession, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
+renderer/base/annotations/renderers/KaAnnotationQualifierRenderer.kt:@KaExperimentalApi KaAnnotationQualifierRenderer
+renderer/base/annotations/renderers/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:@KaExperimentalApi WITH_QUALIFIED_NAMES
+renderer/base/annotations/renderers/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:@KaExperimentalApi WITH_SHORT_NAMES
+renderer/base/annotations/renderers/KaAnnotationQualifierRenderer.kt:KaAnnotationQualifierRenderer:renderQualifier(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
+renderer/base/annotations/renderers/KaAnnotationUseSiteTargetRenderer.kt:@KaExperimentalApi KaAnnotationUseSiteTargetRenderer
+renderer/base/annotations/renderers/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:@KaExperimentalApi WITHOUT_USE_SITE
+renderer/base/annotations/renderers/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:@KaExperimentalApi WITH_NON_DEFAULT_USE_SITE
+renderer/base/annotations/renderers/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:@KaExperimentalApi WITH_USES_SITE
+renderer/base/annotations/renderers/KaAnnotationUseSiteTargetRenderer.kt:KaAnnotationUseSiteTargetRenderer:renderUseSiteTarget(KaSession, KaAnnotation, KaAnnotated, KaAnnotationRenderer, PrettyPrinter)
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:@KaExperimentalApi KaContextReceiversRenderer
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:Builder:build()
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:Builder:lateinit contextReceiverLabelRenderer
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:Builder:lateinit contextReceiverListRenderer
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:Companion:inline operator invoke(Builder.() -> Unit)
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:@KaExperimentalApi Builder
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:inline with(Builder.() -> Unit)
+renderer/base/contextReceivers/KaContextReceiversRenderer.kt:KaContextReceiversRenderer:renderContextReceivers(KaSession, KaContextReceiversOwner, KaTypeRenderer, PrettyPrinter)
+renderer/base/contextReceivers/KaContextReceiversRendererForSource.kt:@KaExperimentalApi KaContextReceiversRendererForSource
+renderer/base/contextReceivers/KaContextReceiversRendererForSource.kt:KaContextReceiversRendererForSource:WITH_LABELS
+renderer/base/contextReceivers/renderers/KaContextReceiverLabelRenderer.kt:@KaExperimentalApi KaContextReceiverLabelRenderer
+renderer/base/contextReceivers/renderers/KaContextReceiverLabelRenderer.kt:KaContextReceiverLabelRenderer:@KaExperimentalApi WITH_LABEL
+renderer/base/contextReceivers/renderers/KaContextReceiverLabelRenderer.kt:KaContextReceiverLabelRenderer:renderLabel(KaSession, KaContextReceiver, KaContextReceiversRenderer, PrettyPrinter)
+renderer/base/contextReceivers/renderers/KaContextReceiverListRenderer.kt:@KaExperimentalApi KaContextReceiverListRenderer
+renderer/base/contextReceivers/renderers/KaContextReceiverListRenderer.kt:KaContextReceiverListRenderer:@KaExperimentalApi AS_SOURCE
+renderer/base/contextReceivers/renderers/KaContextReceiverListRenderer.kt:KaContextReceiverListRenderer:renderContextReceivers(KaSession, KaContextReceiversOwner, KaContextReceiversRenderer, KaTypeRenderer, PrettyPrinter)
+renderer/declarations/KaCallableReturnTypeFilter.kt:@KaExperimentalApi KaCallableReturnTypeFilter
+renderer/declarations/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:@KaExperimentalApi ALWAYS
+renderer/declarations/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:@KaExperimentalApi NO_UNIT_FOR_FUNCTIONS
+renderer/declarations/KaCallableReturnTypeFilter.kt:KaCallableReturnTypeFilter:shouldRenderReturnType(KaSession, KaType, KaCallableSymbol)
+renderer/declarations/KaDeclarationRenderer.kt:@KaExperimentalApi KaDeclarationRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:build()
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit accessorBodyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit annotationRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit anonymousFunctionRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit anonymousObjectRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit backingFieldRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit bodyMemberScopeProvider
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit bodyMemberScopeSorter
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit callableReceiverRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit callableSignatureRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit classInitializerRender
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit classifierBodyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit codeStyle
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit constructorRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit contextReceiversRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit declarationTypeApproximator
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit destructuringDeclarationRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit enumEntryRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit functionLikeBodyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit getterRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit javaFieldRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit keywordsRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit kotlinPropertyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit localVariableRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit modifiersRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit nameRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit namedClassRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit namedFunctionRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit parameterDefaultValueRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit propertyAccessorsRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit propertyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit returnTypeFilter
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit returnTypeRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit samConstructorRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit scriptInitializerRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit scriptRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit setterRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit singleTypeParameterRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit superTypeListRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit superTypeRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit superTypesArgumentRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit superTypesFilter
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit syntheticJavaPropertyRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit typeAliasRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit typeParametersFilter
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit typeParametersRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit typeRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit valueParameterRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit valueParametersRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Builder:lateinit variableInitializerRenderer
+renderer/declarations/KaDeclarationRenderer.kt:Companion:operator invoke(Builder.() -> Unit)
+renderer/declarations/KaDeclarationRenderer.kt:KaDeclarationRenderer:@KaExperimentalApi open Builder
+renderer/declarations/KaDeclarationRenderer.kt:KaDeclarationRenderer:renderDeclaration(KaSession, KaDeclarationSymbol, PrettyPrinter)
+renderer/declarations/KaDeclarationRenderer.kt:KaDeclarationRenderer:with(Builder.() -> Unit)
+renderer/declarations/KaRendererCodeStyle.kt:@KaExperimentalApi KaRecommendedRendererCodeStyle
+renderer/declarations/KaRendererCodeStyle.kt:@KaExperimentalApi KaRendererCodeStyle
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getIndentSize(KaSession)
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getSeparatorAfterContextReceivers(KaSession)
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getSeparatorBetweenAnnotationAndOwner(KaSession, KaAnnotated)
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getSeparatorBetweenAnnotations(KaSession, KaAnnotated)
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getSeparatorBetweenMembers(KaSession, KaDeclarationSymbol, KaDeclarationSymbol)
+renderer/declarations/KaRendererCodeStyle.kt:KaRendererCodeStyle:getSeparatorBetweenModifiers(KaSession)
+renderer/declarations/KaRendererTypeApproximator.kt:@KaExperimentalApi KaRendererTypeApproximator
+renderer/declarations/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:@KaExperimentalApi NO_APPROXIMATION
+renderer/declarations/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:@KaExperimentalApi TO_DENOTABLE
+renderer/declarations/KaRendererTypeApproximator.kt:KaRendererTypeApproximator:approximateType(KaSession, KaType, Variance)
+renderer/declarations/bodies/KaFunctionLikeBodyRenderer.kt:@KaExperimentalApi KaFunctionLikeBodyRenderer
+renderer/declarations/bodies/KaFunctionLikeBodyRenderer.kt:KaFunctionLikeBodyRenderer:@KaExperimentalApi NO_BODY
+renderer/declarations/bodies/KaFunctionLikeBodyRenderer.kt:KaFunctionLikeBodyRenderer:renderBody(KaSession, KaFunctionSymbol, PrettyPrinter)
+renderer/declarations/bodies/KaParameterDefaultValueRenderer.kt:@KaExperimentalApi KaParameterDefaultValueRenderer
+renderer/declarations/bodies/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:@KaExperimentalApi NO_DEFAULT_VALUE
+renderer/declarations/bodies/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:@KaExperimentalApi THREE_DOTS
+renderer/declarations/bodies/KaParameterDefaultValueRenderer.kt:KaParameterDefaultValueRenderer:renderDefaultValue(KaSession, KaValueParameterSymbol, PrettyPrinter)
+renderer/declarations/bodies/KaPropertyAccessorBodyRenderer.kt:@KaExperimentalApi KaPropertyAccessorBodyRenderer
+renderer/declarations/bodies/KaPropertyAccessorBodyRenderer.kt:KaPropertyAccessorBodyRenderer:@KaExperimentalApi NO_BODY
+renderer/declarations/bodies/KaPropertyAccessorBodyRenderer.kt:KaPropertyAccessorBodyRenderer:renderBody(KaSession, KaPropertyAccessorSymbol, PrettyPrinter)
+renderer/declarations/bodies/KaRendererBodyMemberScopeProvider.kt:@KaExperimentalApi KaRendererBodyMemberScopeProvider
+renderer/declarations/bodies/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:@KaExperimentalApi ALL
+renderer/declarations/bodies/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:@KaExperimentalApi ALL_DECLARED
+renderer/declarations/bodies/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:@KaExperimentalApi NONE
+renderer/declarations/bodies/KaRendererBodyMemberScopeProvider.kt:KaRendererBodyMemberScopeProvider:getMemberScope(KaSession, KaDeclarationContainerSymbol)
+renderer/declarations/bodies/KaRendererBodyMemberScopeSorter.kt:@KaExperimentalApi KaRendererBodyMemberScopeSorter
+renderer/declarations/bodies/KaRendererBodyMemberScopeSorter.kt:KaRendererBodyMemberScopeSorter:@KaExperimentalApi ENUM_ENTRIES_AT_BEGINING
+renderer/declarations/bodies/KaRendererBodyMemberScopeSorter.kt:KaRendererBodyMemberScopeSorter:sortMembers(KaSession, List<KaDeclarationSymbol>, KaDeclarationContainerSymbol)
+renderer/declarations/bodies/KaScriptInitializerRenderer.kt:@KaExperimentalApi KaScriptInitializerRenderer
+renderer/declarations/bodies/KaScriptInitializerRenderer.kt:KaScriptInitializerRenderer:@KaExperimentalApi NO_INITIALIZER
+renderer/declarations/bodies/KaScriptInitializerRenderer.kt:KaScriptInitializerRenderer:renderInitializer(KaSession, KaScriptSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/bodies/KaVariableInitializerRenderer.kt:@KaExperimentalApi KaVariableInitializerRenderer
+renderer/declarations/bodies/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:@KaExperimentalApi NO_INITIALIZER
+renderer/declarations/bodies/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:@KaExperimentalApi ONLY_CONST_VALUE_INITIALIZERS
+renderer/declarations/bodies/KaVariableInitializerRenderer.kt:KaVariableInitializerRenderer:renderInitializer(KaSession, KaVariableSymbol, PrettyPrinter)
+renderer/declarations/impl/KaDeclarationRendererForDebug.kt:@KaExperimentalApi KaDeclarationRendererForDebug
+renderer/declarations/impl/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:WITH_QUALIFIED_NAMES
+renderer/declarations/impl/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:WITH_QUALIFIED_NAMES_DENOTABLE
+renderer/declarations/impl/KaDeclarationRendererForDebug.kt:KaDeclarationRendererForDebug:WITH_SHORT_NAMES
+renderer/declarations/impl/KaDeclarationRendererForSource.kt:@KaExperimentalApi KaDeclarationRendererForSource
+renderer/declarations/impl/KaDeclarationRendererForSource.kt:KaDeclarationRendererForSource:WITH_QUALIFIED_NAMES
+renderer/declarations/impl/KaDeclarationRendererForSource.kt:KaDeclarationRendererForSource:WITH_SHORT_NAMES
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:@KaExperimentalApi KaDeclarationModifiersRenderer
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:build()
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit keywordsRenderer
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit modalityProvider
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit modifierListRenderer
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit modifiersSorter
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit otherModifiersProvider
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Builder:lateinit visibilityProvider
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:Companion:inline operator invoke(Builder.() -> Unit)
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:@KaExperimentalApi Builder
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:inline with(Builder.() -> Unit)
+renderer/declarations/modifiers/KaDeclarationModifiersRenderer.kt:KaDeclarationModifiersRenderer:renderDeclarationModifiers(KaSession, KaDeclarationSymbol, PrettyPrinter)
+renderer/declarations/modifiers/impl/KaDeclarationModifiersRendererForSource.kt:@KaExperimentalApi KaDeclarationModifiersRendererForSource
+renderer/declarations/modifiers/impl/KaDeclarationModifiersRendererForSource.kt:KaDeclarationModifiersRendererForSource:NO_IMPLICIT_MODIFIERS
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:@KaExperimentalApi KaRendererKeywordFilter
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:Companion:onlyWith(KtKeywordToken)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:Companion:onlyWith(TokenSet)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:Companion:operator invoke(KaSession.(modifier: KtKeywordToken, annotated: KaAnnotated) -> Boolean)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:Companion:without(KtKeywordToken)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:Companion:without(TokenSet)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:KaRendererKeywordFilter:@KaExperimentalApi ALL
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:KaRendererKeywordFilter:@KaExperimentalApi NONE
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:KaRendererKeywordFilter:filter(KaSession, KtKeywordToken, KaAnnotated)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:KaRendererKeywordFilter:infix and(KaRendererKeywordFilter)
+renderer/declarations/modifiers/renderers/KaKeywordsFilter.kt:KaRendererKeywordFilter:infix or(KaRendererKeywordFilter)
+renderer/declarations/modifiers/renderers/KaModifierListRenderer.kt:@KaExperimentalApi KaModifierListRenderer
+renderer/declarations/modifiers/renderers/KaModifierListRenderer.kt:KaModifierListRenderer:@KaExperimentalApi AS_LIST
+renderer/declarations/modifiers/renderers/KaModifierListRenderer.kt:KaModifierListRenderer:renderModifiers(KaSession, KaDeclarationSymbol, KaDeclarationModifiersRenderer, PrettyPrinter)
+renderer/declarations/modifiers/renderers/KaModifiersSorter.kt:@KaExperimentalApi KaModifiersSorter
+renderer/declarations/modifiers/renderers/KaModifiersSorter.kt:KaModifiersSorter:@KaExperimentalApi CANONICAL
+renderer/declarations/modifiers/renderers/KaModifiersSorter.kt:KaModifiersSorter:sort(KaSession, List<KtModifierKeywordToken>, KaDeclarationSymbol)
+renderer/declarations/modifiers/renderers/KaRendererModalityModifierProvider.kt:@KaExperimentalApi KaRendererModalityModifierProvider
+renderer/declarations/modifiers/renderers/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:@KaExperimentalApi WITHOUT_IMPLICIT_MODALITY
+renderer/declarations/modifiers/renderers/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:@KaExperimentalApi WITH_IMPLICIT_MODALITY
+renderer/declarations/modifiers/renderers/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:getModalityModifier(KaSession, KaDeclarationSymbol)
+renderer/declarations/modifiers/renderers/KaRendererModalityModifierProvider.kt:KaRendererModalityModifierProvider:onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
+renderer/declarations/modifiers/renderers/KaRendererOtherModifiersProvider.kt:@KaExperimentalApi KaRendererOtherModifiersProvider
+renderer/declarations/modifiers/renderers/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:@KaExperimentalApi ALL
+renderer/declarations/modifiers/renderers/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:getOtherModifiers(KaSession, KaDeclarationSymbol)
+renderer/declarations/modifiers/renderers/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:infix and(KaRendererOtherModifiersProvider)
+renderer/declarations/modifiers/renderers/KaRendererOtherModifiersProvider.kt:KaRendererOtherModifiersProvider:onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
+renderer/declarations/modifiers/renderers/KaRendererVisibilityModifierProvider.kt:@KaExperimentalApi KaRendererVisibilityModifierProvider
+renderer/declarations/modifiers/renderers/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:@KaExperimentalApi NO_IMPLICIT_VISIBILITY
+renderer/declarations/modifiers/renderers/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:@KaExperimentalApi WITH_IMPLICIT_VISIBILITY
+renderer/declarations/modifiers/renderers/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:getVisibilityModifier(KaSession, KaDeclarationSymbol)
+renderer/declarations/modifiers/renderers/KaRendererVisibilityModifierProvider.kt:KaRendererVisibilityModifierProvider:onlyIf(KaSession.(symbol: KaDeclarationSymbol) -> Boolean)
+renderer/declarations/rendererUtils.kt:@KaExperimentalApi renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/rendererUtils.kt:@KaExperimentalApi renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter, KtKeywordToken)
+renderer/declarations/rendererUtils.kt:@KaExperimentalApi renderAnnotationsModifiersAndContextReceivers(KaSession, S, KaDeclarationRenderer, PrettyPrinter, List<KtKeywordToken>)
+renderer/declarations/renderers/KaCallableParameterRenderer.kt:@KaExperimentalApi KaCallableParameterRenderer
+renderer/declarations/renderers/KaCallableParameterRenderer.kt:KaCallableParameterRenderer:@KaExperimentalApi PARAMETERS_IN_PARENS
+renderer/declarations/renderers/KaCallableParameterRenderer.kt:KaCallableParameterRenderer:renderValueParameters(KaSession, KaCallableSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaClassInitializerRenderer.kt:@KaExperimentalApi KaClassInitializerRenderer
+renderer/declarations/renderers/KaClassInitializerRenderer.kt:KaClassInitializerRenderer:@KaExperimentalApi INIT_BLOCK_WITH_BRACES
+renderer/declarations/renderers/KaClassInitializerRenderer.kt:KaClassInitializerRenderer:renderClassInitializer(KaSession, KaClassInitializerSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:@KaExperimentalApi KaClassifierBodyRenderer
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:@KaExperimentalApi abstract KaClassifierBodyWithMembersRenderer
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:@KaExperimentalApi BODY_WITH_MEMBERS
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:@KaExperimentalApi BODY_WITH_MEMBERS_OR_EMPTY_BRACES
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:@KaExperimentalApi EMPTY_BRACES
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:@KaExperimentalApi NO_BODY
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyRenderer:renderBody(KaSession, KaDeclarationContainerSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaClassifierBodyRenderer.kt:KaClassifierBodyWithMembersRenderer:abstract renderEmptyBodyForEmptyMemberScope(KaDeclarationContainerSymbol)
+renderer/declarations/renderers/KaDeclarationNameRenderer.kt:@KaExperimentalApi KaDeclarationNameRenderer
+renderer/declarations/renderers/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:@KaExperimentalApi QUOTED
+renderer/declarations/renderers/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:@KaExperimentalApi UNQUOTED
+renderer/declarations/renderers/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:renderName(KaSession, KaNamedSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaDeclarationNameRenderer.kt:KaDeclarationNameRenderer:renderName(KaSession, Name, KaNamedSymbol?, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaTypeParameterRendererFilter.kt:@KaExperimentalApi KaTypeParameterRendererFilter
+renderer/declarations/renderers/KaTypeParameterRendererFilter.kt:Companion:operator invoke(KaSession.(typeParameter: KaTypeParameterSymbol, owner: KaDeclarationSymbol) -> Boolean)
+renderer/declarations/renderers/KaTypeParameterRendererFilter.kt:KaTypeParameterRendererFilter:@KaExperimentalApi NO_FOR_CONSTURCTORS
+renderer/declarations/renderers/KaTypeParameterRendererFilter.kt:KaTypeParameterRendererFilter:filter(KaSession, KaTypeParameterSymbol, KaDeclarationSymbol)
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:@KaExperimentalApi KaTypeParametersRenderer
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:@KaExperimentalApi NO_TYPE_PARAMETERS
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:@KaExperimentalApi WIHTOUT_BOUNDS
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:@KaExperimentalApi WITH_BOUNDS_IN_WHERE_CLAUSE
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:renderTypeParameters(KaSession, KaDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/KaTypeParametersRenderer.kt:KaTypeParametersRenderer:renderWhereClause(KaSession, KaDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaAnonymousFunctionSymbolRenderer.kt:@KaExperimentalApi KaAnonymousFunctionSymbolRenderer
+renderer/declarations/renderers/callables/KaAnonymousFunctionSymbolRenderer.kt:KaAnonymousFunctionSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaAnonymousFunctionSymbolRenderer.kt:KaAnonymousFunctionSymbolRenderer:renderSymbol(KaSession, KaAnonymousFunctionSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaBackingFieldSymbolRenderer.kt:@KaExperimentalApi KaBackingFieldSymbolRenderer
+renderer/declarations/renderers/callables/KaBackingFieldSymbolRenderer.kt:KaBackingFieldSymbolRenderer:@KaExperimentalApi AS_FIELD_KEYWORD
+renderer/declarations/renderers/callables/KaBackingFieldSymbolRenderer.kt:KaBackingFieldSymbolRenderer:renderSymbol(KaSession, KaBackingFieldSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaCallableReceiverRenderer.kt:@KaExperimentalApi KaCallableReceiverRenderer
+renderer/declarations/renderers/callables/KaCallableReceiverRenderer.kt:KaCallableReceiverRenderer:@KaExperimentalApi AS_TYPE_WITH_IN_APPROXIMATION
+renderer/declarations/renderers/callables/KaCallableReceiverRenderer.kt:KaCallableReceiverRenderer:renderReceiver(KaSession, KaReceiverParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaCallableReturnTypeRenderer.kt:@KaExperimentalApi KaCallableReturnTypeRenderer
+renderer/declarations/renderers/callables/KaCallableReturnTypeRenderer.kt:KaCallableReturnTypeRenderer:@KaExperimentalApi WITH_OUT_APPROXIMATION
+renderer/declarations/renderers/callables/KaCallableReturnTypeRenderer.kt:KaCallableReturnTypeRenderer:renderReturnType(KaSession, KaCallableSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaCallableSignatureRenderer.kt:@KaExperimentalApi KaCallableSignatureRenderer
+renderer/declarations/renderers/callables/KaCallableSignatureRenderer.kt:KaCallableSignatureRenderer:@KaExperimentalApi FOR_SOURCE
+renderer/declarations/renderers/callables/KaCallableSignatureRenderer.kt:KaCallableSignatureRenderer:renderCallableSignature(KaSession, KaCallableSymbol, KtKeywordToken?, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaConstructorSymbolRenderer.kt:@KaExperimentalApi KaConstructorSymbolRenderer
+renderer/declarations/renderers/callables/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:@KaExperimentalApi AS_RAW_SIGNATURE
+renderer/declarations/renderers/callables/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaConstructorSymbolRenderer.kt:KaConstructorSymbolRenderer:renderSymbol(KaSession, KaConstructorSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaDestructuringDeclarationRenderer.kt:@KaExperimentalApi KaDestructuringDeclarationRenderer
+renderer/declarations/renderers/callables/KaDestructuringDeclarationRenderer.kt:KaDestructuringDeclarationRenderer:@KaExperimentalApi WITH_ENTRIES
+renderer/declarations/renderers/callables/KaDestructuringDeclarationRenderer.kt:KaDestructuringDeclarationRenderer:renderSymbol(KaSession, KaDestructuringDeclarationSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaEnumEntrySymbolRenderer.kt:@KaExperimentalApi KaEnumEntrySymbolRenderer
+renderer/declarations/renderers/callables/KaEnumEntrySymbolRenderer.kt:KaEnumEntrySymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaEnumEntrySymbolRenderer.kt:KaEnumEntrySymbolRenderer:renderSymbol(KaSession, KaEnumEntrySymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaFunctionSymbolRenderer.kt:@KaExperimentalApi KaNamedFunctionSymbolRenderer
+renderer/declarations/renderers/callables/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:@KaExperimentalApi AS_RAW_SIGNATURE
+renderer/declarations/renderers/callables/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaFunctionSymbolRenderer.kt:KaNamedFunctionSymbolRenderer:renderSymbol(KaSession, KaNamedFunctionSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaJavaFieldSymbolRenderer.kt:@KaExperimentalApi KaJavaFieldSymbolRenderer
+renderer/declarations/renderers/callables/KaJavaFieldSymbolRenderer.kt:KaJavaFieldSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaJavaFieldSymbolRenderer.kt:KaJavaFieldSymbolRenderer:renderSymbol(KaSession, KaJavaFieldSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaKotlinPropertySymbolRenderer.kt:@KaExperimentalApi KaKotlinPropertySymbolRenderer
+renderer/declarations/renderers/callables/KaKotlinPropertySymbolRenderer.kt:KaKotlinPropertySymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaKotlinPropertySymbolRenderer.kt:KaKotlinPropertySymbolRenderer:renderSymbol(KaSession, KaKotlinPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaLocalVariableSymbolRenderer.kt:@KaExperimentalApi KaLocalVariableSymbolRenderer
+renderer/declarations/renderers/callables/KaLocalVariableSymbolRenderer.kt:KaLocalVariableSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaLocalVariableSymbolRenderer.kt:KaLocalVariableSymbolRenderer:renderSymbol(KaSession, KaLocalVariableSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaPropertyAccessorsRenderer.kt:@KaExperimentalApi KaPropertyAccessorsRenderer
+renderer/declarations/renderers/callables/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:@KaExperimentalApi ALL
+renderer/declarations/renderers/callables/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:@KaExperimentalApi NONE
+renderer/declarations/renderers/callables/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:@KaExperimentalApi NO_DEFAULT
+renderer/declarations/renderers/callables/KaPropertyAccessorsRenderer.kt:KaPropertyAccessorsRenderer:renderAccessors(KaSession, KaPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaPropertyGetterSymbolRenderer.kt:@KaExperimentalApi KaPropertyGetterSymbolRenderer
+renderer/declarations/renderers/callables/KaPropertyGetterSymbolRenderer.kt:KaPropertyGetterSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaPropertyGetterSymbolRenderer.kt:KaPropertyGetterSymbolRenderer:renderSymbol(KaSession, KaPropertyGetterSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaPropertySetterSymbolRenderer.kt:@KaExperimentalApi KaPropertySetterSymbolRenderer
+renderer/declarations/renderers/callables/KaPropertySetterSymbolRenderer.kt:KaPropertySetterSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaPropertySetterSymbolRenderer.kt:KaPropertySetterSymbolRenderer:renderSymbol(KaSession, KaPropertySetterSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaSamConstructorSymbolRenderer.kt:@KaExperimentalApi KaSamConstructorSymbolRenderer
+renderer/declarations/renderers/callables/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:@KaExperimentalApi AS_FUNCTION
+renderer/declarations/renderers/callables/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:@KaExperimentalApi NOT_RENDER
+renderer/declarations/renderers/callables/KaSamConstructorSymbolRenderer.kt:KaSamConstructorSymbolRenderer:renderSymbol(KaSession, KaSamConstructorSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaScriptSymbolRenderer.kt:@KaExperimentalApi KaScriptSymbolRenderer
+renderer/declarations/renderers/callables/KaScriptSymbolRenderer.kt:KaScriptSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaScriptSymbolRenderer.kt:KaScriptSymbolRenderer:renderSymbol(KaSession, KaScriptSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaSyntheticJavaPropertySymbolRenderer.kt:@KaExperimentalApi KaSyntheticJavaPropertySymbolRenderer
+renderer/declarations/renderers/callables/KaSyntheticJavaPropertySymbolRenderer.kt:KaSyntheticJavaPropertySymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaSyntheticJavaPropertySymbolRenderer.kt:KaSyntheticJavaPropertySymbolRenderer:renderSymbol(KaSession, KaSyntheticJavaPropertySymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/callables/KaValueParameterSymbolRenderer.kt:@KaExperimentalApi KaValueParameterSymbolRenderer
+renderer/declarations/renderers/callables/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/callables/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:@KaExperimentalApi TYPE_ONLY
+renderer/declarations/renderers/callables/KaValueParameterSymbolRenderer.kt:KaValueParameterSymbolRenderer:renderSymbol(KaSession, KaValueParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/classifiers/KaAnonymousObjectSymbolRenderer.kt:@KaExperimentalApi KaAnonymousObjectSymbolRenderer
+renderer/declarations/renderers/classifiers/KaAnonymousObjectSymbolRenderer.kt:KaAnonymousObjectSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/classifiers/KaAnonymousObjectSymbolRenderer.kt:KaAnonymousObjectSymbolRenderer:renderSymbol(KaSession, KaAnonymousObjectSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/classifiers/KaNamedClassOrObjectSymbolRenderer.kt:@KaExperimentalApi KaNamedClassSymbolRenderer
+renderer/declarations/renderers/classifiers/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/classifiers/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:@KaExperimentalApi AS_SOURCE_WITHOUT_PRIMARY_CONSTRUCTOR
+renderer/declarations/renderers/classifiers/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:@KaExperimentalApi open AsSourceRenderer
+renderer/declarations/renderers/classifiers/KaNamedClassOrObjectSymbolRenderer.kt:KaNamedClassSymbolRenderer:renderSymbol(KaSession, KaNamedClassSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/classifiers/KaSingleTypeParameterSymbolRenderer.kt:@KaExperimentalApi KaSingleTypeParameterSymbolRenderer
+renderer/declarations/renderers/classifiers/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:@KaExperimentalApi NO
+renderer/declarations/renderers/classifiers/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:@KaExperimentalApi WITHOUT_BOUNDS
+renderer/declarations/renderers/classifiers/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:@KaExperimentalApi WITH_COMMA_SEPARATED_BOUNDS
+renderer/declarations/renderers/classifiers/KaSingleTypeParameterSymbolRenderer.kt:KaSingleTypeParameterSymbolRenderer:renderSymbol(KaSession, KaTypeParameterSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/renderers/classifiers/KaTypeAliasSymbolRenderer.kt:@KaExperimentalApi KaTypeAliasSymbolRenderer
+renderer/declarations/renderers/classifiers/KaTypeAliasSymbolRenderer.kt:KaTypeAliasSymbolRenderer:@KaExperimentalApi AS_SOURCE
+renderer/declarations/renderers/classifiers/KaTypeAliasSymbolRenderer.kt:KaTypeAliasSymbolRenderer:renderSymbol(KaSession, KaTypeAliasSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/superTypes/KaSuperTypeListRenderer.kt:@KaExperimentalApi KaSuperTypeListRenderer
+renderer/declarations/superTypes/KaSuperTypeListRenderer.kt:KaSuperTypeListRenderer:@KaExperimentalApi AS_LIST
+renderer/declarations/superTypes/KaSuperTypeListRenderer.kt:KaSuperTypeListRenderer:renderSuperTypes(KaSession, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/superTypes/KaSuperTypeRenderer.kt:@KaExperimentalApi KaSuperTypeRenderer
+renderer/declarations/superTypes/KaSuperTypeRenderer.kt:KaSuperTypeRenderer:@KaExperimentalApi WITH_OUT_APPROXIMATION
+renderer/declarations/superTypes/KaSuperTypeRenderer.kt:KaSuperTypeRenderer:renderSuperType(KaSession, KaType, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/superTypes/KaSuperTypesCallArgumentsRenderer.kt:@KaExperimentalApi KaSuperTypesCallArgumentsRenderer
+renderer/declarations/superTypes/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:@KaExperimentalApi EMPTY_PARENS
+renderer/declarations/superTypes/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:@KaExperimentalApi NO_ARGS
+renderer/declarations/superTypes/KaSuperTypesCallArgumentsRenderer.kt:KaSuperTypesCallArgumentsRenderer:renderSuperTypeArguments(KaSession, KaType, KaClassSymbol, KaDeclarationRenderer, PrettyPrinter)
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:@KaExperimentalApi fun KaSuperTypesFilter
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:Companion:operator invoke(KaSession.(type: KaType, symbol: KaClassSymbol) -> Boolean)
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:KaSuperTypesFilter:@KaExperimentalApi ALL
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:KaSuperTypesFilter:@KaExperimentalApi NONE
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:KaSuperTypesFilter:@KaExperimentalApi NO_ANY_FOR_INTERFACES
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:KaSuperTypesFilter:@KaExperimentalApi NO_DEFAULT_TYPES
+renderer/declarations/superTypes/KaSuperTypesFilter.kt:KaSuperTypesFilter:filter(KaSession, KaType, KaClassSymbol)
+renderer/types/KaTypeRenderer.kt:@KaExperimentalApi KaTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:build()
+renderer/types/KaTypeRenderer.kt:Builder:lateinit annotationsRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit capturedTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit classIdRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit contextReceiversRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit definitelyNotNullTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit dynamicTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit errorTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit expandedTypeRenderingMode
+renderer/types/KaTypeRenderer.kt:Builder:lateinit flexibleTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit functionalTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit intersectionTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit keywordsRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit typeApproximator
+renderer/types/KaTypeRenderer.kt:Builder:lateinit typeNameRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit typeParameterTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit typeProjectionRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit unresolvedClassErrorTypeRenderer
+renderer/types/KaTypeRenderer.kt:Builder:lateinit usualClassTypeRenderer
+renderer/types/KaTypeRenderer.kt:Companion:operator invoke(Builder.() -> Unit)
+renderer/types/KaTypeRenderer.kt:KaTypeRenderer:@KaExperimentalApi Builder
+renderer/types/KaTypeRenderer.kt:KaTypeRenderer:renderType(KaSession, KaType, PrettyPrinter)
+renderer/types/KaTypeRenderer.kt:KaTypeRenderer:with(Builder.() -> Unit)
+renderer/types/impl/KaTypeRendererForDebug.kt:@KaExperimentalApi KaTypeRendererForDebug
+renderer/types/impl/KaTypeRendererForDebug.kt:KaTypeRendererForDebug:WITH_QUALIFIED_NAMES
+renderer/types/impl/KaTypeRendererForDebug.kt:KaTypeRendererForDebug:WITH_SHORT_NAMES
+renderer/types/impl/KaTypeRendererForSource.kt:@KaExperimentalApi KaTypeRendererForSource
+renderer/types/impl/KaTypeRendererForSource.kt:KaTypeRendererForSource:WITH_QUALIFIED_NAMES
+renderer/types/impl/KaTypeRendererForSource.kt:KaTypeRendererForSource:WITH_SHORT_NAMES
+renderer/types/renderers/KaCapturedTypeRenderer.kt:@KaExperimentalApi KaCapturedTypeRenderer
+renderer/types/renderers/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:@KaExperimentalApi AS_CAPTURED_TYPE_WITH_PROJECTION
+renderer/types/renderers/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:@KaExperimentalApi AS_PROJECTION
+renderer/types/renderers/KaCapturedTypeRenderer.kt:KaCapturedTypeRenderer:renderType(KaSession, KaCapturedType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaClassTypeQualifierRenderer.kt:@KaExperimentalApi KaClassTypeQualifierRenderer
+renderer/types/renderers/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:@KaExperimentalApi WITH_QUALIFIED_NAMES
+renderer/types/renderers/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:@KaExperimentalApi WITH_SHORT_NAMES
+renderer/types/renderers/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:@KaExperimentalApi WITH_SHORT_NAMES_WITH_NESTED_CLASSIFIERS
+renderer/types/renderers/KaClassTypeQualifierRenderer.kt:KaClassTypeQualifierRenderer:renderClassTypeQualifier(KaSession, KaType, List<KaClassTypeQualifier>, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaDefinitelyNotNullTypeRenderer.kt:@KaExperimentalApi KaDefinitelyNotNullTypeRenderer
+renderer/types/renderers/KaDefinitelyNotNullTypeRenderer.kt:KaDefinitelyNotNullTypeRenderer:@KaExperimentalApi AS_TYPE_INTERSECTION
+renderer/types/renderers/KaDefinitelyNotNullTypeRenderer.kt:KaDefinitelyNotNullTypeRenderer:renderType(KaSession, KaDefinitelyNotNullType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaDynamicTypeRenderer.kt:@KaExperimentalApi KaDynamicTypeRenderer
+renderer/types/renderers/KaDynamicTypeRenderer.kt:KaDynamicTypeRenderer:@KaExperimentalApi AS_DYNAMIC_WORD
+renderer/types/renderers/KaDynamicTypeRenderer.kt:KaDynamicTypeRenderer:renderType(KaSession, KaDynamicType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaFlexibleTypeRenderer.kt:@KaExperimentalApi KaFlexibleTypeRenderer
+renderer/types/renderers/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:@KaExperimentalApi AS_RANGE
+renderer/types/renderers/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:@KaExperimentalApi AS_SHORT
+renderer/types/renderers/KaFlexibleTypeRenderer.kt:KaFlexibleTypeRenderer:renderType(KaSession, KaFlexibleType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaFunctionalTypeRenderer.kt:@KaExperimentalApi KaFunctionalTypeRenderer
+renderer/types/renderers/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:@KaExperimentalApi AS_CLASS_TYPE
+renderer/types/renderers/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:@KaExperimentalApi AS_CLASS_TYPE_FOR_REFLECTION_TYPES
+renderer/types/renderers/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:@KaExperimentalApi AS_FUNCTIONAL_TYPE
+renderer/types/renderers/KaFunctionalTypeRenderer.kt:KaFunctionalTypeRenderer:renderType(KaSession, KaFunctionType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaIntersectionTypeRenderer.kt:@KaExperimentalApi KaIntersectionTypeRenderer
+renderer/types/renderers/KaIntersectionTypeRenderer.kt:KaIntersectionTypeRenderer:@KaExperimentalApi AS_INTERSECTION
+renderer/types/renderers/KaIntersectionTypeRenderer.kt:KaIntersectionTypeRenderer:renderType(KaSession, KaIntersectionType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaTypeErrorTypeRenderer.kt:@KaExperimentalApi KaErrorTypeRenderer
+renderer/types/renderers/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:@KaExperimentalApi AS_CODE_IF_POSSIBLE
+renderer/types/renderers/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:@KaExperimentalApi AS_ERROR_WORD
+renderer/types/renderers/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:@KaExperimentalApi WITH_ERROR_MESSAGE
+renderer/types/renderers/KaTypeErrorTypeRenderer.kt:KaErrorTypeRenderer:renderType(KaSession, KaErrorType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaTypeNameRenderer.kt:@KaExperimentalApi KaTypeNameRenderer
+renderer/types/renderers/KaTypeNameRenderer.kt:KaTypeNameRenderer:@KaExperimentalApi QUOTED
+renderer/types/renderers/KaTypeNameRenderer.kt:KaTypeNameRenderer:@KaExperimentalApi UNQUOTED
+renderer/types/renderers/KaTypeNameRenderer.kt:KaTypeNameRenderer:renderName(KaSession, Name, KaType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaTypeParameterTypeRenderer.kt:@KaExperimentalApi KaTypeParameterTypeRenderer
+renderer/types/renderers/KaTypeParameterTypeRenderer.kt:KaTypeParameterTypeRenderer:@KaExperimentalApi AS_SOURCE
+renderer/types/renderers/KaTypeParameterTypeRenderer.kt:KaTypeParameterTypeRenderer:renderType(KaSession, KaTypeParameterType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaTypeProjectionRenderer.kt:@KaExperimentalApi KaTypeProjectionRenderer
+renderer/types/renderers/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:@KaExperimentalApi WITHOUT_VARIANCE
+renderer/types/renderers/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:@KaExperimentalApi WITH_VARIANCE
+renderer/types/renderers/KaTypeProjectionRenderer.kt:KaTypeProjectionRenderer:renderTypeProjection(KaSession, KaTypeProjection, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaUnresolvedClassErrorTypeRenderer.kt:@KaExperimentalApi KaUnresolvedClassErrorTypeRenderer
+renderer/types/renderers/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:@KaExperimentalApi AS_ERROR_WORD
+renderer/types/renderers/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:@KaExperimentalApi UNRESOLVED_QUALIFIER
+renderer/types/renderers/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:@KaExperimentalApi WITH_ERROR_MESSAGE
+renderer/types/renderers/KaUnresolvedClassErrorTypeRenderer.kt:KaUnresolvedClassErrorTypeRenderer:renderType(KaSession, KaClassErrorType, KaTypeRenderer, PrettyPrinter)
+renderer/types/renderers/KaUsualClassTypeRenderer.kt:@KaExperimentalApi KaUsualClassTypeRenderer
+renderer/types/renderers/KaUsualClassTypeRenderer.kt:KaUsualClassTypeRenderer:@KaExperimentalApi AS_CLASS_TYPE_WITH_TYPE_ARGUMENTS
+renderer/types/renderers/KaUsualClassTypeRenderer.kt:KaUsualClassTypeRenderer:renderType(KaSession, KaUsualClassType, KaTypeRenderer, PrettyPrinter)
+resolution/KaCall.kt:KaDelegatedConstructorCall:enum Kind
+resolution/KaCompoundOperation.kt:KaCompoundAssignOperation:@KaExperimentalApi enum Kind
+resolution/KaCompoundOperation.kt:KaCompoundUnaryOperation:@KaExperimentalApi enum Kind
+resolution/KaCompoundOperation.kt:KaCompoundUnaryOperation:@KaExperimentalApi enum Precedence
+resolution/KaPartiallyAppliedSymbol.kt:KaPartiallyAppliedFunctionSymbol
+resolution/KaPartiallyAppliedSymbol.kt:KaPartiallyAppliedVariableSymbol
+resolution/KaSymbolBasedReference.kt:@KaImplementationDetail KaSymbolBasedReference
+resolution/KaSymbolBasedReference.kt:KaSymbolBasedReference:resolveToSymbols()
+resolve/extensions/KaResolveExtensionNavigationTargetsProvider.kt:@KaExperimentalApi abstract KaResolveExtensionNavigationTargetsProvider
+resolve/extensions/KaResolveExtensionProvider.kt:Companion:EP_NAME
+resolve/extensions/KaResolveExtensionProvider.kt:Companion:provideExtensionsFor(KaModule)
+scopes/KaScopeLike.kt:@KaExperimentalApi KaScopeLike
+session/KaSessionProvider.kt:Companion:@KaImplementationDetail getInstance(Project)
+session/KaSessionProvider.kt:KaSessionProvider:@KaImplementationDetail abstract clearCaches()
+session/KaSessionProvider.kt:KaSessionProvider:abstract getAnalysisSession(KaModule)
+session/KaSessionProvider.kt:KaSessionProvider:abstract getAnalysisSession(KtElement)
+session/KaSessionProvider.kt:KaSessionProvider:inline analyze(KaModule, KaSession.() -> R)
+session/KaSessionProvider.kt:KaSessionProvider:inline analyze(KtElement, KaSession.() -> R)
+symbols/AdditionalKDocResolutionProvider.kt:Companion:EP_NAME
+symbols/AdditionalKDocResolutionProvider.kt:Companion:resolveKdocFqName(KaSession, FqName, KtElement)
+symbols/DebugSymbolRenderer.kt:@KaNonPublicApi @OptIn(KaExperimentalApi::class, KaImplementationDetail::class) DebugSymbolRenderer
+symbols/DebugSymbolRenderer.kt:DebugSymbolRenderer:@TestOnly renderForSubstitutionOverrideUnwrappingTest(KaSession, KaSymbol)
+symbols/DebugSymbolRenderer.kt:DebugSymbolRenderer:render(KaSession, KaSymbol)
+symbols/DebugSymbolRenderer.kt:DebugSymbolRenderer:renderAnnotationApplication(KaSession, KaAnnotation)
+symbols/DebugSymbolRenderer.kt:DebugSymbolRenderer:renderType(KaSession, KaType)
+symbols/KaClassLikeSymbol.kt:KaClassKind:isClass
+symbols/KaClassLikeSymbol.kt:KaClassKind:isObject
+symbols/KaClassLikeSymbol.kt:KaClassifierSymbol:abstract name
+symbols/KaDeclarationSymbol.kt:@KaExperimentalApi typeParameters
+symbols/KaDeclarationSymbol.kt:KaDeclarationSymbol:@KaExperimentalApi compilerVisibility
+symbols/markers/markers.kt:KaTypeParameterOwnerSymbol:typeParameters
+symbols/pointers/KaPsiBasedSymbolPointer.kt:@KaImplementationDetail KaPsiBasedSymbolPointer
+symbols/pointers/KaPsiBasedSymbolPointer.kt:@KaImplementationDetail SmartPointerIncompatiblePsiFile
+symbols/pointers/KaPsiBasedSymbolPointer.kt:@OptIn(KaImplementationDetail::class) @KaExperimentalApi inline symbolPointerOfType()
+symbols/pointers/KaPsiBasedSymbolPointer.kt:@OptIn(KaImplementationDetail::class) @KaExperimentalApi symbolPointer()
+symbols/pointers/KaPsiBasedSymbolPointer.kt:Companion:@Suppress("INVISIBLE_REFERENCE", "INVISIBLE_MEMBER") inline createForSymbolFromSource(@kotlin.internal.NoInfer S)
+symbols/pointers/KaPsiBasedSymbolPointer.kt:Companion:@TestOnly withDisabledPsiBasedPointers(Boolean, () -> T)
+symbols/pointers/KaPsiBasedSymbolPointer.kt:Companion:createForSymbolFromPsi(KtElement, KClass<S>)
+symbols/pointers/KaPsiBasedSymbolPointer.kt:Companion:createForSymbolFromSource(S, KClass<S>)
+symbols/pointers/KaPsiBasedSymbolPointer.kt:Companion:inline createForSymbolFromPsi(KtElement)
+symbols/pointers/KaPsiBasedSymbolPointer.kt:KaPsiBasedSymbolPointer:KaPsiBasedSymbolPointer(KtElement, KClass<S>)
+symbols/pointers/KaSymbolPointer.kt:inline symbolPointer((KaSession) -> S?)
+symbols/pointers/KaSymbolPointer.kt:inline symbolPointerDelegator(KaSymbolPointer<T>, KaSession.(T) -> R?)
+types/KaClassTypeQualifier.kt:KaClassTypeQualifier:name
+types/KaClassTypeQualifier.kt:KaClassTypeQualifier:typeArguments
+types/KaClassTypeQualifier.kt:KaResolvedClassTypeQualifier:symbol
+types/KaType.kt:Companion:create(Boolean)
+types/KaType.kt:KaErrorType:@KaNonPublicApi errorMessage
+types/KaType.kt:KaErrorType:@KaNonPublicApi presentableText
+types/KaType.kt:KaType:@KaExperimentalApi createPointer()
+types/KaType.kt:KaTypePointer:@KaImplementationDetail restore(KaSession)
+utils/apiUtils.kt:@KaImplementationDetail getApiKClassOf(Any)
+utils/errors/exceptionAttachmentBuilderHelpers.kt:@KaImplementationDetail withClassEntry(String, Any?)
+utils/errors/exceptionAttachmentBuilderHelpers.kt:@KaImplementationDetail withPsiEntry(String, PsiElement?, (PsiElement) -> KaModule)
+utils/errors/exceptionAttachmentBuilderHelpers.kt:@KaImplementationDetail withPsiEntry(String, PsiElement?, KaModule?)
+utils/errors/exceptionAttachmentBuilderHelpers.kt:@OptIn(KaExperimentalApi::class) @KaImplementationDetail withKaModuleEntry(String, KaModule?)
