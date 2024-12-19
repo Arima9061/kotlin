@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import org.jetbrains.kotlin.name.Name
+import org.jetbrains.kotlin.utils.addToStdlib.assignFrom
 
 private const val INLINE_CLASS_IMPL_SUFFIX = "-impl"
 
@@ -286,16 +287,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                 statements += context.createIrBuilder(function.symbol).irBlockBody {
                     +irReturn(
                         irCall(staticMethod).apply {
-                            val parameters =
-                                listOfNotNull(
-                                    function.dispatchReceiverParameter!!,
-                                    function.extensionReceiverParameter
-                                ) + function.valueParameters
-
-                            for ((index, valueParameter) in parameters.withIndex()) {
-                                putValueArgument(index, irGet(valueParameter))
-                            }
-
+                            arguments.assignFrom(function.parameters.map { irGet(it) })
                             val typeParameters = extractTypeParameters(function.parentAsClass) + function.typeParameters
                             for ((index, typeParameter) in typeParameters.withIndex()) {
                                 typeArguments[index] =
