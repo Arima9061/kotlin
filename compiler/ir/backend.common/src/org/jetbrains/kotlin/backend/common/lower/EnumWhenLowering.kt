@@ -83,8 +83,8 @@ open class EnumWhenLowering(protected open val context: CommonBackendContext) : 
             if (condition.symbol != context.irBuiltIns.eqeqSymbol)
                 return false
 
-            val lhs = condition.getValueArgument(0)!!
-            val rhs = condition.getValueArgument(1)!!
+            val lhs = condition.arguments[0]!!
+            val rhs = condition.arguments[1]!!
             val other = getOther(lhs, rhs, subject)
             if (other is IrCall) {
                 return false
