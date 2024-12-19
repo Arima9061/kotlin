@@ -304,10 +304,10 @@ private class Transformer(
         val lowerClause = if (useCompareTo) {
             irCall(lowerCompFun).apply {
                 arguments[0] = irInt(0)
-                putValueArgument(1, irCall(compareToFun).apply {
+                arguments[1] = irCall(compareToFun).apply {
                     dispatchReceiver = argExpression.shallowCopy()
                     putValueArgument(0, lowerExpression)
-                })
+                }
             }
         } else {
             irCall(lowerCompFun).apply {
