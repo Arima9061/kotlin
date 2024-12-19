@@ -306,7 +306,7 @@ private class Transformer(
                 arguments[0] = irInt(0)
                 arguments[1] = irCall(compareToFun).apply {
                     arguments[0] = argExpression.shallowCopy()
-                    putValueArgument(0, lowerExpression)
+                    arguments[1] = lowerExpression
                 }
             }
         } else {
