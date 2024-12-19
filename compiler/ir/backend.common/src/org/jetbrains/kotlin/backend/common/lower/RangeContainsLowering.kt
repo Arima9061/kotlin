@@ -303,7 +303,7 @@ private class Transformer(
         // (see evaluationOrderForComparableRange.kt test).
         val lowerClause = if (useCompareTo) {
             irCall(lowerCompFun).apply {
-                putValueArgument(0, irInt(0))
+                arguments[0] = irInt(0)
                 putValueArgument(1, irCall(compareToFun).apply {
                     dispatchReceiver = argExpression.shallowCopy()
                     putValueArgument(0, lowerExpression)
