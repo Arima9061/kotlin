@@ -267,10 +267,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                             expression.transformChildrenVoid()
                             return context.createIrBuilder(staticMethod.symbol).irSet(
                                 when (valueDeclaration) {
-                                    in function.valueParameters -> {
-                                        val offset = if (function.extensionReceiverParameter != null) 2 else 1
-                                        staticMethod.valueParameters[valueDeclaration.indexInOldValueParameters + offset].symbol
-                                    }
+                                    in function.parameters -> staticMethod.parameters[valueDeclaration.indexInParameters].symbol
                                     else -> return expression
                                 },
                                 expression.value
