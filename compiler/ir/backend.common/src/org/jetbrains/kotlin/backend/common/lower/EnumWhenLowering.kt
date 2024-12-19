@@ -148,8 +148,8 @@ open class EnumWhenLowering(protected open val context: CommonBackendContext) : 
         if (expression.symbol != context.irBuiltIns.eqeqSymbol) {
             return expression
         }
-        val lhs = expression.getValueArgument(0)!!
-        val rhs = expression.getValueArgument(1)!!
+        val lhs = expression.arguments[0]!!
+        val rhs = expression.arguments[1]!!
         val other = getOther(lhs, rhs, subject) ?: return expression
         val entryOrdinal = when {
             other is IrGetEnumValue && subject.type.classifierOrNull?.owner == other.symbol.owner.parent ->
