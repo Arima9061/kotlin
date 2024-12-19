@@ -200,9 +200,7 @@ class ClosureAnnotator(irElement: IrElement, declaration: IrDeclaration) {
 
             collectPotentiallyCapturedTypeParameters(closureBuilder)
 
-            this.valueParameters.forEach { closureBuilder.declareVariable(it) }
-            closureBuilder.declareVariable(this.dispatchReceiverParameter)
-            closureBuilder.declareVariable(this.extensionReceiverParameter)
+            this.parameters.forEach { closureBuilder.declareVariable(it) }
             closureBuilder.seeType(this.returnType)
 
             if (this is IrConstructor) {
