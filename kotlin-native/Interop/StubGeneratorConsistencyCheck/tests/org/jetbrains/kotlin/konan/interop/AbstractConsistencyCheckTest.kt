@@ -6,39 +6,42 @@
 package org.jetbrains.kotlin.konan.interop
 
 import org.jetbrains.kotlin.test.KotlinTestUtils
+import org.jetbrains.kotlin.test.testFramework.KtUsefulTestCase
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertIterableEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assumptions.abort
 import org.junit.jupiter.api.Test
+import org.opentest4j.AssertionFailedError
 import java.io.File
 
-private fun assertFilesEqual(expected: File, actual: File?, message: () -> String) {
-    KotlinTestUtils.assertEqualsToFile(
-            """|${message()}
+private fun assertFilesEqual(expected: File, actual: File, message: () -> String) {
+    try {
+        KotlinTestUtils.assertEqualsToFile(
+                """|${message()}
                |processing file
             """.trimMargin(),
-            expected,
-            actual?.readText() ?: ""
-    )
+                expected,
+                if (actual.isFile) actual.readText() else ""
+        )
+    } catch (e: AssertionFailedError) {
+        if (KtUsefulTestCase.IS_UNDER_TEAMCITY) {
+            if (actual.isFile) {
+                println(actual.readText())
+            }
+        }
+        throw e
+    }
 }
 
-private fun assertDirectoriesEqual(expected: File, actual: File?, message: () -> String) {
+private fun assertDirectoriesEqual(expected: File, actual: File, message: () -> String) {
     val expectedListing = expected.list().orEmpty().toSet()
-    val actualListing = actual?.list().orEmpty().toSet()
-    expectedListing.forEach { path ->
+    val actualListing = actual.list().orEmpty().toSet()
+    (actualListing + expectedListing).forEach { path ->
         val expectedFile = File(expected, path)
-        val actualFile = if (actualListing.contains(path)) File(actual, path) else null
+        val actualFile = File(actual, path)
         when {
-            expectedFile.isFile -> assertFilesEqual(expectedFile, actualFile?.takeIf { it.isFile }, message)
-            expectedFile.isDirectory -> assertDirectoriesEqual(expectedFile, actualFile?.takeIf { it.isDirectory }, message)
+            expectedFile.isDirectory -> assertDirectoriesEqual(expectedFile, actualFile, message)
+            expectedFile.isFile -> assertFilesEqual(expectedFile, actualFile, message)
         }
-    }
-    val extraFiles = actualListing - expectedListing
-    assertTrue(extraFiles.isEmpty()) {
-        """|${message()}
-           |found extra entries (${extraFiles.joinToString()}) in ${actual!!.absolutePath}
-        """.trimMargin()
     }
 }
 
