@@ -99,7 +99,7 @@ private class Transformer(
         val headerInfo = receiver?.accept(headerInfoBuilder, expression)
             ?: return super.visitCall(expression)  // The receiver is not a supported range (or not a range at all).
 
-        val argument = expression.getValueArgument(0)!!
+        val argument = expression.arguments[1]!!
         if (argument.type.isNullable()) {
             // There are stdlib extension functions that return false for null arguments, e.g., IntRange.contains(Int?). We currently
             // do not optimize such calls.
