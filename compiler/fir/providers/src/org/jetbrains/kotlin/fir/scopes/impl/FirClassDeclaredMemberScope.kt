@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2021 JetBrains s.r.o. and Kotlin Programming Language contributors.
+ * Copyright 2010-2024 JetBrains s.r.o. and Kotlin Programming Language contributors.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
  */
 
@@ -40,22 +40,25 @@ class FirClassDeclaredMemberScopeImpl(
         useSiteSession.nestedClassifierScope(klass)
     }
 
-    private val callablesIndex: Map<Name, List<FirCallableSymbol<*>>> = run {
+    private val callablesIndex: Map<Name, List<FirCallableSymbol<*>>> by lazy(LazyThreadSafetyMode.PUBLICATION) {
         val result = mutableMapOf<Name, MutableList<FirCallableSymbol<*>>>()
-        loop@ for (declaration in klass.declarations) {
-            if (declaration is FirCallableDeclaration) {
-                val name = when (declaration) {
-                    is FirConstructor -> SpecialNames.INIT
-                    is FirVariable -> when {
-                        declaration.isSynthetic || declaration.isEnumEntries(klass) && !klass.supportsEnumEntries -> continue@loop
-                        else -> declaration.name
-                    }
-                    is FirSimpleFunction -> declaration.name
-                    else -> continue@loop
+        for (declaration in klass.declarations) {
+            if (declaration !is FirCallableDeclaration) continue
+
+            val name = when (declaration) {
+                is FirConstructor -> SpecialNames.INIT
+                is FirVariable -> when {
+                    declaration.isSynthetic || declaration.isEnumEntries(klass) && !klass.supportsEnumEntries -> continue
+                    else -> declaration.name
                 }
-                result.getOrPut(name) { mutableListOf() } += declaration.symbol
+
+                is FirSimpleFunction -> declaration.name
+                else -> continue
             }
+
+            result.getOrPut(name) { mutableListOf() } += declaration.symbol
         }
+
         result
     }
 
