@@ -325,8 +325,8 @@ private class Transformer(
             }
         } else {
             irCall(upperCompFun).apply {
-                putValueArgument(0, argExpression.shallowCopy())
-                putValueArgument(1, upperExpression)
+                arguments[0] = argExpression.shallowCopy()
+                arguments[1] = upperExpression
             }
         }
 
