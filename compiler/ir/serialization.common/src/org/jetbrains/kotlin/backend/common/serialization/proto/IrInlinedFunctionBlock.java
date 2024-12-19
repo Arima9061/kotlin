@@ -55,7 +55,7 @@ public final class IrInlinedFunctionBlock extends
           }
           case 8: {
             bitField0_ |= 0x00000001;
-            inlineFunctionSymbol_ = input.readInt64();
+            inlinedFunctionSymbol_ = input.readInt64();
             break;
           }
           case 18: {
@@ -118,19 +118,19 @@ public final class IrInlinedFunctionBlock extends
   }
 
   private int bitField0_;
-  public static final int INLINE_FUNCTION_SYMBOL_FIELD_NUMBER = 1;
-  private long inlineFunctionSymbol_;
+  public static final int INLINED_FUNCTION_SYMBOL_FIELD_NUMBER = 1;
+  private long inlinedFunctionSymbol_;
   /**
-   * <code>optional int64 inline_function_symbol = 1;</code>
+   * <code>optional int64 inlined_function_symbol = 1;</code>
    */
-  public boolean hasInlineFunctionSymbol() {
+  public boolean hasInlinedFunctionSymbol() {
     return ((bitField0_ & 0x00000001) == 0x00000001);
   }
   /**
-   * <code>optional int64 inline_function_symbol = 1;</code>
+   * <code>optional int64 inlined_function_symbol = 1;</code>
    */
-  public long getInlineFunctionSymbol() {
-    return inlineFunctionSymbol_;
+  public long getInlinedFunctionSymbol() {
+    return inlinedFunctionSymbol_;
   }
 
   public static final int FILE_ENTRY_FIELD_NUMBER = 2;
@@ -164,7 +164,7 @@ public final class IrInlinedFunctionBlock extends
   }
 
   private void initFields() {
-    inlineFunctionSymbol_ = 0L;
+    inlinedFunctionSymbol_ = 0L;
     fileEntry_ = org.jetbrains.kotlin.backend.common.serialization.proto.FileEntry.getDefaultInstance();
     base_ = org.jetbrains.kotlin.backend.common.serialization.proto.IrBlock.getDefaultInstance();
   }
@@ -198,7 +198,7 @@ public final class IrInlinedFunctionBlock extends
                       throws java.io.IOException {
     getSerializedSize();
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      output.writeInt64(1, inlineFunctionSymbol_);
+      output.writeInt64(1, inlinedFunctionSymbol_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
       output.writeMessage(2, fileEntry_);
@@ -217,7 +217,7 @@ public final class IrInlinedFunctionBlock extends
     size = 0;
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       size += org.jetbrains.kotlin.protobuf.CodedOutputStream
-        .computeInt64Size(1, inlineFunctionSymbol_);
+        .computeInt64Size(1, inlinedFunctionSymbol_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
       size += org.jetbrains.kotlin.protobuf.CodedOutputStream
@@ -321,7 +321,7 @@ public final class IrInlinedFunctionBlock extends
 
     public Builder clear() {
       super.clear();
-      inlineFunctionSymbol_ = 0L;
+      inlinedFunctionSymbol_ = 0L;
       bitField0_ = (bitField0_ & ~0x00000001);
       fileEntry_ = org.jetbrains.kotlin.backend.common.serialization.proto.FileEntry.getDefaultInstance();
       bitField0_ = (bitField0_ & ~0x00000002);
@@ -353,7 +353,7 @@ public final class IrInlinedFunctionBlock extends
       if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
         to_bitField0_ |= 0x00000001;
       }
-      result.inlineFunctionSymbol_ = inlineFunctionSymbol_;
+      result.inlinedFunctionSymbol_ = inlinedFunctionSymbol_;
       if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
         to_bitField0_ |= 0x00000002;
       }
@@ -368,8 +368,8 @@ public final class IrInlinedFunctionBlock extends
 
     public Builder mergeFrom(org.jetbrains.kotlin.backend.common.serialization.proto.IrInlinedFunctionBlock other) {
       if (other == org.jetbrains.kotlin.backend.common.serialization.proto.IrInlinedFunctionBlock.getDefaultInstance()) return this;
-      if (other.hasInlineFunctionSymbol()) {
-        setInlineFunctionSymbol(other.getInlineFunctionSymbol());
+      if (other.hasInlinedFunctionSymbol()) {
+        setInlinedFunctionSymbol(other.getInlinedFunctionSymbol());
       }
       if (other.hasFileEntry()) {
         mergeFileEntry(other.getFileEntry());
@@ -421,34 +421,34 @@ public final class IrInlinedFunctionBlock extends
     }
     private int bitField0_;
 
-    private long inlineFunctionSymbol_ ;
+    private long inlinedFunctionSymbol_ ;
     /**
-     * <code>optional int64 inline_function_symbol = 1;</code>
+     * <code>optional int64 inlined_function_symbol = 1;</code>
      */
-    public boolean hasInlineFunctionSymbol() {
+    public boolean hasInlinedFunctionSymbol() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional int64 inline_function_symbol = 1;</code>
+     * <code>optional int64 inlined_function_symbol = 1;</code>
      */
-    public long getInlineFunctionSymbol() {
-      return inlineFunctionSymbol_;
+    public long getInlinedFunctionSymbol() {
+      return inlinedFunctionSymbol_;
     }
     /**
-     * <code>optional int64 inline_function_symbol = 1;</code>
+     * <code>optional int64 inlined_function_symbol = 1;</code>
      */
-    public Builder setInlineFunctionSymbol(long value) {
+    public Builder setInlinedFunctionSymbol(long value) {
       bitField0_ |= 0x00000001;
-      inlineFunctionSymbol_ = value;
+      inlinedFunctionSymbol_ = value;
       
       return this;
     }
     /**
-     * <code>optional int64 inline_function_symbol = 1;</code>
+     * <code>optional int64 inlined_function_symbol = 1;</code>
      */
-    public Builder clearInlineFunctionSymbol() {
+    public Builder clearInlinedFunctionSymbol() {
       bitField0_ = (bitField0_ & ~0x00000001);
-      inlineFunctionSymbol_ = 0L;
+      inlinedFunctionSymbol_ = 0L;
       
       return this;
     }
