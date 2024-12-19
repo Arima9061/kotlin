@@ -418,8 +418,8 @@ internal object FloatingPointRangeToHandler : HeaderInfoHandler<IrCall, Nothing?
 
     override fun build(expression: IrCall, data: Nothing?, scopeOwner: IrSymbol) =
         FloatingPointRangeHeaderInfo(
-            start = expression.extensionReceiver!!,
-            endInclusive = expression.getValueArgument(0)!!
+            start = expression.arguments[0]!!,
+            endInclusive = expression.arguments[1]!!
         )
 }
 
