@@ -136,7 +136,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                                 override fun visitSetValue(expression: IrSetValue): IrExpression {
                                     expression.transformChildrenVoid()
                                     if (expression.symbol == origParameterSymbol)
-                                        return builder.irSet(initFunction.valueParameters.single(), expression.value)
+                                        return builder.irSet(initFunction.parameters.single(), expression.value)
                                     return expression
                                 }
                             })
