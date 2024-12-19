@@ -953,13 +953,13 @@ class BodyGenerator(
     override fun visitInlinedFunctionBlock(inlinedBlock: IrInlinedFunctionBlock) {
         body.buildNop(inlinedBlock.getSourceLocation())
 
-        functionContext.stepIntoInlinedFunction(inlinedBlock.inlineFunctionSymbol, inlinedBlock.fileEntry)
+        functionContext.stepIntoInlinedFunction(inlinedBlock.inlinedFunctionSymbol, inlinedBlock.fileEntry)
         super.visitInlinedFunctionBlock(inlinedBlock)
         functionContext.stepOutLastInlinedFunction()
     }
 
     override fun visitInlinedFunctionBlock(inlinedBlock: IrInlinedFunctionBlock, data: Nothing?) {
-        val inlineFunction = inlinedBlock.inlineFunctionSymbol?.owner
+        val inlineFunction = inlinedBlock.inlinedFunctionSymbol?.owner
         val correspondingProperty = (inlineFunction as? IrSimpleFunction)?.correspondingPropertySymbol
         val owner = correspondingProperty?.owner ?: inlineFunction
         val name = owner?.fqNameWhenAvailable?.asString() ?: owner?.name?.asString() ?: "UNKNOWN"

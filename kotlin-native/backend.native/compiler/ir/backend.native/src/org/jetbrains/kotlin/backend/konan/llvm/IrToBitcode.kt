@@ -1936,7 +1936,7 @@ internal class CodeGeneratorVisitor(
     private inner class InlinedBlockScope(val inlinedBlock: IrInlinedFunctionBlock) : FileScope(file = null, inlinedBlock.fileEntry) {
 
         private val inlineFunctionScope by lazy {
-            inlinedBlock.inlineFunctionSymbol?.owner.let {
+            inlinedBlock.inlinedFunctionSymbol?.owner.let {
                 require(it is IrSimpleFunction) { "Inline constructors should've been lowered: ${it?.render()}" }
                 it.scope(fileEntry().line(it.startOffset))
             }
@@ -1963,7 +1963,7 @@ internal class CodeGeneratorVisitor(
         override fun scope() = scope
 
         override fun wrapException(e: Exception): NativeCodeGeneratorException {
-            return NativeCodeGeneratorException.wrap(e, inlinedBlock.inlineFunctionSymbol?.owner)
+            return NativeCodeGeneratorException.wrap(e, inlinedBlock.inlinedFunctionSymbol?.owner)
         }
     }
 

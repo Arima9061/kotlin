@@ -299,7 +299,7 @@ open class FunctionInlining(
                 startOffset = callSite.startOffset,
                 endOffset = callSite.endOffset,
                 type = returnType,
-                inlineFunctionSymbol = inlineFunctionToStore.symbol,
+                inlinedFunctionSymbol = inlineFunctionToStore.symbol,
                 fileEntry = inlineFunctionToStore.fileEntry,
                 origin = null,
                 statements = copiedParameters + newStatementsFromDefault + newStatements

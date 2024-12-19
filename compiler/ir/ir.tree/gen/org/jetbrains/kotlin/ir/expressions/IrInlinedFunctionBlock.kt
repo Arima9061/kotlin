@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementVisitor
  * Generated from: [org.jetbrains.kotlin.ir.generator.IrTree.inlinedFunctionBlock]
  */
 abstract class IrInlinedFunctionBlock : IrBlock() {
-    abstract var inlineFunctionSymbol: IrFunctionSymbol?
+    abstract var inlinedFunctionSymbol: IrFunctionSymbol?
 
     abstract var fileEntry: IrFileEntry
 
