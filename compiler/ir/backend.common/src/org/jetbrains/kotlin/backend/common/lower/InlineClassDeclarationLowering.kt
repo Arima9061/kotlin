@@ -129,7 +129,7 @@ class InlineClassLowering(val context: CommonBackendContext) {
                                     if (expression.symbol.owner.parent == klass)
                                         return unboxedInlineClassValue()
                                     if (expression.symbol == origParameterSymbol)
-                                        return builder.irGet(initFunction.valueParameters.single())
+                                        return builder.irGet(initFunction.parameters.single())
                                     return expression
                                 }
 
