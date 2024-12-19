@@ -10,7 +10,7 @@ open class Outer {
     }
 }
 
-typealias OuterTA = Outer.NestedTA
+typealias OuterTA = Outer.Inner
 
 class OuterSuccessor : Outer() {
     fun bar() {

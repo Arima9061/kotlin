@@ -60,8 +60,7 @@ class TypeAliasConstructorsSubstitutingScope(
 
             processor(
                 buildConstructorCopy(originalConstructorSymbol.fir) {
-                    // Typealiased constructors point to the typealias source
-                    // for the convenience of Analysis API
+                    // Typealiased constructors point to the typealias source for the convenience of Analysis API. We consider typealiased constructors to be coming
                     source = typeAliasSymbol.source
 
                     symbol = FirConstructorSymbol(originalConstructorSymbol.callableId)
