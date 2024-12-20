@@ -168,7 +168,6 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
         val wrapperName = Name.identifier("sam$inlinePrefix\$$superFqName$SAM_WRAPPER_SUFFIX")
         val transformedSuperMethod = superClass.functions.single { it.modality == Modality.ABSTRACT }
         val originalSuperMethod = getSuspendFunctionWithoutContinuation(transformedSuperMethod)
-        val extensionReceiversCount = if (originalSuperMethod.extensionReceiverParameter == null) 0 else 1
         // TODO: have psi2ir cast the argument to the correct function type. Also see the TODO
         //       about type parameters in `visitTypeOperator`.
         val wrappedFunctionClass =
@@ -236,8 +235,9 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
                         originalSuperMethod.returnType
                     ).apply {
                         dispatchReceiver = irGetField(irGet(dispatchReceiverParameter!!), field)
-                        extensionReceiverParameter?.let { putValueArgument(0, irGet(it)) }
-                        valueParameters.forEachIndexed { i, parameter -> putValueArgument(extensionReceiversCount + i, irGet(parameter)) }
+                        nonDispatchParameters.forEachIndexed { index, parameter ->
+                            arguments[index + 1] = irGet(parameter)
+                        }
                     })
             }
         }
