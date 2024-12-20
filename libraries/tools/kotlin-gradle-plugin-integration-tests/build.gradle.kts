@@ -446,7 +446,7 @@ tasks.withType<Test>().configureEach {
     systemProperty("composeSnapshotVersion", composeRuntimeSnapshot.versions.snapshot.version.get())
     systemProperty("composeSnapshotId", composeRuntimeSnapshot.versions.snapshot.id.get())
 
-    // Add debugTargetProcessWhenDebuggingKGP-IT=true to local.properties to run IT withDebug when debugging the tests in IDE
+    // Add debugTargetProcessWhenDebuggingKGP-IT=false to local.properties to oup out of implicit withDebug when debugging the tests in IDE
     if (kotlinBuildProperties.getBoolean("debugTargetProcessWhenDebuggingKGP-IT", true)) {
         systemProperty("debugTargetProcessWhenDebuggingKGP-IT", true)
     }

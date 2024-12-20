@@ -1079,7 +1079,7 @@ private fun acceptAndroidSdkLicenses(androidHome: File) {
  * Indicates if the test and the Gradle build started by the test should run in the same process.
  * This setup allows using a single debugger for both the test and the build process (including build script injections).
  *
- * Add debugTargetProcessWhenDebuggingKGP-IT=true to local.properties to automatically run IT withDebug when debugging the tests in IDE.
+ * Add debugTargetProcessWhenDebuggingKGP-IT=false to local.properties to opt out of implicit withDebug when debugging the tests in IDE.
  */
 enum class EnableGradleDebug {
     DISABLED,
