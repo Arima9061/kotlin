@@ -147,22 +147,6 @@ internal class TestProcessor(private val generationState: NativeGenerationState)
     }
     // endregion
 
-    // region Classes for annotation collection.
-    internal enum class FunctionKind(annotationNameString: String, val runtimeKindString: String) {
-        TEST("kotlin.test.Test", ""),
-        BEFORE_TEST("kotlin.test.BeforeTest", "BEFORE_TEST"),
-        AFTER_TEST("kotlin.test.AfterTest", "AFTER_TEST"),
-        BEFORE_CLASS("kotlin.test.BeforeClass", "BEFORE_CLASS"),
-        AFTER_CLASS("kotlin.test.AfterClass", "AFTER_CLASS");
-
-        val annotationFqName = FqName(annotationNameString)
-
-        companion object {
-            val INSTANCE_KINDS = listOf(TEST, BEFORE_TEST, AFTER_TEST)
-            val COMPANION_KINDS = listOf(BEFORE_CLASS, AFTER_CLASS)
-        }
-    }
-
     private val FunctionKind.runtimeKind: IrEnumEntrySymbol
         get() = symbols.getTestFunctionKind(this)
 
