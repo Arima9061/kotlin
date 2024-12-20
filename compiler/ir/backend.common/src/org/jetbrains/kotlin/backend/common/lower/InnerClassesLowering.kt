@@ -161,7 +161,7 @@ open class InnerClassesMemberBodyLowering(val context: CommonBackendContext) : B
         }
 
         if (container is IrFunction) {
-            for (parameter in container.valueParameters) {
+            container.parameters.filter { it.kind == IrParameterKind.Regular || it.kind == IrParameterKind.Context }.forEach { parameter ->
                 parameter.defaultValue?.fixThisReference(irClass, container)
             }
         }
