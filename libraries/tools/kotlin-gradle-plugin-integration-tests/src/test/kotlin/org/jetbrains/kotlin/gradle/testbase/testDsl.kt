@@ -543,7 +543,6 @@ private fun collectGradleJvmOptions(
     if (enableGradleDaemonMemoryLimitInMb != null) {
         add("-Xmx${enableGradleDaemonMemoryLimitInMb}m")
     }
-    add("-Dfoo=bar")
 }
 
 private fun collectKotlinJvmArgs(
