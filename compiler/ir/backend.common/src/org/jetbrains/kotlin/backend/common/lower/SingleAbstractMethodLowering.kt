@@ -173,7 +173,7 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
         //       about type parameters in `visitTypeOperator`.
         val wrappedFunctionClass =
             if (originalSuperMethod.isSuspend)
-                context.ir.symbols.suspendFunctionN(originalSuperMethod.valueParameters.size + extensionReceiversCount).owner
+                context.ir.symbols.suspendFunctionN(originalSuperMethod.nonDispatchParameters.size).owner
             else
                 context.ir.symbols.functionN(originalSuperMethod.valueParameters.size + extensionReceiversCount).owner
         val wrappedFunctionType = getWrappedFunctionType(wrappedFunctionClass)
