@@ -507,6 +507,40 @@ class UklibConsumptionIT : KGPBaseTest() {
         }
     }
 
+    @GradleTest
+    fun `test`(
+        version: GradleVersion,
+    ) {
+        val psmLibrary = project("buildScriptInjectionGroovy", version) {
+            buildScriptInjection {
+                project.applyMultiplatform {
+                    jvm()
+                    linuxArm64()
+                    linuxX64()
+                    sourceSets.commonMain.get().addIdentifierClass()
+                }
+            }
+        }.publish(publisherConfiguration = PublisherConfiguration(name="psm"))
+
+        // FIXME: Document that Maven consumers of transitive PSM dependencies will not work
+        val publisher = project("buildScriptInjectionGroovy", version) {
+            addPublishedProjectToRepositories(psmLibrary)
+            buildScriptInjection {
+                project.enableUklibPublication()
+                project.applyMultiplatform {
+                    jvm()
+                    sourceSets.commonMain.get().addIdentifierClass()
+                    sourceSets.commonMain.get().dependencies {
+                        api(psmLibrary.coordinate)
+                        api(psmLibrary.coordinate-jvm)
+                    }
+                }
+            }
+        }.publish()
+
+
+    }
+
     @GradleAndroidTest
     fun `uklib consumption - androidTarget consumes jvm only uklib`(
         version: GradleVersion,
