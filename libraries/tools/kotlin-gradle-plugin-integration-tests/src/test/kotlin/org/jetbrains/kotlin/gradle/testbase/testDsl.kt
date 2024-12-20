@@ -177,7 +177,8 @@ fun TestProject.build(
     if (enableBuildScan) agreeToBuildScanService()
     ensureKotlinCompilerArgumentsPluginAppliedCorrectly(buildOptions)
 
-    if (enableGradleDebug.toBooleanFlag() && isTeamCityRun) {
+    val runWithDebug = enableGradleDebug.toBooleanFlag(disableDueToEnvironmentVariables = environmentVariables.environmentalVariables.isNotEmpty())
+    if (runWithDebug && isTeamCityRun) {
         fail("Please don't set `enableGradleDebug = true` in teamcity run, this can fail build")
     }
 
@@ -192,9 +193,9 @@ fun TestProject.build(
         kotlinDaemonDebugPort
     )
     val gradleRunnerForBuild = gradleRunner
-        .also { if (forceOutput.toBooleanFlag()) it.forwardOutput() }
+        .also { if (forceOutput.toBooleanFlag(disableDueToEnvironmentVariables = false)) it.forwardOutput() }
         .also { if (environmentVariables.environmentalVariables.isNotEmpty()) it.withEnvironment(System.getenv() + environmentVariables.environmentalVariables) }
-        .withDebug(enableGradleDebug.toBooleanFlag())
+        .withDebug(runWithDebug)
         .withArguments(allBuildArguments)
     withBuildSummary(allBuildArguments) {
         val buildResult = gradleRunnerForBuild.build()
@@ -234,9 +235,9 @@ fun TestProject.buildAndFail(
         kotlinDaemonDebugPort
     )
     val gradleRunnerForBuild = gradleRunner
-        .also { if (forceOutput.toBooleanFlag()) it.forwardOutput() }
+        .also { if (forceOutput.toBooleanFlag(disableDueToEnvironmentVariables = false)) it.forwardOutput() }
         .also { if (environmentVariables.environmentalVariables.isNotEmpty()) it.withEnvironment(System.getenv() + environmentVariables.environmentalVariables) }
-        .withDebug(enableGradleDebug.toBooleanFlag())
+        .withDebug(enableGradleDebug.toBooleanFlag(disableDueToEnvironmentVariables = environmentVariables.environmentalVariables.isNotEmpty()))
         .withArguments(allBuildArguments)
     withBuildSummary(allBuildArguments) {
         val buildResult = gradleRunnerForBuild.buildAndFail()
@@ -542,6 +543,7 @@ private fun collectGradleJvmOptions(
     if (enableGradleDaemonMemoryLimitInMb != null) {
         add("-Xmx${enableGradleDaemonMemoryLimitInMb}m")
     }
+    add("-Dfoo=bar")
 }
 
 private fun collectKotlinJvmArgs(
@@ -1085,11 +1087,29 @@ enum class EnableGradleDebug {
     ENABLED,
     AUTO;
 
-    fun toBooleanFlag(): Boolean = when (this) {
-        DISABLED -> false
-        ENABLED -> true
-        AUTO -> {
-            System.getProperty("debugTargetProcessWhenDebuggingKGP-IT").toBoolean() && ManagementFactory.getRuntimeMXBean().inputArguments.toString().contains("-agentlib:jdwp")
+    fun toBooleanFlag(
+        disableDueToEnvironmentVariables: Boolean,
+    ): Boolean {
+        when (this) {
+            DISABLED -> return false
+            ENABLED -> return true
+            AUTO -> {
+                val isAutomaticDebuggingEnabled = System.getProperty("debugTargetProcessWhenDebuggingKGP-IT").toBoolean()
+                if (disableDueToEnvironmentVariables) {
+                    if (isAutomaticDebuggingEnabled) {
+                        println(
+                            """
+                            
+                            ⚠ Automatic withDebug has been disabled due to specified environment variables ⚠
+                            
+                            """.trimIndent()
+                        )
+                    }
+                    return false
+                }
+                val isRunningUnderDebugger = ManagementFactory.getRuntimeMXBean().inputArguments.toString().contains("-agentlib:jdwp")
+                return isAutomaticDebuggingEnabled && isRunningUnderDebugger
+            }
         }
     }
 }
