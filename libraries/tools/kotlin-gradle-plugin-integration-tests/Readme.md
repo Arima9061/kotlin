@@ -55,7 +55,7 @@ in test suite should be for the related tag. Preferably add tag for each test.
 - Consider using [Gradle Plugin DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block) while adding new/modifying existing test projects.
 - <a name="autodebug"></a> When debugging tests in IDE, Gradle will also stream daemon logs and runs target project 
 build in-process. This is especially useful for [build script injections](#injections) since you will be able to break 
-transparently in the injection. You can opt out of this behavior using `debugTargetProcessWhenDebuggingKGP-IT=false` 
+transparently in the injection. You can opt out of this behavior using `kotlin.gradle.autoDebugIT=false` 
 in `local.properties`.
 
 Tests run using [Gradle TestKit](https://docs.gradle.org/current/userguide/test_kit.html) and may reuse already active Gradle TestKit daemon.

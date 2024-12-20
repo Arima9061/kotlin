@@ -23,6 +23,8 @@ import org.jetbrains.kotlin.konan.target.presetName
 import org.jetbrains.kotlin.test.util.KtTestUtil
 import org.jetbrains.kotlin.utils.addToStdlib.ifTrue
 import java.io.File
+import java.io.PrintWriter
+import java.io.StringWriter
 import java.lang.management.ManagementFactory
 import java.nio.file.Files
 import java.nio.file.Path
@@ -177,7 +179,7 @@ fun TestProject.build(
     if (enableBuildScan) agreeToBuildScanService()
     ensureKotlinCompilerArgumentsPluginAppliedCorrectly(buildOptions)
 
-    val runWithDebug = enableGradleDebug.toBooleanFlag(disableDueToEnvironmentVariables = environmentVariables.environmentalVariables.isNotEmpty())
+    val runWithDebug = enableGradleDebug.toBooleanFlag(overridingEnvironmentVariablesInstantiationBacktrace = environmentVariables.overridingEnvironmentVariablesInstantiationBacktrace)
     if (runWithDebug && isTeamCityRun) {
         fail("Please don't set `enableGradleDebug = true` in teamcity run, this can fail build")
     }
@@ -193,7 +195,7 @@ fun TestProject.build(
         kotlinDaemonDebugPort
     )
     val gradleRunnerForBuild = gradleRunner
-        .also { if (forceOutput.toBooleanFlag(disableDueToEnvironmentVariables = false)) it.forwardOutput() }
+        .also { if (forceOutput.toBooleanFlag(overridingEnvironmentVariablesInstantiationBacktrace = null)) it.forwardOutput() }
         .also { if (environmentVariables.environmentalVariables.isNotEmpty()) it.withEnvironment(System.getenv() + environmentVariables.environmentalVariables) }
         .withDebug(runWithDebug)
         .withArguments(allBuildArguments)
@@ -235,9 +237,9 @@ fun TestProject.buildAndFail(
         kotlinDaemonDebugPort
     )
     val gradleRunnerForBuild = gradleRunner
-        .also { if (forceOutput.toBooleanFlag(disableDueToEnvironmentVariables = false)) it.forwardOutput() }
+        .also { if (forceOutput.toBooleanFlag(overridingEnvironmentVariablesInstantiationBacktrace = null)) it.forwardOutput() }
         .also { if (environmentVariables.environmentalVariables.isNotEmpty()) it.withEnvironment(System.getenv() + environmentVariables.environmentalVariables) }
-        .withDebug(enableGradleDebug.toBooleanFlag(disableDueToEnvironmentVariables = environmentVariables.environmentalVariables.isNotEmpty()))
+        .withDebug(enableGradleDebug.toBooleanFlag(overridingEnvironmentVariablesInstantiationBacktrace = environmentVariables.overridingEnvironmentVariablesInstantiationBacktrace))
         .withArguments(allBuildArguments)
     withBuildSummary(allBuildArguments) {
         val buildResult = gradleRunnerForBuild.buildAndFail()
@@ -377,8 +379,11 @@ open class GradleProject(
 /**
  * You need at least Gradle "7.0" for supporting environment variables with Gradle runner
  */
-@JvmInline
-value class EnvironmentalVariables @EnvironmentalVariablesOverride constructor(val environmentalVariables: Map<String, String> = emptyMap()) {
+class EnvironmentalVariables @EnvironmentalVariablesOverride constructor(
+    val environmentalVariables: Map<String, String> = emptyMap(),
+) {
+    val overridingEnvironmentVariablesInstantiationBacktrace: Throwable? = if (environmentalVariables.isNotEmpty()) Throwable() else null
+
     @EnvironmentalVariablesOverride
     constructor(vararg environmentVariables: Pair<String, String>) : this(mapOf(*environmentVariables))
 }
@@ -1079,7 +1084,7 @@ private fun acceptAndroidSdkLicenses(androidHome: File) {
  * Indicates if the test and the Gradle build started by the test should run in the same process.
  * This setup allows using a single debugger for both the test and the build process (including build script injections).
  *
- * Add debugTargetProcessWhenDebuggingKGP-IT=false to local.properties to opt out of implicit withDebug when debugging the tests in IDE.
+ * Add kotlin.gradle.autoDebugIT=false to local.properties to opt out of implicit withDebug when debugging the tests in IDE.
  */
 enum class EnableGradleDebug {
     DISABLED,
@@ -1087,21 +1092,23 @@ enum class EnableGradleDebug {
     AUTO;
 
     fun toBooleanFlag(
-        disableDueToEnvironmentVariables: Boolean,
+        overridingEnvironmentVariablesInstantiationBacktrace: Throwable?,
     ): Boolean {
         when (this) {
             DISABLED -> return false
             ENABLED -> return true
             AUTO -> {
-                val isAutomaticDebuggingEnabled = System.getProperty("debugTargetProcessWhenDebuggingKGP-IT").toBoolean()
-                if (disableDueToEnvironmentVariables) {
+                val isAutomaticDebuggingEnabled = System.getProperty("kotlin.gradle.autoDebugIT").toBoolean()
+                if (overridingEnvironmentVariablesInstantiationBacktrace != null) {
                     if (isAutomaticDebuggingEnabled) {
                         println(
-                            """
-                            
-                            ⚠ Automatic withDebug has been disabled due to specified environment variables ⚠
-                            
-                            """.trimIndent()
+                            buildString {
+                                appendLine()
+                                appendLine("⚠ Automatic withDebug has been disabled due to use of overriding environment variables created:")
+                                overridingEnvironmentVariablesInstantiationBacktrace.backtrace().lineSequence().drop(1).forEach {
+                                    appendLine("  ${it}")
+                                }
+                            }
                         )
                     }
                     return false
@@ -1112,3 +1119,10 @@ enum class EnableGradleDebug {
         }
     }
 }
+
+private fun Throwable.backtrace(): String = StringWriter().use {
+    PrintWriter(it).use {
+        this.printStackTrace(it)
+    }
+    it
+}.toString()
