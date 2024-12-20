@@ -147,7 +147,7 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
                     +irCall(implementation.constructors.single()).apply { arguments[0] = irGet(invokableVariable) }
                 }
             } else {
-                irCall(implementation.constructors.single()).apply { putValueArgument(0, invokable) }
+                irCall(implementation.constructors.single()).apply { arguments[0] = invokable }
             }
         }
     }
