@@ -8,8 +8,6 @@ package test.concurrent.atomics
 import kotlin.concurrent.atomics.*
 import kotlin.test.*
 
-data class Data(val value: Int)
-
 class AtomicIntTest {
     @Test
     fun ctor() {
@@ -202,6 +200,8 @@ class AtomicBooleanTest {
 }
 
 class AtomicReferenceTest {
+    private data class Data(val value: Int)
+
     @Test
     fun ctor() {
         val x = AtomicReference(Data(1))
