@@ -312,7 +312,7 @@ class SamEqualsHashCodeMethodsGenerator(
 
     private fun generateEquals(anyGenerator: MethodsFromAnyGeneratorForLowerings) {
         anyGenerator.createEqualsMethodDeclaration().apply {
-            val other = valueParameters[0]
+            val other = parameters[1]
             body = context.createIrBuilder(symbol).run {
                 irBlockBody {
                     +irReturn(
