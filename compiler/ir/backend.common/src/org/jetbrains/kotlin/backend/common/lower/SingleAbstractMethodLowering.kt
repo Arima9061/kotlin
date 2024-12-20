@@ -227,9 +227,8 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
             setSourceRange(createFor)
         }.apply {
             overriddenSymbols = listOf(originalSuperMethod.symbol)
-            dispatchReceiverParameter = subclass.thisReceiver!!.copyTo(this)
-            extensionReceiverParameter = originalSuperMethod.extensionReceiverParameter?.copyTo(this)
-            valueParameters = originalSuperMethod.valueParameters.memoryOptimizedMap { it.copyTo(this) }
+            parameters = (listOf(subclass.thisReceiver!!) + originalSuperMethod.nonDispatchParameters)
+                .memoryOptimizedMap { it.copyTo(this) }
             body = context.createIrBuilder(symbol).irBlockBody {
                 +irReturn(
                     irCall(
