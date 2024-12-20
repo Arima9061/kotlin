@@ -210,7 +210,7 @@ open class InnerClassesMemberBodyLowering(val context: CommonBackendContext) : B
                     irThis = if (function is IrConstructor && irClass == innerClass) {
                         // Might be before a super() call (e.g. an argument to one), in which case the JVM bytecode verifier will reject
                         // an attempt to access the field. Good thing we have a local variable as well.
-                        IrGetValueImpl(startOffset, endOffset, function.valueParameters[0].symbol, origin)
+                        IrGetValueImpl(startOffset, endOffset, function.parameters[0].symbol, origin)
                     } else {
                         val outerThisField = innerClassesSupport.getOuterThisField(innerClass)
                         IrGetFieldImpl(startOffset, endOffset, outerThisField.symbol, outerThisField.type, irThis, origin)
