@@ -470,8 +470,8 @@ private class FileMarkerStorage<K : Any, T : Any> {
             return Collections.unmodifiableMap(markersByTag)
         }
 
-        fun add(qualifier: String?, value: T) {
-            markersByTag[qualifier.orEmpty()] = value
+        fun add(qualifier: String, value: T) {
+            markersByTag[qualifier] = value
         }
     }
 }
