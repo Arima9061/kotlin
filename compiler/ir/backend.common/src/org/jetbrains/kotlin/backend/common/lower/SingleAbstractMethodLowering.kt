@@ -324,7 +324,7 @@ class SamEqualsHashCodeMethodsGenerator(
                                 irIs(irGet(other), functionAdapterClass.typeWith()),
                                 irEquals(
                                     irCall(getFunctionDelegate).also {
-                                        it.dispatchReceiver = irGet(dispatchReceiverParameter!!)
+                                        it.dispatchReceiver = irGet(parameters[0])
                                     },
                                     irCall(getFunctionDelegate).also {
                                         it.dispatchReceiver = irImplicitCast(irGet(other), functionAdapterClass.typeWith())
