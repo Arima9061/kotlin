@@ -130,6 +130,12 @@ public class FirIdeNormalAnalysisSourceModuleVisibilityCheckerTestGenerated exte
   }
 
   @Test
+  @TestMetadata("privateTopLevelFunctionFromContextModuleRecursive.kt")
+  public void testPrivateTopLevelFunctionFromContextModuleRecursive() {
+    runTest("analysis/analysis-api/testData/components/visibilityChecker/visibility/privateTopLevelFunctionFromContextModuleRecursive.kt");
+  }
+
+  @Test
   @TestMetadata("publicClassInBinaryLibrary.kt")
   public void testPublicClassInBinaryLibrary() {
     runTest("analysis/analysis-api/testData/components/visibilityChecker/visibility/publicClassInBinaryLibrary.kt");
