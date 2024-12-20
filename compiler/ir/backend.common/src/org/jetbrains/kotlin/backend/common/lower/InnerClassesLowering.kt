@@ -66,7 +66,7 @@ open class InnerClassesLowering(val context: CommonBackendContext) : Declaration
 
     private fun lowerConstructor(irConstructor: IrConstructor): IrConstructor {
         val loweredConstructor = innerClassesSupport.getInnerClassConstructorWithOuterThisParameter(irConstructor)
-        val outerThisParameter = loweredConstructor.valueParameters[0]
+        val outerThisParameter = loweredConstructor.parameters[0]
 
         val irClass = irConstructor.parentAsClass
         val parentThisField = innerClassesSupport.getOuterThisField(irClass)
