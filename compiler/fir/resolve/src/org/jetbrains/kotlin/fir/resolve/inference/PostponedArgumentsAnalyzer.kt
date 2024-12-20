@@ -7,6 +7,7 @@ package org.jetbrains.kotlin.fir.resolve.inference
 
 import org.jetbrains.kotlin.config.LanguageFeature
 import org.jetbrains.kotlin.fir.expressions.FirExpression
+import org.jetbrains.kotlin.fir.expressions.FirQualifiedAccessExpression
 import org.jetbrains.kotlin.fir.languageVersionSettings
 import org.jetbrains.kotlin.fir.lookupTracker
 import org.jetbrains.kotlin.fir.recordTypeResolveAsLookup
@@ -83,8 +84,9 @@ class PostponedArgumentsAnalyzer(
                     null -> ResolutionMode.ContextIndependent
                     else -> ResolutionMode.WithExpectedType(expectedType.toFirResolvedTypeRef())
                 }
-                val expr = argument.expression
-                callResolver.resolveVariableAccessAndSelectCandidate(expr, false, false, expr, mode)
+                val expr = argument.originalExpression
+                val result = callResolver.resolveVariableAccessAndSelectCandidate(expr, false, false, expr, mode)
+                argument.reviseExpression(result)
             }
         }
     }

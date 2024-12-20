@@ -24,7 +24,9 @@ import org.jetbrains.kotlin.fir.resolve.setTypeOfQualifier
 import org.jetbrains.kotlin.fir.scopes.FirFilteringNamesAwareScope
 import org.jetbrains.kotlin.fir.scopes.FirScope
 import org.jetbrains.kotlin.fir.scopes.impl.FirWhenSubjectImportingScope
+import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirCallableSymbol
+import org.jetbrains.kotlin.fir.symbols.impl.FirClassifierSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirEnumEntrySymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirFieldSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
@@ -195,15 +197,17 @@ internal abstract class FirBaseTowerResolveTask(
         if (session.languageVersionSettings.supportsContextSensitiveResolution) {
             val contextClass = resolutionMode?.fullyExpandedClassFromContext(session)
             if (contextClass != null) {
-                val propertyFilter = { symbol: FirCallableSymbol<*> ->
-                    (symbol is FirPropertySymbol && symbol.receiverParameter == null) || (symbol is FirFieldSymbol) || (symbol is FirEnumEntrySymbol)
+                val classifierAndNoArgumentFilter = { symbol: FirBasedSymbol<*> ->
+                    (symbol is FirClassifierSymbol<*>)
+                            || (symbol is FirPropertySymbol && symbol.receiverParameter == null)
+                            || (symbol is FirFieldSymbol) || (symbol is FirEnumEntrySymbol)
                 }
                 contextClass.staticScope(session, components.scopeSession)?.also {
-                    onScope(FirFilteringNamesAwareScope(it, propertyFilter), null, TowerGroup.Last)
+                    onScope(FirFilteringNamesAwareScope(it, classifierAndNoArgumentFilter), contextClass.symbol, TowerGroup.Last)
                 }
                 contextClass.companionObjectSymbol?.fir?.also { companion ->
                     val receiver =
-                        ImplicitDispatchReceiverValue(companion.symbol, session, components.scopeSession, filter = propertyFilter)
+                        ImplicitDispatchReceiverValue(companion.symbol, session, components.scopeSession, filter = classifierAndNoArgumentFilter)
                     onImplicitReceiver(receiver, TowerGroup.Last)
                 }
             }

@@ -5472,6 +5472,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFirTestDataTestGenerated 
       }
 
       @Test
+      @TestMetadata("constructors.kt")
+      public void testConstructors() {
+        runTest("compiler/fir/analysis-tests/testData/resolve/unqualifiedEnum/constructors.kt");
+      }
+
+      @Test
       @TestMetadata("correctJava.kt")
       public void testCorrectJava() {
         runTest("compiler/fir/analysis-tests/testData/resolve/unqualifiedEnum/correctJava.kt");

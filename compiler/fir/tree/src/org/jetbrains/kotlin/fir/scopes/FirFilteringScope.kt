@@ -7,15 +7,23 @@ package org.jetbrains.kotlin.fir.scopes
 
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.resolve.ScopeSession
+import org.jetbrains.kotlin.fir.resolve.substitution.ConeSubstitutor
+import org.jetbrains.kotlin.fir.symbols.FirBasedSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.*
 import org.jetbrains.kotlin.name.Name
 
 class FirFilteringNamesAwareScope(
     val original: FirContainingNamesAwareScope,
-    val filter: (FirCallableSymbol<*>) -> Boolean
+    val filter: (FirBasedSymbol<*>) -> Boolean
 ) : FirContainingNamesAwareScope() {
     override fun getCallableNames(): Set<Name> = original.getCallableNames()
     override fun getClassifierNames(): Set<Name> = original.getClassifierNames()
+
+    override fun processClassifiersByNameWithSubstitution(name: Name, processor: (FirClassifierSymbol<*>, ConeSubstitutor) -> Unit) {
+        original.processClassifiersByNameWithSubstitution(name) { symbol, substitutor ->
+            if (filter(symbol)) processor(symbol, substitutor)
+        }
+    }
 
     override fun processDeclaredConstructors(processor: (FirConstructorSymbol) -> Unit) {
         original.processDeclaredConstructors {

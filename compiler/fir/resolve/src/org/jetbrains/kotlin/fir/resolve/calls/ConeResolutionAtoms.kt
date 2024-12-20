@@ -311,7 +311,7 @@ class ConeResolvedCallableReferenceAtom(
 }
 
 class ConeDelayedReferenceAtom(
-    override val expression: FirQualifiedAccessExpression,
+    val originalExpression: FirQualifiedAccessExpression,
     private val initialExpectedType: ConeKotlinType?
 ) : ConePostponedResolvedAtom(), PostponedAtomWithRevisableExpectedType {
     override val inputTypes: Collection<ConeKotlinType> = emptyList()
@@ -326,6 +326,16 @@ class ConeDelayedReferenceAtom(
     override fun reviseExpectedType(expectedType: KotlinTypeMarker) {
         require(expectedType is ConeKotlinType)
         revisedExpectedType = expectedType
+    }
+
+    override val expression: FirExpression
+        get() = revisedExpression ?: originalExpression
+
+    var revisedExpression: FirExpression? = null
+        private set
+
+    fun reviseExpression(expression: FirExpression) {
+        revisedExpression = expression
     }
 }
 
