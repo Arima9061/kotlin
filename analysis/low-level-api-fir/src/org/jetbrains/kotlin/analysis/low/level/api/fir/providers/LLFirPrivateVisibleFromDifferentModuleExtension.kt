@@ -27,29 +27,31 @@ internal class LLFirPrivateVisibleFromDifferentModuleExtension(private val llFir
 
     override fun canSeePrivateDeclarationsOfModule(otherModuleData: FirModuleData): Boolean {
         check(otherModuleData is LLFirModuleData)
-        return llFirSession.ktModule.unwrapDangling() == otherModuleData.ktModule
+        return otherModuleData.ktModule in llFirSession.ktModule.allContextModulesWithSelf
     }
 
-    private fun KaModule.unwrapDangling(): KaModule = if (this is KaDanglingFileModule) contextModule else this
+    private val KaModule.allContextModulesWithSelf: Sequence<KaModule>
+        get() = generateSequence(this) { if (it is KaDanglingFileModule) it.contextModule else null }
 
     override fun canSeePrivateTopLevelDeclarationsFromFile(useSiteFile: FirFile, targetFile: FirFile): Boolean {
         return useSiteFile.isDanglingFileWithContextFileEqualTo(targetFile)
     }
 
     private fun FirFile.isDanglingFileWithContextFileEqualTo(targetFile: FirFile): Boolean {
-        if (this.llFirModuleData.ktModule !is KaDanglingFileModule) return false
+        val thisDanglingModule = this.llFirModuleData.ktModule as? KaDanglingFileModule ?: return false
         if (targetFile.llFirModuleData.ktModule is KaDanglingFileModule) return false
 
-        val unwrappedKtFile = findContextPsiFileForDanglingFirFile(useSiteFile = this)
-        return unwrappedKtFile != null && unwrappedKtFile == targetFile.psi
+        return targetFile.psi in thisDanglingModule.allContextFiles
     }
 
-    private fun findContextPsiFileForDanglingFirFile(useSiteFile: FirFile): PsiFile? {
-        val useSiteDanglingModule = useSiteFile.llFirModuleData.ktModule as? KaDanglingFileModule ?: return null
-        val danglingFile = useSiteDanglingModule.file
-        if (danglingFile is KtCodeFragment) {
-            danglingFile.context?.containingFile?.let { return it }
+    private val KaDanglingFileModule.allContextFiles: Sequence<PsiFile>
+        get() = allContextModulesWithSelf
+            .filterIsInstance<KaDanglingFileModule>()
+            .mapNotNull { it.findContextFile() }
+
+    private fun KaDanglingFileModule.findContextFile(): PsiFile? =
+        when (val danglingFile = this.file) {
+            is KtCodeFragment -> danglingFile.context?.containingFile
+            else -> danglingFile.unwrapCopy(danglingFile)
         }
-        return danglingFile.unwrapCopy(danglingFile)
-    }
 }
