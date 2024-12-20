@@ -247,7 +247,7 @@ open class InnerClassConstructorCallsLowering(val context: CommonBackendContext)
             override fun visitDelegatingConstructorCall(expression: IrDelegatingConstructorCall): IrExpression {
                 expression.transformChildrenVoid(this)
 
-                val dispatchReceiver = expression.dispatchReceiver ?: return expression
+                if (expression.dispatchReceiver == null) return expression
                 val classConstructor = expression.symbol.owner
                 if (!classConstructor.parentAsClass.isInner) return expression
 
@@ -257,10 +257,7 @@ open class InnerClassConstructorCallsLowering(val context: CommonBackendContext)
                     typeArgumentsCount = expression.typeArguments.size,
                 ).apply { copyTypeArgumentsFrom(expression) }
 
-                newCall.putValueArgument(0, dispatchReceiver)
-                for (i in 1..newCallee.valueParameters.lastIndex) {
-                    newCall.putValueArgument(i, expression.getValueArgument(i - 1))
-                }
+                newCall.arguments.assignFrom(expression.arguments)
 
                 return newCall
             }
