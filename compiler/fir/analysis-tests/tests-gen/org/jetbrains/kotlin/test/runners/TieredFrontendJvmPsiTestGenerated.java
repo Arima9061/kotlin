@@ -30399,6 +30399,12 @@ public class TieredFrontendJvmPsiTestGenerated extends AbstractTieredFrontendJvm
       public void testAnnotationDefaultTargetParamProperty() {
         runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/annotations/annotationDefaultTargetParamProperty.kt");
       }
+
+      @Test
+      @TestMetadata("multipleAnnotationsWithAllUseSiteTarget.kt")
+      public void testMultipleAnnotationsWithAllUseSiteTarget() {
+        runTest("compiler/fir/analysis-tests/testData/resolveWithStdlib/annotations/multipleAnnotationsWithAllUseSiteTarget.kt");
+      }
     }
 
     @Nested
