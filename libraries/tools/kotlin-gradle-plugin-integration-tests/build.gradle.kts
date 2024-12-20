@@ -447,8 +447,9 @@ tasks.withType<Test>().configureEach {
     systemProperty("composeSnapshotId", composeRuntimeSnapshot.versions.snapshot.id.get())
 
     // Add debugTargetProcessWhenDebuggingKGP-IT=false to local.properties to oup out of implicit withDebug when debugging the tests in IDE
-    if (kotlinBuildProperties.getBoolean("debugTargetProcessWhenDebuggingKGP-IT", true)) {
-        systemProperty("debugTargetProcessWhenDebuggingKGP-IT", true)
+    val implicitDebugging = kotlinBuildProperties.getBoolean("debugTargetProcessWhenDebuggingKGP-IT", true)
+    if (implicitDebugging) {
+        systemProperty("debugTargetProcessWhenDebuggingKGP-IT", implicitDebugging)
     }
 
     val installCocoapods = project.findProperty("installCocoapods") as String?
