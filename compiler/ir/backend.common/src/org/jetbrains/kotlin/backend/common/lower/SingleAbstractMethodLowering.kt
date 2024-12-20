@@ -144,7 +144,7 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
                 // (See KT-21781 for a similar problem with anonymous object constructor arguments.)
                 irBlock(invokable, null, superType) {
                     val invokableVariable = createTmpVariable(invokable)
-                    +irCall(implementation.constructors.single()).apply { putValueArgument(0, irGet(invokableVariable)) }
+                    +irCall(implementation.constructors.single()).apply { arguments[0] = irGet(invokableVariable) }
                 }
             } else {
                 irCall(implementation.constructors.single()).apply { putValueArgument(0, invokable) }
