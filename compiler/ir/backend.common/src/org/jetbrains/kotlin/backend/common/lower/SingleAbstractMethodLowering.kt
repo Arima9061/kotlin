@@ -133,7 +133,7 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
                 irBlock(invokable, null, superType) {
                     val invokableVariable = createTmpVariable(invokable)
                     val instance = irCall(implementation.constructors.single()).apply {
-                        putValueArgument(0, irGet(invokableVariable))
+                        arguments[0] = irGet(invokableVariable)
                     }
                     +irIfNull(superType, irGet(invokableVariable), irNull(), instance)
                 }
