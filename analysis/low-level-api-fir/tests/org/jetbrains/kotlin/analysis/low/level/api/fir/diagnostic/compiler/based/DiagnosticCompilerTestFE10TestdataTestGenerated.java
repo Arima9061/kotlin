@@ -29001,6 +29001,22 @@ public class DiagnosticCompilerTestFE10TestdataTestGenerated extends AbstractDia
       }
 
       @Nested
+      @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/contextParameters")
+      @TestDataPath("$PROJECT_ROOT")
+      public class ContextParameters {
+        @Test
+        public void testAllFilesPresentInContextParameters() {
+          KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/multiplatform/contextParameters"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true, "lightTree");
+        }
+
+        @Test
+        @TestMetadata("funWithContextInExpectActual.kt")
+        public void testFunWithContextInExpectActual() {
+          runTest("compiler/testData/diagnostics/tests/multiplatform/contextParameters/funWithContextInExpectActual.kt");
+        }
+      }
+
+      @Nested
       @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/defaultArguments")
       @TestDataPath("$PROJECT_ROOT")
       public class DefaultArguments {

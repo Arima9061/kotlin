@@ -29017,6 +29017,22 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
       }
 
       @Nested
+      @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/contextParameters")
+      @TestDataPath("$PROJECT_ROOT")
+      public class ContextParameters {
+        @Test
+        public void testAllFilesPresentInContextParameters() {
+          KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/multiplatform/contextParameters"), Pattern.compile("^(.*)\\.kts?$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+        }
+
+        @Test
+        @TestMetadata("funWithContextInExpectActual.kt")
+        public void testFunWithContextInExpectActual() {
+          runTest("compiler/testData/diagnostics/tests/multiplatform/contextParameters/funWithContextInExpectActual.kt");
+        }
+      }
+
+      @Nested
       @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/defaultArguments")
       @TestDataPath("$PROJECT_ROOT")
       public class DefaultArguments {

@@ -15681,6 +15681,17 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
       }
 
       @Nested
+      @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/contextParameters")
+      @TestDataPath("$PROJECT_ROOT")
+      public class ContextParameters {
+        @Test
+        @TestMetadata("funWithContextInExpectActual.kt")
+        public void testFunWithContextInExpectActual() {
+          runTest("compiler/testData/diagnostics/tests/multiplatform/contextParameters/funWithContextInExpectActual.kt");
+        }
+      }
+
+      @Nested
       @TestMetadata("compiler/testData/diagnostics/tests/multiplatform/defaultArguments")
       @TestDataPath("$PROJECT_ROOT")
       public class DefaultArguments {
@@ -28584,6 +28595,35 @@ public class TieredFrontendJvmLightTreeTestGenerated extends AbstractTieredFront
           @TestMetadata("withNestedContext.kt")
           public void testWithNestedContext() {
             runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/declarationAndUsages/withNestedContext.kt");
+          }
+        }
+
+        @Nested
+        @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Operators {
+          @Test
+          @TestMetadata("baseOperatorsWithContext.kt")
+          public void testBaseOperatorsWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/baseOperatorsWithContext.kt");
+          }
+
+          @Test
+          @TestMetadata("infixOperator.kt")
+          public void testInfixOperator() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/infixOperator.kt");
+          }
+
+          @Test
+          @TestMetadata("infixOperatorOnTypeWithContext.kt")
+          public void testInfixOperatorOnTypeWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/infixOperatorOnTypeWithContext.kt");
+          }
+
+          @Test
+          @TestMetadata("invokeOnTypeWithContext.kt")
+          public void testInvokeOnTypeWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/invokeOnTypeWithContext.kt");
           }
         }
 

@@ -1971,6 +1971,40 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFirTestDataTestGenerated 
         }
 
         @Nested
+        @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators")
+        @TestDataPath("$PROJECT_ROOT")
+        public class Operators {
+          @Test
+          public void testAllFilesPresentInOperators() {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators"), Pattern.compile("^([^.]+)\\.kt$"), null, true, "lightTree");
+          }
+
+          @Test
+          @TestMetadata("baseOperatorsWithContext.kt")
+          public void testBaseOperatorsWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/baseOperatorsWithContext.kt");
+          }
+
+          @Test
+          @TestMetadata("infixOperator.kt")
+          public void testInfixOperator() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/infixOperator.kt");
+          }
+
+          @Test
+          @TestMetadata("infixOperatorOnTypeWithContext.kt")
+          public void testInfixOperatorOnTypeWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/infixOperatorOnTypeWithContext.kt");
+          }
+
+          @Test
+          @TestMetadata("invokeOnTypeWithContext.kt")
+          public void testInvokeOnTypeWithContext() {
+            runTest("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/operators/invokeOnTypeWithContext.kt");
+          }
+        }
+
+        @Nested
         @TestMetadata("compiler/fir/analysis-tests/testData/resolve/contextParameters/diagnostics/overrides")
         @TestDataPath("$PROJECT_ROOT")
         public class Overrides {
