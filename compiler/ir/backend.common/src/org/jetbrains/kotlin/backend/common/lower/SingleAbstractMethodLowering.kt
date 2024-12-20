@@ -175,7 +175,7 @@ abstract class SingleAbstractMethodLowering(val context: CommonBackendContext) :
             if (originalSuperMethod.isSuspend)
                 context.ir.symbols.suspendFunctionN(originalSuperMethod.nonDispatchParameters.size).owner
             else
-                context.ir.symbols.functionN(originalSuperMethod.valueParameters.size + extensionReceiversCount).owner
+                context.ir.symbols.functionN(originalSuperMethod.nonDispatchParameters.size).owner
         val wrappedFunctionType = getWrappedFunctionType(wrappedFunctionClass)
 
         val subclass = context.irFactory.buildClass {
