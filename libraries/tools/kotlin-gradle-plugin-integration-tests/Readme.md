@@ -183,10 +183,7 @@ pluginManagement {
 
 ## <a name="injections"></a> build.gradle.kts injections from main test code
 
-It is possible to inject code from IT test directly into the build files of the test project.
-
-Use `debugTargetProcessWhenDebuggingKGP-IT=true` in `local.properties` for an [improved DevX](#autodebug) with injections. This setting will
-allow you to break transparently in the test and in the injection. 
+It is possible to inject code from IT test directly into the build files of the test project. 
 
 See [BuildScriptInjectionIT.kt](src/test/kotlin/org/jetbrains/kotlin/gradle/BuildScriptInjectionIT.kt) for examples of how to write a test 
 with injections including:
@@ -194,6 +191,8 @@ with injections including:
 * Building a multi-project setup
 * Publishing a project in a Maven repository and consuming it in another project as a dependency
 * Catching execution and configuration time exceptions
+
+With [implicit debugging](#autodebug) you can break transparently in the test, the injection and in KGP.
 
 To inject a test use `buildScriptInjection` DSL function as follows:
 
